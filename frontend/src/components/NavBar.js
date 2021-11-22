@@ -63,15 +63,17 @@ const NavBar = () => {
                     (accounts.username !== "") ? <> 
                     <div>
                         <div className='noti-container'>
-                        <div className='avatar-nav' style={{ cursor: 'pointer' }}
-                            // onClick={() => handleClick('profile')}
-                            >
-                            <div className='name'>
-                                <img src= {avatar} alt='Avatar' />
-                                {/* <img src={accounts.avatar} alt='Avatar' /> */}
-                                <span>{accounts.username}</span>
+                        <a href="/upload">
+                            <div className='avatar-nav' style={{ cursor: 'pointer' }}
+                                //  onClick={() => handleClick('profile')}
+                                >
+                                <div className='name'>
+                                    <img src= {avatar} alt='Avatar' />
+                                    {/* <img src={accounts.avatar} alt='Avatar' /> */}
+                                    <span>{accounts.username}</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     </div>
                     </> : <> 

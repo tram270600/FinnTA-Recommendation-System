@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --primaryBlue: #025588;
+  --primaryPink: #FF7897;
+  --white: #ffff;
+  --lightgray: #F2F5FA;
+  --secondaryBlue: #DCF9FF;
+  --fontcolor: #4F5665;
+  --maxwidth: 1280px;
+}
+@mixin fontStyle($weight, $size, $height) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+}
+.content-max-width{
+  max-width: var(--maxwidth);
+  margin: auto;
+  // padding: 10px 24px;
+}
+
+//Divide Layout
+.upload-item{
+  display: flex;
+  justify-content: space-around;
+}
+
+.image-import{
+  width: 580px;
+  height: 80vh;
+  background-color: var(--lightgray);
+  border-radius: 30px;
+  filter: drop-shadow(0px 24px 64px rgba(0, 68, 255, 0.02));
+  position: relative;
+  img{
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+    border-radius: 30px;
+  }
+}
+
+.upload-info{
+  position: relative;
+  margin-bottom: 50px;
+}
+//FormControl - Select Choice
+.MuiInputBase-root {
+  width: 400px;}
+
+.MuiFormLabel-root {
+    color: var(--fontcolor);
+    padding: 0;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;}
+
+.upload-select{
+  margin-bottom: 12px;
+
+  textarea{
+    margin-top: 10px;
+  }
+}
+.title-components{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  .title{
+    @include fontStyle(700, 48px, 80px);
+  }
+  .auto-crop{
+    @include fontStyle(500,18px,20px);
+    color: var(--fontcolor);
+    display: flex;
+    align-items: center;
+    margin-left: 80px;
+    i {
+      margin-left: 20px;
+      font-size: 16px;
+      &.fa-toggle-on{
+        font-size: 32px;
+        color: var(--primaryBlue);
+      }
+    }
+  }
+  
+
+}
+.button-action{
+  position: absolute;
+  right: 0px;
+  margin-top: 20px;
+}
+button{
+  width: 144px;
+  height: 42px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background-color: var(--primaryBlue);
+  color: var(--white);
+  padding: 6px 8px;
+  margin-right: 8px;
+  @include fontStyle(600, 14px, 10px);
+
+  i{
+    margin-right: 15px;
+  }
+
+  &.secondary-btn{
+    color: var(--primaryBlue);
+    background-color: var(--white);
+    border: 1px solid var(--primaryBlue);
+  }
+
+  &:hover{
+    box-shadow: 0px 8px 24px rgba(1, 145, 180, 0.1), 0px 16px 32px rgba(1, 145, 180, 0.08);
+  }
+  &:active{
+    box-shadow: 0px 0px 30px 10px rgba(1, 145, 180, 0.24);
+  }
+}
+.image-import .withicon-btn{
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+.withicon-btn{
+  width: 100px;
+  height: 40px;
+  background-color: var(--primaryPink);
+  i{
+    margin-right: 5px;
+  }
+  span {
+    @include fontStyle(600,14px,20px);
+    height: 24px;
+  }
+  &:hover{
+    box-shadow: 0px 8px 24px rgba(255, 120, 151, 0.1), 0px 16px 32px rgba(255, 120, 151, 0.08);
+  }
+  &:active{
+    box-shadow: 0px 0px 30px 10px rgba(255, 120, 151, 0.24);
+  }
+}
+
+//Button Choose File
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Select some files';
+  display: inline-block;
+  width: 144px;
+  height: 40px;
+  margin-left: 10px;
+
+  //Position
+  position: absolute;
+  left: 10px;
+  top: 20px;
+
+  //Decor
+  background-color: var(--primaryPink);
+  border-radius: 30px;
+  color: var(--white);
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  @include fontStyle(600,14px,40px);
+  text-align: center;
+  justify-content: center;
+}

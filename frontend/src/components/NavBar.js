@@ -13,6 +13,7 @@ const NavBar = () => {
     const [isLoading, setLoading] = useState(false)
 
     return (
+        <div className="content-width">
         <nav id = 'navbar' style = {{position: "sticky"}} className='navbar'>
             <div className='navbar-container'>
                 <a href='/' className='navbar-logo'>
@@ -85,9 +86,8 @@ const NavBar = () => {
                     >Sign Up</button></>
                 ))
             }
-
-           
         </nav>
+        </div>
     )
 }
 export default NavBar

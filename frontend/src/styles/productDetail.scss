@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --primaryBlue: #025588;
+  --primaryPink: #FF7897;
+  --white: #ffff;
+  --lightgray: #F2F5FA;
+  --secondaryBlue: #DCF9FF;
+  --fontcolor: #4F5665;
+  --fontcolorlight: #828282;
+  --maxwidth: 1280px;
+}
+@mixin fontStyle($weight, $size, $height) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+}
+.content-max-width{
+  max-width: var(--maxwidth);
+  margin: auto;
+}
+//Divide Layout
+.product-content{
+  display: flex;
+  justify-content: space-around;
+}
+
+.product-image{
+  width: 580px;
+  height: 80vh;
+  background-color: var(--lightgray);
+  border-radius: 30px;
+  filter: drop-shadow(0px 24px 64px rgba(0, 68, 255, 0.02));
+  position: relative;
+  img{
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+    border-radius: 30px;
+  }
+}
+.title{
+  @include fontStyle(700, 48px, 80px);
+  margin-bottom: 12px;
+}
+.description{
+  @include fontStyle(500,16px ,20px);
+  width: 450px;
+  color: var(--fontcolor);
+  margin-bottom: 12px;
+}
+.price{
+  @include fontStyle(700,24px,20px);
+  color: var(--primaryPink);
+  margin-bottom: 20px;
+}
+.sub-title{
+  @include fontStyle(600,18px,20px);
+  margin-bottom: 20px;
+}
+
+//Product Info
+.product-info{
+  display: flex;
+  justify-content: space-between;
+
+}
+//Addition Info
+.addition-info{
+  flex: 3;
+}
+.sub-info{
+  // display: flex;
+  align-items: baseline;
+  display: grid;
+  grid-template-columns: 150px 150px;
+  @include fontStyle(500,16px,20px);
+  text-align: left;
+  // margin-bottom: 10px;
+  > p{
+    @include fontStyle(500,16px,20px);
+    color: var(--fontcolorlight);
+  }
+  > span{
+    color: var(--fontcolor);
+    text-align: left;
+  }
+}
+//Post Owner
+.owner{
+  flex: 2;
+  .owner-info{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    span{
+      @include fontStyle(600,16px,20px);
+      color: var(--primaryBlue);
+    }
+    >img{
+      width: 45px;
+      height: 45px;
+      border-radius: 80px;
+      margin-left: 10px;
+      margin-right: 20px;
+    }
+    &:hover{
+      width: auto;
+      height: 60px;
+      border-radius: 80px;
+      background-color: var(--secondaryBlue);
+    }
+  }
+}
+
+//Supplementary Image
+.group-img{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 500px;
+  margin-bottom: 50px;
+}
+.supply-img{
+  width: 150px;
+  height: 150px;
+  > img{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  > img:hover{
+    filter: drop-shadow(0px 24px 64px rgba(0, 68, 255, 0.2));
+  }
+}

@@ -3,6 +3,9 @@ import uploadImage from '../images/outfit4.jpg'
 import photo1 from '../images/outfit5.jpg'
 import photo2 from '../images/outfit2.jpg'
 import photo3 from '../images/outfit6.jpg'
+import expand from '../images/expand.svg'
+import chat from '../images/chat.svg'
+import collect from '../images/collect.svg'
 
 import '../styles/productDetail.scss'
 import avatar from '../images/avatar.png'
@@ -14,6 +17,22 @@ function App() {
       <div className="product-content">
         <div className="product-image">
             <img src={uploadImage} alt="upload-image"></img>
+            
+        </div>
+        <div className="control-btn">
+          <div class="func-name">
+            <button className="control-blue"><img src={expand}></img> </button>
+            <p>Zoom</p>
+          </div>
+          <div className="func-name">
+            <button className="control-pink"><img src={chat}></img></button>
+            <p>Chat</p>
+          </div>
+          <div className="func-name">
+            <button className="control-blue"><img src={collect}></img></button>
+            <p>Save item</p>
+          </div>
+          
         </div>
         <div className="content-right">
           <div className="title-component">

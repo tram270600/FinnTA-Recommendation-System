@@ -135,3 +135,44 @@
     filter: drop-shadow(0px 24px 64px rgba(0, 68, 255, 0.2));
   }
 }
+.control-btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .custom-tooltip{
+    visibility: hidden;
+  }
+  .func-name{
+    margin-bottom: 50px;
+    >p{
+      text-align: center;
+      width: 50px;
+      @include fontStyle(600,14px,20px);
+      color: var(--fontcolor);
+    }
+    >.control-blue{
+      width: 50px;
+      height: 50px;
+      border-radius: 80px;
+      background-color: var(--primaryBlue);
+      // margin-bottom: 50px;
+      position: relative;
+      color: var(--primaryBlue);
+      >img{
+        width: 25px;
+        height: 25px;
+      }
+    }
+    >.control-pink{
+      width: 50px;
+      height: 50px;
+      border-radius: 80px;
+      background-color: var(--primaryPink);
+      // margin-bottom: 50px;
+      &:hover{
+        box-shadow: 0px 8px 24px rgba(255, 120, 151, 0.1), 0px 16px 32px rgba(255, 120, 151, 0.08);
+      }
+    }
+  }
+
+}

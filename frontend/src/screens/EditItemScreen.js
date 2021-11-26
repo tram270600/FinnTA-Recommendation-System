@@ -1,16 +1,24 @@
 import NavBar from '../components/NavBar'
+//Import Style
+import '../styles/productDetail.scss'
+
+//Import Image
+import avatar from '../images/avatar.png'
 import uploadImage from '../images/outfit4.jpg'
 import photo1 from '../images/outfit5.jpg'
 import photo2 from '../images/outfit2.jpg'
 import photo3 from '../images/outfit6.jpg'
+
+//Import Icon
 import expand from '../images/expand.svg'
 import chat from '../images/chat.svg'
 import collect from '../images/collect.svg'
+
+//Import Data
 import productData from '../data/products'
-import '../styles/productDetail.scss'
-import avatar from '../images/avatar.png'
 import data from '../data/accounts'
-function ProductDetailScreen(props) {
+
+function EditItemScreen(props) {
   const product = productData.products.find(x => x.product_id === props.match.params.product_id);
   console.log("Product ID:", props.match.params.product_id);
 
@@ -24,7 +32,6 @@ function ProductDetailScreen(props) {
       <div className="product-content">
         <div className="product-image">
             <img src={uploadImage} alt="upload-image"></img>
-            {console.log(product.product_image)}
             
         </div>
         <div className="control-btn">
@@ -106,4 +113,4 @@ function ProductDetailScreen(props) {
   );
 }
 
-export default ProductDetailScreen;
+export default EditItemScreen;

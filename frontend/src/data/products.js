@@ -1,0 +1,45 @@
+const data = {
+  products: [
+    {
+      product_id: "1",
+      product_name: "Candy Dress",
+      product_image: "../images/outfit4.jpg",
+      product_description: "The new collection of this Summer with hot trending items including: Tops, bottoms, mix with luxury accesories",
+      product_price: "300.0",
+      pcategory: "Top",
+      pcolor: "Orange",
+      ppattern: "Checked",
+      pmaterial: "Cotton",
+      poccassion: "Casual, Work",
+      powner: "",
+      pavailable: true,
+    },
+    {
+      product_id: "2",
+      product_name: "Missout T-shirt",
+      product_image: "./images/outfit5.jpg",
+      product_description: "T-shirt best for couple, and friends",
+      product_price: "150.0",
+      pcategory: "Shirt",
+      pcolor: "White",
+      ppattern: "Solid",
+      pmaterial: "Cotton",
+      poccassion: "Formal",
+      pavailable: true,
+    },
+    {
+      product_id: "3",
+      product_name: "Missout Hoodie",
+      product_image: "./images/outfit2.jpg",
+      product_description: "Warm, cool for gang club, suits for winter",
+      product_price: "250.0",
+      pcategory: "Top",
+      pcolor: "Green",
+      ppattern: "Graphic",
+      pmaterial: "Fur",
+      poccassion: "Sport",
+      pavailable: true,
+    },
+  ]
+};
+export default data;

@@ -94,6 +94,7 @@
 //Post Owner
 .owner{
   flex: 2;
+  margin-left: 20px;
   .owner-info{
     display: flex;
     align-items: center;
@@ -180,3 +181,50 @@
   }
 
 }
+
+//For Edit Item Screen
+.title-component{
+  position: relative;
+}
+.mark-sold{
+  position: absolute;
+  width: 144px;
+  height: 42px;
+  right: 10px;
+  bottom: 0px;
+  //Decor
+  background: #FFFFFF;
+  box-shadow: 0px 0px 16px rgba(2, 85, 136, 0.16);
+  border-radius: 20px;
+  color: var(--primaryBlue);
+  @include fontStyle(800,14px,17px);
+  text-align: center;
+}
+
+.sub-info{
+  >.MuiInputBase-root{
+    width: 150px;
+  }
+}
+.content-right{
+  position: relative;
+  > .button-action{
+    position: absolute;
+    right: 0px;
+    margin-top: -20px;
+    margin-bottom: 50px;
+  }
+}
+.photo-indicator{
+  display: flex;
+  justify-content: space-between;
+}
+.amount-photo{
+  @include fontStyle(500,14px ,20px);
+  color: var(--fontcolor);
+  >span{
+    color: var(--primaryBlue);
+    @include fontStyle(600,16px,20px);
+  }
+}
+

@@ -14,7 +14,7 @@ export default function UploadItem(){
   const [occassion, setOccasion] = React.useState();
 
   const categories = ["Shirt", "Dress", "Pants", "Skirt", "Shoes"];
-  const cols =["Cream", "Beige", "Light Gray", "Black", "Camel", "Brown", "Khaki", "Navy", "Silver", "Colorful"];
+  const cols =["Cream", "Beige", "Light Gray", "Black", "White","Camel", "Brown", "Khaki", "Navy", "Silver", "Colorful"];
   const patterns = ["Solid", "Checked", "Striped", "Graphic", "Dotted", "Animal Print", "Floral", "Other"];
   const materials = ["Cotton", "Linen", "Polyester", "Knit, Wool", "Fur", "Tweed", "Denim", "Leather", "Silk", "Other"];
   const occassions = ["Daily", "Go to school", "Office/Work", "Date", "Formal", "Travel", "Party", "Other"];
@@ -76,7 +76,7 @@ export default function UploadItem(){
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={category}
-                label="Age"
+                label="Category"
                 onChange={(e, category) => setCategory(category)}>
                 {categories.map((c) => {
                   return <MenuItem value={c}>{c}</MenuItem>

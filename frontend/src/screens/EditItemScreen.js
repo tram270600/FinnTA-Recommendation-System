@@ -1,3 +1,5 @@
+import React from 'react'
+import { MenuItem, Select, TextareaAutosize } from '@material-ui/core'
 import NavBar from '../components/NavBar'
 //Import Style
 import '../styles/productDetail.scss'
@@ -19,9 +21,33 @@ import productData from '../data/products'
 import data from '../data/accounts'
 
 function EditItemScreen(props) {
+  // const [category, setCategory] = React.useState();
+  // const [color, setColor] = React.useState();
+  // const [pattern, setPattern] = React.useState();
+  // const [material, setMaterial] = React.useState();
+  // const [occassion, setOccasion] = React.useState();
+
+  const categories = ["Shirt", "Dress", "Pants", "Skirt", "Shoes"];
+  const cols =["Cream", "Beige", "Light Gray", "Black", "White", "Camel", "Brown", "Khaki", "Navy", "Silver", "Colorful"];
+  const patterns = ["Solid", "Checked", "Striped", "Graphic", "Dotted", "Animal Print", "Floral", "Other"];
+  const materials = ["Cotton", "Linen", "Polyester", "Knit, Wool", "Fur", "Tweed", "Denim", "Leather", "Silk", "Other"];
+  const occassions = ["Daily", "Go to school", "Office/Work", "Date", "Formal", "Travel", "Party", "Other"];
+  
+
+
   const product = productData.products.find(x => x.product_id === props.match.params.product_id);
   console.log("Product ID:", props.match.params.product_id);
-
+  const [values, setValues] = React.useState({
+    category: product.pcategory,
+    color: product.pcolor,
+    pattern: product.ppattern,
+    material: product.pmaterial,
+    occassion: product.poccassion,
+    price: '',
+  });
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
   if (!product){
     return <div> Product Not Found</div>
   }
@@ -53,32 +79,82 @@ function EditItemScreen(props) {
           <div className="title-component">
             <div className="title">{product.product_name}</div>
             {/* <div className="title">Product's name</div> */}
-            <div className="description">{product.product_description}
+            <div className="description">
+              {product.product_description}
             </div>
             <div className="price">${product.product_price}</div>
-            </div>
+            <button className="mark-sold">MASK AS SOLD</button>
+          </div>
             <div className="product-info">
               <div className="addition-info">
                 <div className="sub-title">Additional Information</div>
                 <div className="sub-info"> 
                     <p> Color </p>
-                    <span> {product.pcolor} </span>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={values.color}
+                      label="Color"
+                      onChange={handleChange('color')}>
+                      {cols.map((col) => {
+                        return <MenuItem value={col}>{col}</MenuItem>
+                      })}
+                    </Select>
                 </div>
                 <div className="sub-info"> 
                     <p> Category </p>
-                    <span> {product.pcategory} </span>
+                    {/* <span> {product.pcategory} </span> */}
+                    <Select className="custome-select"
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      placeholder={product.pcategory}
+                      value={values.category}
+                      label="Category"
+                      onChange={handleChange('category')}>
+                      {categories.map((c) => {
+                        return <MenuItem value={c}>{c}</MenuItem>
+                      })}
+                    </Select>
                 </div>
                 <div className="sub-info"> 
                     <p> Pattern </p>
-                    <span> {product.ppattern} </span>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      placeholder={product.ppattern}
+                      label="Pattern"
+                      value={values.pattern}
+                      onChange={handleChange('pattern')}>
+                      {patterns.map((p) => {
+                        return <MenuItem value={p}>{p}</MenuItem>
+                      })}
+                    </Select>
                 </div>
                 <div className="sub-info"> 
                     <p> Material </p>
-                    <span> {product.pmaterial} </span>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Material"
+                      value={values.material}
+                      onChange={handleChange('material')}>
+                      {materials.map((m) => {
+                        return <MenuItem value={m}>{m}</MenuItem>
+                      })}
+                    </Select>
                 </div>
                 <div className="sub-info"> 
                     <p> Occassion </p>
-                    <span> {product.poccassion} </span>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={values.occassion}
+                      label="Occassion"
+                      onChange={handleChange('occassion')}>
+                      {occassions.map((o) => {
+                        return <MenuItem value={o}>{o}</MenuItem>
+                      })}
+                    </Select>
                 </div>
               </div>
               <div className="owner">
@@ -90,7 +166,12 @@ function EditItemScreen(props) {
               </div>
             </div>
             <div className="supplementary-image">
+              <div className="photo-indicator">
                 <div className="sub-title">Supplementary Image</div>
+                <div className="amount-photo">
+                <span>1/4</span> images to describe product
+              </div>
+              </div>
                 <div className="group-img">
                   <div className="supply-img">
                     <img src={photo1}></img>
@@ -103,7 +184,10 @@ function EditItemScreen(props) {
                   </div>
                 </div>
               </div>
-          
+              <div class="button-action">
+              <button className="secondary-btn"> DISCARD</button>
+              <button> SAVE CHANGE </button>
+            </div>
         </div>
       </div>
     </div>

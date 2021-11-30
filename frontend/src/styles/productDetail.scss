@@ -123,13 +123,14 @@
 .group-img{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 500px;
   margin-bottom: 50px;
 }
 .supply-img{
   width: 150px;
   height: 150px;
+  margin-right: 10px;
   > img{
     width: 100%;
     height: 150px;
@@ -225,6 +226,19 @@
   >span{
     color: var(--primaryBlue);
     @include fontStyle(600,16px,20px);
+  }
+}
+.add-supply-img{
+  border: 1px solid var(--primaryBlue);
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  margin-right: 10px;
+  position: relative;
+  > img{
+    position: absolute;
+    top: 50px;
+    left: 50px;
   }
 }
 

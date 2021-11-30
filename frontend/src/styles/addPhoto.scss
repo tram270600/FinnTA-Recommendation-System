@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --primaryBlue: #025588;
+  --primaryPink: #FF7897;
+  --white: #ffff;
+  --lightgray: #F2F5FA;
+  --secondaryBlue: #DCF9FF;
+  --fontcolor: #4F5665;
+  --maxwidth: 1280px;
+}
+@mixin fontStyle($weight, $size, $height) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+}
+//Button Choose File
+.custom-add{
+  position: relative;
+  >img{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+  }
+}
+.photosup{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.delete-photosup{
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: var(--fontcolor);
+  border: 1px solid var(--white);
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  > i{
+    text-align: center;
+    margin-left: 5px;
+    font-size: 18px;
+    display: flex;
+    z-index: 10;
+  }
+}
+
+.add-supply-img::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.add-supply-img::before {
+  border: 1px solid var(--primaryBlue);
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  margin-right: 10px;
+  position: relative;
+  > img{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+  }
+}
+// .add-supply-img:checked{
+//   border: 1px solid var(--lightgray);
+//   width: 0px;
+//   height: 0px;
+// }
+#dm{
+  border: 1px solid var(--lightgray);
+  width: 0px;
+  height: 0px;
+}

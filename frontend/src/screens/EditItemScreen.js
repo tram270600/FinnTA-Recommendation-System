@@ -6,7 +6,6 @@ import '../styles/productDetail.scss'
 
 //Import Image
 import avatar from '../images/avatar.png'
-import uploadImage from '../images/outfit4.jpg'
 import photo1 from '../images/outfit5.jpg'
 import photo2 from '../images/outfit2.jpg'
 import photo3 from '../images/outfit6.jpg'
@@ -15,25 +14,19 @@ import photo3 from '../images/outfit6.jpg'
 import expand from '../images/expand.svg'
 import chat from '../images/chat.svg'
 import collect from '../images/collect.svg'
+import union from '../images/Union.svg'
 
 //Import Data
 import productData from '../data/products'
 import data from '../data/accounts'
+import AddPhoto from '../screens/AddPhoto'
 
 function EditItemScreen(props) {
-  // const [category, setCategory] = React.useState();
-  // const [color, setColor] = React.useState();
-  // const [pattern, setPattern] = React.useState();
-  // const [material, setMaterial] = React.useState();
-  // const [occassion, setOccasion] = React.useState();
-
   const categories = ["Shirt", "Dress", "Pants", "Skirt", "Shoes"];
   const cols =["Cream", "Beige", "Light Gray", "Black", "White", "Camel", "Brown", "Khaki", "Navy", "Silver", "Colorful"];
   const patterns = ["Solid", "Checked", "Striped", "Graphic", "Dotted", "Animal Print", "Floral", "Other"];
   const materials = ["Cotton", "Linen", "Polyester", "Knit, Wool", "Fur", "Tweed", "Denim", "Leather", "Silk", "Other"];
   const occassions = ["Daily", "Go to school", "Office/Work", "Date", "Formal", "Travel", "Party", "Other"];
-  
-
 
   const product = productData.products.find(x => x.product_id === props.match.params.product_id);
   console.log("Product ID:", props.match.params.product_id);
@@ -48,6 +41,23 @@ function EditItemScreen(props) {
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
+  function enoughPhotoSup(){
+    if(product.pphotosup.length == 3) return true;
+      else return false;
+  }
+  const addPhoto = 3 - product.pphotosup.length;
+  function getAnimalsContent(){
+    let content = [];
+    for (let i = 0; i < addPhoto; i++) {
+      content.push( 
+      // <div className="add-supply-img">
+      // <img src={union}></img>
+      // </div>
+      <AddPhoto/>);
+    }
+    return content;
+  };
+
   if (!product){
     return <div> Product Not Found</div>
   }
@@ -57,10 +67,10 @@ function EditItemScreen(props) {
     <div className="content-max-width">
       <div className="product-content">
         <div className="product-image">
-            <img src={uploadImage} alt="upload-image"></img>
+            <img src={product.product_image.default} alt="upload-image"></img>
             
         </div>
-        <div className="control-btn">
+        {/* <div className="control-btn">
           <div class="func-name">
             <button className="control-blue"><img src={expand}></img> </button>
             <p>Zoom</p>
@@ -74,7 +84,7 @@ function EditItemScreen(props) {
             <p>Save item</p>
           </div>
           
-        </div>
+        </div> */}
         <div className="content-right">
           <div className="title-component">
             <div className="title">{product.product_name}</div>
@@ -169,19 +179,26 @@ function EditItemScreen(props) {
               <div className="photo-indicator">
                 <div className="sub-title">Supplementary Image</div>
                 <div className="amount-photo">
-                <span>1/4</span> images to describe product
+                <span>{product.pphotosup.length}/3</span> images to describe product
               </div>
               </div>
                 <div className="group-img">
-                  <div className="supply-img">
-                    <img src={photo1}></img>
-                  </div>
-                  <div className="supply-img">
-                    <img src={photo2}></img>
-                  </div>
-                  <div className="supply-img">
-                    <img src={photo3}></img>
-                  </div>
+                  {product.pphotosup.map((photo) => (
+                    <div className="supply-img">
+                      <img src={photo.default}></img>
+                    </div> ))}
+
+                {
+                enoughPhotoSup()==false && 
+                  // product.pphotosup.map((photo) => (
+                  //   <div className="supply-img">
+                  //     <img src={photo.default}></img>
+                  //   </div> )) 
+                    // <div className="add-supply-img">
+                    // <img src={union}></img>
+                    // </div>
+                    getAnimalsContent()
+                  }
                 </div>
               </div>
               <div class="button-action">

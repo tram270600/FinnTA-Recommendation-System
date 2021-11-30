@@ -1,5 +1,4 @@
 import NavBar from '../components/NavBar'
-import uploadImage from '../images/outfit4.jpg'
 import photo1 from '../images/outfit5.jpg'
 import photo2 from '../images/outfit2.jpg'
 import photo3 from '../images/outfit6.jpg'
@@ -12,7 +11,14 @@ import avatar from '../images/avatar.png'
 import data from '../data/accounts'
 function ProductDetailScreen(props) {
   const product = productData.products.find(x => x.product_id === props.match.params.product_id);
+  const photoSupple = "../images/outfit4.jpg";
   console.log("Product ID:", props.match.params.product_id);
+
+  function havePhotoSup(){
+    if(product.pphotosup.length != 0) return true;
+      else return false;
+  }
+
 
   if (!product){
     return <div> Product Not Found</div>
@@ -23,8 +29,7 @@ function ProductDetailScreen(props) {
     <div className="content-max-width">
       <div className="product-content">
         <div className="product-image">
-            <img src={uploadImage} alt="upload-image"></img>
-            {console.log(product.product_image)}
+            <img src={product.product_image.default} alt="upload-image"></img>
             
         </div>
         <div className="control-btn">
@@ -85,15 +90,14 @@ function ProductDetailScreen(props) {
             <div className="supplementary-image">
                 <div className="sub-title">Supplementary Image</div>
                 <div className="group-img">
-                  <div className="supply-img">
-                    <img src={photo1}></img>
-                  </div>
-                  <div className="supply-img">
-                    <img src={photo2}></img>
-                  </div>
-                  <div className="supply-img">
-                    <img src={photo3}></img>
-                  </div>
+                 {/* Check length of photo supplementary */}
+                 {(havePhotoSup() == true) ?
+                  product.pphotosup.map((photo) => (
+                    <div className="supply-img">
+                      <img src={photo.default}></img>
+                    </div> )) : 
+                    <div> <span> Does not have any supplementary photo </span></div>  
+                  }
                 </div>
               </div>
           

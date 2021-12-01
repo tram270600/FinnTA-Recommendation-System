@@ -22,6 +22,7 @@
     position: absolute;
     top: 50px;
     left: 50px;
+    z-index: -1;
   }
 }
 .photosup{
@@ -29,6 +30,7 @@
   height: 150px;
   object-fit: cover;
   border-radius: 20px;
+  margin-right: 10px;
 }
 .delete-photosup{
   width: 40px;
@@ -64,13 +66,9 @@
     left: 50px;
   }
 }
-// .add-supply-img:checked{
-//   border: 1px solid var(--lightgray);
-//   width: 0px;
-//   height: 0px;
-// }
 #dm{
   border: 1px solid var(--lightgray);
   width: 0px;
   height: 0px;
+  margin-right: 10px;
 }

@@ -46,13 +46,11 @@ function EditItemScreen(props) {
       else return false;
   }
   const addPhoto = 3 - product.pphotosup.length;
-  function getAnimalsContent(){
+
+  function getLackPhotoAmount(){
     let content = [];
     for (let i = 0; i < addPhoto; i++) {
       content.push( 
-      // <div className="add-supply-img">
-      // <img src={union}></img>
-      // </div>
       <AddPhoto/>);
     }
     return content;
@@ -190,14 +188,7 @@ function EditItemScreen(props) {
 
                 {
                 enoughPhotoSup()==false && 
-                  // product.pphotosup.map((photo) => (
-                  //   <div className="supply-img">
-                  //     <img src={photo.default}></img>
-                  //   </div> )) 
-                    // <div className="add-supply-img">
-                    // <img src={union}></img>
-                    // </div>
-                    getAnimalsContent()
+                    getLackPhotoAmount()
                   }
                 </div>
               </div>

@@ -54,7 +54,7 @@ const NavBar = () => {
                     </a>
                 </li>
                 <li className='nav-items'>
-                    <a href='#news' className='nav-links'>
+                    <a href='/look' className='nav-links'>
                         Virtual Look
                     </a>
                 </li>

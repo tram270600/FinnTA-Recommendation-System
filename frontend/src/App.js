@@ -7,12 +7,14 @@ import UploadItem from './screens/UploadItem'
 import UploadAndDisplayImage  from './screens/UploadAndDisplayImage'
 import ProductDetailScreen  from './screens/ProductDetailScreen'
 import EditItemScreen from './screens/EditItemScreen'
+import VirtualLookScreen from './screens/VirtualLookScreen'
 
 function App() {
   return (
     <>
     <Switch>
         <Route path="/" component = {HomeScreen} exact></Route>
+        <Route path="/look" component={VirtualLookScreen}></Route>
         <Route path="/upload" component={UploadItem}></Route>
         <Route path="/profile" component={ProfileScreen}></Route>
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>

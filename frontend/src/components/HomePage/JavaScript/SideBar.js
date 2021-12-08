@@ -74,6 +74,18 @@ class SideBar extends Component {
         {/* Profile */}
         <div className="SideBarProfile">
 
+          <div className="HalfSideBar">
+            <div className="Interact">
+              EDIT PROFILE
+            </div>
+          </div>
+
+          <div className="HalfSideBar">
+            <div className="Start">
+              CREATE POST
+            </div>
+          </div>
+
         </div>
         {/* Bio */}
         <div>

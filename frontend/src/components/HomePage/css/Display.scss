@@ -43,12 +43,19 @@
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
+}
+
+.MenuLinks #current {
     color: #231F20;
 }
 
+.MenuLinks #other {
+    color: #C4C4C4;
+}
+
 .MenuLinks:hover{
-    border-bottom: 3px solid var(--primaryBlue);
-    color: var(--primaryBlue);
+    border-bottom: 3px solid #231F20;
+    color: #231F20;
     transition: all 0.3s ease-out;
 }
 
@@ -132,14 +139,14 @@
     font-weight: 600;
     font-size: 12px;
     line-height: 15px;
-    text-align: center;
     color: #FFFFFF;
     background: #025588;
     border-radius: 7px;
+
+    display: flex;
+    align-items: center;
     width: 80%;
     height: 30px;
-    justify-items: center;
-    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
-

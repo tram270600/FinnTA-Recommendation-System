@@ -1,0 +1,219 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.SideBar {
+  position: fixed;
+  width: 20%;
+  max-height: 100%;
+  background: #FFFFFF;
+  box-shadow: 35.0877px 0px 70px rgba(86, 128, 248, 0.05), 23.8596px 5.61404px 50px rgba(0, 0, 0, 0.02);
+}
+
+.SideBarAvatar {
+  justify-items: center;
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+}
+
+.SideBarAvatar:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+}
+
+img {
+  max-width:100%;
+  height:auto;
+}
+
+#avatar{
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SideBarName {
+  font-family: 'Avenir Next', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 22px;
+  /* identical to box height */
+  display: block;
+  text-align: center;
+  color: #0D1C2E;
+}
+
+.follow{
+  height: auto;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5%;
+}
+
+.follow #post, .follow #follower, .follow #following {
+  width: 33%;
+  text-align: center;
+}
+
+.follow #number {
+  font-family: 'Avenir Next', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  color: #000000;
+}
+
+.follow #followtitle{
+  font-family: 'Avenir Next', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+}
+
+.SideBarBio {
+  font-family: 'Avenir Next', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  margin-top: 5%;
+  margin-left: 30px;
+  margin-right: 30px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+}
+
+.SideBarContact {
+  margin-top: 8%;
+  font-family: 'Inter', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+}
+
+.SideBarInfor {
+  margin-left: 30px;
+  margin-right: auto;
+  height: auto;
+  width: 100%;
+}
+
+.SideBarInfor .row {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  margin: 0%;
+  flex-direction: row;
+  font-family: 'Avenir Next', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.row #icon {
+  width: 10%;
+  display: grid;
+  place-items: left;
+  display: flex;
+  align-items: center;
+}
+
+.row #title, .row #info {
+  font-family: 'Inter', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 179%;
+  /* or 179% */
+  color: #000000;
+}
+
+.row #title{
+  width: 18%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.row #info{
+  text-align: left;
+  width: 60%;
+  font-weight: 500;
+  align-items: center;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.row #info:hover {
+  /* border-bottom: 3px solid var(--primaryBlue); */
+  color: var(--primaryBlue);
+  transition: all 0.3s ease-out;
+}
+
+.Exit{
+  width: 100%;
+  height: 25%;
+  position: relative;
+}
+
+.Logout {
+  display: flex;
+  width: 100%;
+  color: #707C97;
+  flex-direction: row;
+  justify-items: center;
+  position: absolute;
+  bottom: 15%;
+}
+
+.LogoutIcon{
+  display: flex;
+  align-items: center;
+  place-items: right;
+  justify-items: left;
+  justify-content: space-around;
+  width: 40%;
+}
+
+.LogoutTitle {
+  font-family: 'Inter', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.LogoutTitle:hover{
+  border-bottom: 3px solid var(--primaryBlue);
+  color: var(--primaryBlue);
+  transition: all 0.3s ease-out;
+  text-decoration: var(--primaryBlue);
+}
+
+.LogoutIcon:hover{
+  transition: all 0.3s ease-out;
+  text-decoration: var(--primaryBlue);
+  font-size:120%;
+}

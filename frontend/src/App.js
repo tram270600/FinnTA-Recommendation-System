@@ -8,8 +8,9 @@ import UploadAndDisplayImage  from './screens/UploadAndDisplayImage'
 import ProductDetailScreen  from './screens/ProductDetailScreen'
 import EditItemScreen from './screens/EditItemScreen'
 import VirtualLookScreen from './screens/VirtualLookScreen'
+import HomePage1 from './components/HomePage/JavaScript/HomePage'
 
-function App() {
+const App = () => {
   return (
     <>
     <Switch>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profile" component={ProfileScreen}></Route>
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>
+        <Route path="/HomePage1" component={HomePage1}></Route>
     </Switch>
       <>
       {/* <NavBar /> */}

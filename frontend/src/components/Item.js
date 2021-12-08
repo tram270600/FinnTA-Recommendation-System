@@ -1,15 +1,17 @@
 import React from "react";
+import photoItem from '../images/outfit4.jpg'
 
 export default function Item(props){
-  const {product} = props
+  const {item} = props
   return(
-    <div key={product.product_id}>
-    <a href={`/product/${product.product_id}`}>
-      <img 
-      src={product.product_image} 
-      alt={product.product_name}></img>
-    </a>
-    <div> Price: {product.product_price}</div>
+    <div key={item.product_id}>
+    {/* <a href={`/product/${item.product_id}`}> */}
+    <div className="item-image">
+      <img src={photoItem}></img>
+    </div>
+    {/* </a> */}
   </div>
+
+  
   )
 }

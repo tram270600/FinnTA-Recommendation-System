@@ -5,14 +5,20 @@ import photo3 from '../images/outfit6.jpg'
 import expand from '../images/expand.svg'
 import chat from '../images/chat.svg'
 import collect from '../images/collect.svg'
-import productData from '../data/products'
+
+import categoryData from '../data/categories'
 import accountData from '../data/accounts'
+import productData from '../data/products'
+
 import '../styles/virtualLook.scss'
 import avatar from '../images/avatar.png'
 import data from '../data/accounts'
 
+
 //Import Image
-import photoItem from '../images/donut1.jpg'
+// import photoItem from '../images/donut1.jpg'
+import photoItem from '../images/outfit4.jpg'
+import Item from '../components/Item'
 
 function VirtualLookScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
@@ -57,6 +63,46 @@ function VirtualLookScreen(props) {
             <div className="title">Create an Outfit</div>
           </div>
           <div className="category-list">
+            {categoryData.map((cates) => (
+                <div className="cate-content">
+                <div className="cate-name">{cates}</div>
+                  <div className="cate-item">
+                    {/* {
+                    productData.products.filter(product => product.pcategory == cates).map((pro) => (
+                     <a href={`/product/${pro.product_id}`}>
+                      <div className="item-image">
+                        <img src={pro.product_image.default}></img>
+                      </div>
+                     </a>  
+                    ))
+                    
+                    } */}
+                     {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
+                      productData.products.filter(product => product.pcategory == cates).map((pro) => (
+                        <a href={`/product/${pro.product_id}`}>
+                        <div className="item-image">
+                          <img src={pro.product_image}></img>
+                        </div>
+                        </a>  
+                      )) : 
+                    <div> <span> You do not have any Saved Item or Product in {cates} category </span></div>  
+                  }
+                  </div>
+              </div>
+            ))}
+
+            {/* <div className="cate-content">
+              <div className="cate-name">Shirt</div>
+              <div className="cate-item">
+                <div className="item-image">
+                  <img src={photoItem}></img>
+                </div>
+                <div className="item-image">
+                  <img src={photoItem}></img>
+                </div>
+              </div>
+            </div>
+
             <div className="cate-content">
               <div className="cate-name">Shirt</div>
               <div className="cate-item">
@@ -84,18 +130,6 @@ function VirtualLookScreen(props) {
                 <div className="item-image">
                   <img src={photoItem}></img>
                 </div>
-              </div>
-            </div>
-
-            <div className="cate-content">
-              <div className="cate-name">Shirt</div>
-              <div className="cate-item">
-                <div className="item-image">
-                  <img src={photoItem}></img>
-                </div>
-                <div className="item-image">
-                  <img src={photoItem}></img>
-                </div>
                 <div className="item-image">
                   <img src={photoItem}></img>
                 </div>
@@ -103,25 +137,7 @@ function VirtualLookScreen(props) {
                   <img src={photoItem}></img>
                 </div>
               </div>
-            </div>
-
-            <div className="cate-content">
-              <div className="cate-name">Shirt</div>
-              <div className="cate-item">
-                <div className="item-image">
-                  <img src={photoItem}></img>
-                </div>
-                <div className="item-image">
-                  <img src={photoItem}></img>
-                </div>
-                <div className="item-image">
-                  <img src={photoItem}></img>
-                </div>
-                <div className="item-image">
-                  <img src={photoItem}></img>
-                </div>
-              </div>
-            </div>
+            </div> */}
           </div>
            
           

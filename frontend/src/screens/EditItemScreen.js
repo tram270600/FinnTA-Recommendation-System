@@ -65,7 +65,8 @@ function EditItemScreen(props) {
     <div className="content-max-width">
       <div className="product-content">
         <div className="product-image">
-            <img src={product.product_image.default} alt="upload-image"></img>
+            {/* <img src={product.product_image.default} alt="upload-image"></img> */}
+            <img src={product.product_image} alt="upload-image"></img>
             
         </div>
         {/* <div className="control-btn">

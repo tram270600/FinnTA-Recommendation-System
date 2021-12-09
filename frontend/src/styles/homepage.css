@@ -1,0 +1,20 @@
+.SideBar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    background: #FFFFFF;
+    box-shadow: 35.0877px 0px 70px rgba(86, 128, 248, 0.05), 23.8596px 5.61404px 50px rgba(0, 0, 0, 0.02);
+}
+
+.Page {
+    height: 100%;
+    width: 100%;
+    background-color: #f6f8fc;
+}
+
+.PageDisplay {
+    margin-left: 22%;
+    position: flex;
+    height: 100%;
+    width: 78%;
+}

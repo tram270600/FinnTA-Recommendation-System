@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import './Slider.css'
+// import './Slider.css'
+import '../../styles/Slider.css'
 import BtnSlider from './BtnSlider'
 import dataSlider from './dataSlider'
 

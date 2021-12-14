@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import './collection.css'
+// import './collection.css'
+import '../styles/collection.css'
 function Collection() {
     const [name, setcltName] = useState('Ubyie._');
     const [prodname1, setcltProdname] = useState("Name of the producy");

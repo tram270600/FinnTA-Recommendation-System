@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './trending.css'
+import '../styles/trending.css'
 function Trending() {
 
     const [name, setName] = useState('Ubyie._');

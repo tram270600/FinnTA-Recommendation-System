@@ -91,7 +91,7 @@ function EditItemScreen(props) {
             <div className="description">
               {product.product_description}
             </div>
-            <div className="price">${product.product_price}</div>
+            <div className="price-detail">${product.product_price}</div>
             <button className="mark-sold">MASK AS SOLD</button>
           </div>
             <div className="product-info">

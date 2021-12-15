@@ -32,37 +32,34 @@ import Item from '../components/Item'
 function VirtualLookScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
   const photoSupple = "../images/outfit4.jpg";
-  const itemSelected = [];
+  const product_idList = [];
+  const [set_name, setName] = useState("Collection's item");
+  const [owner_id, setOwner] = useState(1);
+  const [set_img, setImage] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
-  //Write to JSON
-  // const express = require('express')
-  // const app = express()
+  const handleSubmit = (e) => {
+    doCapture();
+    const set = {set_img, owner_id, set_name, product_idList};
+    e.preventDefault();
+    setIsPending(true);
 
-  // const PORT = 3000
-  // app.listen(PORT, ()=> console.log('Listening at http://localhost:${PORT}'));
-  // app.use(express.static('src'))
-
-  const fs = require('fs')
-  const saveData = (clothSet) => {
-    const finished = (error) => {
-      if(error){
-        console.error(error)
-        return;
-      }
-
-    }
-    const jsonData = JSON.stringify(clothSet)
-    fs.writeFile('../data/setClothes.json', jsonData, finished)
-    console.log("Save Set of clothes successfully !");
+   
+    
+    console.log("Fetch Data:", set);
+    fetch('http://localhost:8000/setClothes', {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(set)
+    }).then(() => {
+      console.log("New set of clothes added");
+      alert("New Collection is added successfully !");
+      setIsPending(false);
+    })
   }
 
 
-  console.log("Account ID:", props.match.params.account_id);
-
-  // function havePhotoSup(){
-  //   if(product.pphotosup.length != 0) return true;
-  //     else return false;
-  // }
+  // console.log("Account ID:", props.match.params.account_id);
 
   function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -118,54 +115,49 @@ function VirtualLookScreen(props) {
     console.log("CLM", document.getElementsByClassName("delete-photosup"+props.product_id+""), "delete-photosup"+props.product_id+"");
     document.getElementsByClassName("delete-photosup"+props.product_id+"")[0].addEventListener("click",deleteSelectItem(props.product_id));
     
-    itemSelected.push(props.product_id);
+    product_idList.push(props.product_id);
     addDragEnable();
   }
 
   function addDragEnable(){
-    itemSelected.forEach(function(item, index, array) {
+    product_idList.forEach(function(item, index, array) {
       console.log(item, index)
       dragElement(document.getElementById("mydiv"+item));
     })
   }
   const deleteSelectItem = (deleteItem) => () => {
-    var index = itemSelected.indexOf(deleteItem);
+    var index = product_idList.indexOf(deleteItem);
     console.log("Clikckkkk function with index of product: ", deleteItem, "at index in array:", index);
 
     //Remove item from selected item list
     if (index !== -1) {
-        itemSelected.splice(index, 1);
+        product_idList.splice(index, 1);
     }
     var element = document.getElementById('mydiv' + deleteItem ); // will return element
     console.log("Element: ", element, "with parent: ", element.parentNode);
     element.parentNode.removeChild(element); // will remove the element from DOM
 
-    // itemSelected.forEach(function(item, index, array) {
+    // product_idList.forEach(function(item, index, array) {
     //   console.log(item, index)
     // })
-    // console.log("New length:",itemSelected.length);
+    // console.log("New length:",product_idList.length);
   }
 
   //function for button
   function restart(){
     document.getElementsByClassName("product-image")[0].innerHTML = "";
-     itemSelected.forEach(function(item, index, array) {
-      itemSelected.pop(item);
+     product_idList.forEach(function(item, index, array) {
+      product_idList.pop(item);
     })
   }
+  //Capture image of new Set
   function doCapture(){
     html2canvas(document.getElementsByClassName("product-image")[0]).then(function (canvas){
       console.log(canvas.toDataURL("image/jpeg", 0.9));
-      saveAs(canvas.toDataURL(), 'canvas.png');
+      saveAs(canvas.toDataURL(), 'canvas.jpg');
+      setImage(canvas.toDataURL());
     });
-    console.log(itemSelected);
-    const clothes = {
-      set_id: 1,
-      owner_id: 1,
-      product_id: itemSelected[0],
-
-    }
-    saveData(clothes)
+    console.log(product_idList);
   }
   function saveAs(uri, filename) {
     var link = document.createElement('a');
@@ -203,7 +195,9 @@ function VirtualLookScreen(props) {
           </div>
           <div className="action-btn">
             <button className="secondary-btn" onClick={() => restart()}> RESTART </button>
-            <button onClick={() => doCapture()}> POST OUTFIT</button>
+            {/* {!isPending && <button onClick={() => doCapture()}> POST OUTFIT</button>} */}
+            {!isPending && <button onClick={handleSubmit}> POST OUTFIT</button>}
+            {isPending && <button disabled onClick={handleSubmit}> POSTING...</button>}
           </div>
         </div>
        

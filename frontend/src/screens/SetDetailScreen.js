@@ -33,9 +33,9 @@ function SetDetailScreen(props) {
     })
     .then(data => {
       console.log("Fetch data ne", data);
-      console.log("props;", props.match.params.set_id, "Fetch single", data[props.match.params.set_id - 1]);
-      setCollection(data[props.match.params.set_id - 1])
-      setClothSet(data[props.match.params.set_id - 1].product_idList);
+      console.log("props;", props.match.params.id, "Fetch single", data[props.match.params.id - 1]);
+      setCollection(data[props.match.params.id - 1])
+      setClothSet(data[props.match.params.id - 1].product_idList);
     })
   }, [])
 //empty dependency array means only function on the initial render not whether the data changes
@@ -72,7 +72,7 @@ function SetDetailScreen(props) {
           <div className="title-component">
             <div className="title">{collection && collection.set_name}</div>
             {/* <div className="title">Product's name</div> */}
-            <div className="description">Collection No.{collection && collection.set_id} including {collection && collection.product_idList.length} items
+            <div className="description">Collection No.{collection && collection.id} including {collection && collection.product_idList.length} items
             </div>
             {/* <div className="price">${product.product_price}</div> */}
             </div>

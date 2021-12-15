@@ -53,7 +53,7 @@ function ProductDetailScreen(props) {
             {/* <div className="title">Product's name</div> */}
             <div className="description">{product.product_description}
             </div>
-            <div className="price">${product.product_price}</div>
+            <div className="price-detail">${product.product_price}</div>
             </div>
             <div className="product-info">
               <div className="addition-info">

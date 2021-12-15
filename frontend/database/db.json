@@ -1,0 +1,19 @@
+{
+    "setClothes" : [
+        {
+            "set_id": 1,
+            "set_img": "../images/outfit6.jpg",
+            "owner_id": 1,
+            "set_name": "Summer Collection",
+            "product_idList":[1, 2, 3]
+        },
+        {
+            "set_id": 2,
+            "set_img": "../images/outfit6.jpg",
+            "owner_id": 1,
+            "set_name": "Winter Collection",
+            "product_idList":[3, 2, 1]
+        }
+
+    ]
+}

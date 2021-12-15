@@ -4,16 +4,16 @@ import NavBar from '../components/NavBar';
 import Display from './Display';
 import '../styles/homepage.css';
 
-const ProfileScreen = ({ Items }) => {
+const ProfileScreen = () => {
     return (
         <>
             <div className="Page">
-                <NavBar />
+                <NavBar/>
                 <div className="SideBar">
-                    <SideBar productItem={Items} />
+                    <SideBar/>
                 </div>
                 <div className="PageDisplay">
-                    <Display productItem={Items} />
+                    <Display/>
                 </div>
             </div>
         </>

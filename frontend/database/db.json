@@ -15,5 +15,20 @@
             "product_idList":[3, 2, 1]
         }
 
+    ],
+    "savedItem" : [
+        {
+            "saved_id": 1,
+            "saved_img": "../images/outfit6.jpg",
+            "owner_id": 1,
+            "saved_name": "Summer Collection"
+        },
+        {
+            "saved_id": 2,
+            "saved_img": "../images/outfit6.jpg",
+            "owner_id": 1,
+            "saved_name": "Winter Collection"
+        }
+
     ]
 }

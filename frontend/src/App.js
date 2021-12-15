@@ -1,21 +1,20 @@
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-import { BrowserRouter, Route, Routes, Switch} from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import UploadItem from './screens/UploadItem'
-import UploadAndDisplayImage  from './screens/UploadAndDisplayImage'
-import ProductDetailScreen  from './screens/ProductDetailScreen'
+import UploadAndDisplayImage from './screens/UploadAndDisplayImage'
+import ProductDetailScreen from './screens/ProductDetailScreen'
 import EditItemScreen from './screens/EditItemScreen'
 import VirtualLookScreen from './screens/VirtualLookScreen'
 import SetDetailScreen from './screens/SetDetailScreen'
-// import HomePage from './components/HomePage/JavaScript/HomePage'
 
 const App = () => {
   return (
     <>
-    <Switch>
-        <Route path="/" component = {HomeScreen} exact></Route>
+      <Switch>
+        <Route path="/" component={HomeScreen} exact></Route>
         <Route path="/look" component={VirtualLookScreen}></Route>
         <Route path="/upload" component={UploadItem}></Route>
         <Route path="/profile" component={ProfileScreen}></Route>
@@ -25,13 +24,13 @@ const App = () => {
         {/* <Route path="/HomePage" component={HomePage}></Route> */}
     </Switch>
       <>
-      {/* <NavBar /> */}
-   
-      {/* <UploadItem /> */}
-      {/* <Footer /> */}
+        {/* <NavBar /> */}
+
+        {/* <UploadItem /> */}
+        {/* <Footer /> */}
+      </>
     </>
-    </>
-     
+
 
   );
 }

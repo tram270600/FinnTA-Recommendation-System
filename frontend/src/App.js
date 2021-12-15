@@ -9,13 +9,19 @@ import ProductDetailScreen from './screens/ProductDetailScreen'
 import EditItemScreen from './screens/EditItemScreen'
 import VirtualLookScreen from './screens/VirtualLookScreen'
 import SetDetailScreen from './screens/SetDetailScreen'
+import Login from './screens/Login'
+import Register from './screens/Register'
 
 const App = () => {
   return (
     <>
       <Switch>
+      
         <Route path="/" component={HomeScreen} exact></Route>
+        <Route exact path="/login" component={Login} ></Route>
+        <Route exact path= "/sign-up" conponent={Register}></Route>
         <Route path="/look" component={VirtualLookScreen}></Route>
+         
         <Route path="/upload" component={UploadItem}></Route>
         <Route path="/profile" component={ProfileScreen}></Route>
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>

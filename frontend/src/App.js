@@ -17,7 +17,7 @@ const App = () => {
         <Route path="/" component={HomeScreen} exact></Route>
         <Route path="/look" component={VirtualLookScreen}></Route>
         <Route path="/upload" component={UploadItem}></Route>
-        <Route path="/profile" component={ProfileScreen}></Route>
+        <Route path="/profile/:account_id" component={ProfileScreen}></Route>
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>
         <Route path="/set/:id" component={SetDetailScreen}></Route>

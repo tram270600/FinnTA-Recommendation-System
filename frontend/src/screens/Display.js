@@ -15,15 +15,15 @@ const Display = () => {
         set_owner_id(savedItem.product_id);
         set_saved_img(savedItem.product_image);
         set_saved_name(savedItem.product_name);
-        const item = {id, productID, img, name};
+        // const item = {id, productID, img, name};
         
-        fetch('http://localhost:8000/setClothes', {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(item),
-        }).then(() => {
-            console.log('new Saved Item added');
-        })
+        // fetch('http://localhost:8000/setClothes', {
+        //     method: 'POST',
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify(item),
+        // }).then(() => {
+        //     console.log('new Saved Item added');
+        // })
     }
  
     return (

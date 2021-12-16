@@ -19,15 +19,15 @@ const App = () => {
       
         <Route path="/" component={HomeScreen} exact></Route>
         <Route exact path="/login" component={Login} ></Route>
-        <Route exact path= "/sign-up" conponent={Register}></Route>
+        <Route path= "/sign-up" component={Register}></Route>
         <Route path="/look" component={VirtualLookScreen}></Route>
          
         <Route path="/upload" component={UploadItem}></Route>
         <Route path="/profile" component={ProfileScreen}></Route>
+       
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>
         <Route path="/set/:id" component={SetDetailScreen}></Route>
-        {/* <Route path="/HomePage" component={HomePage}></Route> */}
     </Switch>
       <>
         {/* <NavBar /> */}

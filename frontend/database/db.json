@@ -1,7 +1,6 @@
 {
   "setClothes": [
     {
-      "set_id": 1,
       "set_img": "../images/outfit6.jpg",
       "owner_id": 1,
       "set_name": "Summer Collection",
@@ -22,37 +21,6 @@
         "1"
       ],
       "id": 2
-    },
-    {
-      "set_img": "../images/outfit4.jpg",
-      "owner_id": 1,
-      "set_name": "Upcoming",
-      "product_idList": [
-        "2",
-        "1"
-      ],
-      "id": 3
-    },
-    {
-      "set_img": "../images/outfit4.jpg",
-      "owner_id": 1,
-      "set_name": "Upcoming",
-      "product_idList": [
-        "2",
-        "3"
-      ],
-      "id": 4
-    },
-    {
-      "set_img": "../images/outfit4.jpg",
-      "owner_id": 1,
-      "set_name": "Upcoming",
-      "product_idList": [
-        "3",
-        "1",
-        "2"
-      ],
-      "id": 5
     }
   ]
 }

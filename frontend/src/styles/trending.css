@@ -58,10 +58,10 @@ border:3px solid blue;
     padding: 4px;
     transform: translate(44px, -24px);
 }
-.detail-box1 {
+.detailbox1 {
     height: 165px;
 }
-.detail-box1 p{
+.detailbox1 p{
     font-weight:bold;
     width:101px;
     height:18px;
@@ -69,35 +69,35 @@ border:3px solid blue;
     transform: translate(110px, -65px);
     color:#c4c4c4;
 }
-.detail-box1 h3{
+.detailbox1 h3{
     width:100px;
     height:18px;
     font-size: 15px;
     transform: translate(250px,-96px);
     color:#025588;
 }
-.detail-box1 h4{
+.detailbox1 h4{
     width:260px;
     height:25px;
     font-size: 18px;
     transform: translate(50px,-110px);
     color:black;
 }
-.detail-box1 h5{
+.detailbox1 h5{
     width:150px;
     height:18px;
     font-size: 15px;
     transform: translate(50px,-135px);
     color:#c4c4c4;
 }
-.detail-box1 h6{
+.detailbox1 h6{
     width:150px;
     height:18px;
     font-size: 15px;
     transform: translate(50px,-155px);
     color:#FF7897 ;
 }
-.detail-box1 button{
+.detailbox1 button{
     width: 80px;
     height: 32px;
     border-radius: 7px;
@@ -111,111 +111,124 @@ border:3px solid blue;
     transform: translate(280px,-215px);
 
 }
-.detail-box1 button:hover{
+.detailbox1 button:hover{
     border-color: #2691d9;
     transition: 0.3s;
     }   
+    .view_Item1 button{
+        transform:translate(340px,-230px);
+        background: transparent;
+        outline: none;
+        border: none;
+    }
 
-    .ProdCard2{
-        position:absolute;
-        width: 400px;
-        height: 600px;
-        left: 560px;
-        top:1000px;
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 1px 1px 17px 1px black;
+    .ProdCard_2{ 
+        position: absolute;
+       width: 400px;
+       height: 600px;
+       left: 560px;
+       top:1000px;
+       background: #ffffff;
+       border-radius: 16px;
+       box-shadow: 1px 1px 17px 1px black;
+       
+    }
+    .prodimage2 img{
+        height:434px;
+        border-radius: 16px 16px 0 0;
+    }
+    .prodimage2 img::after{
+        content: '';
         
-     }
-     .prodimage2 img{
-         height:434px;
-         border-radius: 16px 16px 0 0;
-     }
-     .prodimage2 img::after{
-         content: '';
-         
-         position: absolute;  
-         opacity:0;
-     }
-     .prodimage2 img:hover{
-         -webkit-transform:scale(1.05, 1.05) ;
-         transform:scale(1.05, 1.05);
-         box-shadow: 0px 2px 2px 0px BLACK;
-         cursor: pointer;
-     }
-     .prodimage2 img:hover::after{
-         opacity:1;
-         cursor: pointer;
-     
-     }
-     .prodimage2 img:focus{
-     border:3px solid blue;
-     }
-     .avatar img{
-         background: #ffffff;
-         border-radius: 50%;
-         width: 50px;
-         height: 50px;
-         padding: 4px;
-         transform: translate(44px, -24px);
-     }
-     .detail-box2 {
-         height: 165px;
-     }
-     .detail-box2 p{
-         font-weight:bold;
-         width:101px;
-         height:18px;
-         font-size: 16px;
-         transform: translate(110px, -65px);
-         color:#c4c4c4;
-     }
-     .detail-box2 h3{
-         width:100px;
-         height:18px;
-         font-size: 15px;
-         transform: translate(250px,-96px);
-         color:#025588;
-     }
-     .detail-box2 h4{
-         width:260px;
-         height:25px;
-         font-size: 18px;
-         transform: translate(50px,-110px);
-         color:black;
-     }
-     .detail-box2 h5{
-         width:150px;
-         height:18px;
-         font-size: 15px;
-         transform: translate(50px,-135px);
-         color:#c4c4c4;
-     }
-     .detail-box2 h6{
-         width:150px;
-         height:18px;
-         font-size: 15px;
-         transform: translate(50px,-155px);
-         color:#FF7897 ;
-     }
-     .detail-box2 button{
-         width: 80px;
-         height: 32px;
-         border-radius: 7px;
-         border: 1px solid;
-         background: #025588;
-         font-size: 18px;
-         color: #e9f4fb;
-         font-weight: 500;
-         cursor: pointer;
-         outline: none;
-         transform: translate(280px,-215px);
-     
-     }
-     .detail-box2 button:hover{
-         border-color: #2691d9;
-         transition: 0.3s;
-         }
+        position: absolute;  
+        opacity:0;
+    }
+    .prodimage2 img:hover{
+        -webkit-transform:scale(1.05, 1.05) ;
+        transform:scale(1.05, 1.05);
+        box-shadow: 0px 2px 2px 0px BLACK;
+        cursor: pointer;
+    }
+    .prodimage2 img:hover::after{
+        opacity:1;
+        cursor: pointer;
+    
+    }
+    .prodimage2 img:focus{
+    border:3px solid blue;
+    }
+    .avatar img{
+        background: #ffffff;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        padding: 4px;
+        transform: translate(44px, -24px);
+    }
+    .detailbox2 {
+        height: 165px;
+    }
+    .detailbox2 p{
+        font-weight:bold;
+        width:101px;
+        height:18px;
+        font-size: 16px;
+        transform: translate(110px, -65px);
+        color:#c4c4c4;
+    }
+    .detailbox2 h3{
+        width:100px;
+        height:18px;
+        font-size: 15px;
+        transform: translate(250px,-96px);
+        color:#025588;
+    }
+    .detailbox2 h4{
+        width:260px;
+        height:25px;
+        font-size: 18px;
+        transform: translate(50px,-110px);
+        color:black;
+    }
+    .detailbox2 h5{
+        width:150px;
+        height:18px;
+        font-size: 15px;
+        transform: translate(50px,-135px);
+        color:#c4c4c4;
+    }
+    .detailbox2 h6{
+        width:150px;
+        height:18px;
+        font-size: 15px;
+        transform: translate(50px,-155px);
+        color:#FF7897 ;
+    }
+    .detailbox2 button{
+        width: 80px;
+        height: 32px;
+        border-radius: 7px;
+        border: 1px solid;
+        background: #025588;
+        font-size: 18px;
+        color: #e9f4fb;
+        font-weight: 500;
+        cursor: pointer;
+        outline: none;
+        transform: translate(280px,-215px);
+    
+    }
+    .detailbox2 button:hover{
+        border-color: #2691d9;
+        transition: 0.3s;
+        }   
+        .view_Item2 button{
+            transform:translate(340px,-230px);
+            background: transparent;
+            outline: none;
+            border: none;
+        }
+    
          .ProdCard3{
              position: absolute;
             width: 400px;
@@ -259,10 +272,10 @@ border:3px solid blue;
              padding: 4px;
              transform: translate(44px, -24px);
          }
-         .detail-box3 {
+         .detailbox3 {
              height: 165px;
          }
-         .detail-box3 p{
+         .detailbox3 p{
              font-weight:bold;
              width:101px;
              height:18px;
@@ -270,35 +283,35 @@ border:3px solid blue;
              transform: translate(110px, -65px);
              color:#c4c4c4;
          }
-         .detail-box3 h3{
+         .detailbox3 h3{
              width:100px;
              height:18px;
              font-size: 15px;
              transform: translate(250px,-96px);
              color:#025588;
          }
-         .detail-box3 h4{
+         .detailbox3 h4{
              width:260px;
              height:25px;
              font-size: 18px;
              transform: translate(50px,-110px);
              color:black;
          }
-         .detail-box3 h5{
+         .detailbox3 h5{
              width:150px;
              height:18px;
              font-size: 15px;
              transform: translate(50px,-135px);
              color:#c4c4c4;
          }
-         .detail-box3 h6{
+         .detailbox3 h6{
              width:150px;
              height:18px;
              font-size: 15px;
              transform: translate(50px,-155px);
              color:#FF7897 ;
          }
-         .detail-box3 button{
+         .detailbox3 button{
              width: 80px;
              height: 32px;
              border-radius: 7px;
@@ -312,8 +325,14 @@ border:3px solid blue;
              transform: translate(280px,-215px);
          
          }
-         .detail-box3 button:hover{
+         .detailbox3 button:hover{
              border-color: #2691d9;
              transition: 0.3s;
              }   
+             .view_Item3 button{
+                transform:translate(340px,-230px);
+                background: transparent;
+                outline: none;
+                border: none;
+            }
      

@@ -9,19 +9,24 @@ import ProductDetailScreen from './screens/ProductDetailScreen'
 import EditItemScreen from './screens/EditItemScreen'
 import VirtualLookScreen from './screens/VirtualLookScreen'
 import SetDetailScreen from './screens/SetDetailScreen'
+import Login from './screens/Login'
+import Register from './screens/Register'
 
 const App = () => {
   return (
     <>
       <Switch>
+      
         <Route path="/" component={HomeScreen} exact></Route>
+        <Route exact path="/login" component={Login} ></Route>
+        <Route path= "/sign-up" component={Register}></Route>
         <Route path="/look" component={VirtualLookScreen}></Route>
+         
         <Route path="/upload" component={UploadItem}></Route>
         <Route path="/profile/:account_id" component={ProfileScreen}></Route>
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>
         <Route path="/set/:id" component={SetDetailScreen}></Route>
-        {/* <Route path="/HomePage" component={HomePage}></Route> */}
     </Switch>
       <>
         {/* <NavBar /> */}
@@ -36,4 +41,3 @@ const App = () => {
 }
 
 export default App;
-

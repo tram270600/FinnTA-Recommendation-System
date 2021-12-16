@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext, useCallback, useRef, useState, CanvasContext } from 'react';
+import { useContext, useCallback, useRef, useState, useEffect, CanvasContext } from 'react';
 import { IKImage, IKContext, IKUpload} from 'imagekitio-react';
 
 import NavBar from '../components/NavBar'
@@ -35,17 +35,19 @@ function VirtualLookScreen(props) {
   const product_idList = [];
   const [set_name, setName] = useState("Collection's item");
   const [owner_id, setOwner] = useState(1);
-  const [set_img, setImage] = useState("");
+  const [set_img, setImage] = React.useState("");
   const [isPending, setIsPending] = useState(false);
 
-  const handleSubmit = (e) => {
-    doCapture();
-    const set = {set_img, owner_id, set_name, product_idList};
+  useEffect(() => {
+    console.log('Image Capture', set_img);
+  }, [set_img])
+
+  const handleSubmit = async (e) => {
+    const set_image = await doCapture();
+    console.log("Set image: ", set_image);
+    const set = {set_img: set_image, owner_id, set_name, product_idList};
     e.preventDefault();
     setIsPending(true);
-
-   
-    
     console.log("Fetch Data:", set);
     fetch('http://localhost:8000/setClothes', {
       method: 'POST',
@@ -109,11 +111,18 @@ function VirtualLookScreen(props) {
     const image = props.product_image;
     // console.log(document.getElementsByClassName("product-image"))
     
-    document.getElementsByClassName("product-image")[0].innerHTML +=
-    "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
+    //Error: clear all EventListener
+    // document.getElementsByClassName("product-image")[0].innerHTML +=
+    // "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
    
+    const node = document.createElement("div");
+    node.innerHTML = "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
+    document.getElementsByClassName("product-image")[0].appendChild(node);
+
     console.log("CLM", document.getElementsByClassName("delete-photosup"+props.product_id+""), "delete-photosup"+props.product_id+"");
-    document.getElementsByClassName("delete-photosup"+props.product_id+"")[0].addEventListener("click",deleteSelectItem(props.product_id));
+    // document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",deleteSelectItem(props.product_id));
+    document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",() => deleteSelectItem(props.product_id));
+    
     
     product_idList.push(props.product_id);
     addDragEnable();
@@ -125,7 +134,7 @@ function VirtualLookScreen(props) {
       dragElement(document.getElementById("mydiv"+item));
     })
   }
-  const deleteSelectItem = (deleteItem) => () => {
+  const deleteSelectItem = (deleteItem) => {
     var index = product_idList.indexOf(deleteItem);
     console.log("Clikckkkk function with index of product: ", deleteItem, "at index in array:", index);
 
@@ -151,13 +160,26 @@ function VirtualLookScreen(props) {
     })
   }
   //Capture image of new Set
-  function doCapture(){
-    html2canvas(document.getElementsByClassName("product-image")[0]).then(function (canvas){
-      console.log(canvas.toDataURL("image/jpeg", 0.9));
-      saveAs(canvas.toDataURL(), 'canvas.jpg');
-      setImage(canvas.toDataURL());
-    });
+  async function doCapture(){
+    await hiddenCloseOnItem();
+     return html2canvas(document.getElementsByClassName("product-image")[0]).then(
+       function (canvas){
+        console.log("Canvas: ",canvas.toDataURL("image/jpeg", 0.9));
+        // saveAs(canvas.toDataURL(), 'canvas.jpg');
+                  console.log("Set Image Start");
+        setImage(canvas.toDataURL("image/jpeg", 0.9));
+        console.log("Set Image End");
+        set_img != "" && console.log("In Capture return pciture: ", set_img);
+        return canvas.toDataURL("image/jpeg", 0.9);}).catch(e => console.log(e)); 
+    ;
     console.log(product_idList);
+  }
+
+  async function hiddenCloseOnItem(){
+      const element = document.querySelectorAll("[class*=delete-photosup]");
+      console.log("Length: ", element.length);
+      return element.forEach(e => e.style.visibility = "hidden");
+
   }
   function saveAs(uri, filename) {
     var link = document.createElement('a');
@@ -190,8 +212,7 @@ function VirtualLookScreen(props) {
       <div className="product-content">
         <div className="left-content">
           <div className="product-image">
-     
-              
+  
           </div>
           <div className="action-btn">
             <button className="secondary-btn" onClick={() => restart()}> RESTART </button>

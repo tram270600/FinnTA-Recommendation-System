@@ -12,6 +12,7 @@ import SetDetailScreen from './screens/SetDetailScreen'
 import Login from './screens/Login'
 import Register from './screens/Register'
 import ClothesObject from './screens/ClothesObject'
+import Shoes from './screens/Shoes'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/upload" component={UploadItem}></Route>
         <Route path="/profile" component={ProfileScreen}></Route>
         <Route path="/object" component={ClothesObject}></Route>
+        <Route path="/shoes" component={Shoes}></Route>
        
         <Route path="/profile/:account_id" component={ProfileScreen}></Route>
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>

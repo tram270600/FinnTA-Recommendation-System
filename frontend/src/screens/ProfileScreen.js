@@ -8,12 +8,14 @@ const ProfileScreen = () => {
     return (
         <>
             <div className="Page">
-                <NavBar/>
-                <div className="SideBar">
-                    <SideBar/>
-                </div>
-                <div className="PageDisplay">
-                    <Display/>
+                <NavBar />
+                <div className="HomePage">
+                    <div className="SideBar">
+                        <SideBar />
+                    </div>
+                    <div className="PageDisplay">
+                        <Display />
+                    </div>
                 </div>
             </div>
         </>

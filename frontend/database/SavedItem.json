@@ -1,0 +1,10 @@
+{
+  "savedClothes": [
+    {
+      "owner_id": 1,
+      "saved_img": "/images/outfit5.jpg",
+      "saved_name": "Missout T-shirt",
+      "id": 1
+    }
+  ]
+}

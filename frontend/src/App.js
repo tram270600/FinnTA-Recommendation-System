@@ -27,6 +27,7 @@ const App = () => {
         <Route path="/profile" component={ProfileScreen}></Route>
         <Route path="/object" component={ClothesObject}></Route>
        
+        <Route path="/profile/:account_id" component={ProfileScreen}></Route>
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>
         <Route path="/set/:id" component={SetDetailScreen}></Route>

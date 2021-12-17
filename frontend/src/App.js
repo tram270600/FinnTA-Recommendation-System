@@ -11,6 +11,7 @@ import VirtualLookScreen from './screens/VirtualLookScreen'
 import SetDetailScreen from './screens/SetDetailScreen'
 import Login from './screens/Login'
 import Register from './screens/Register'
+import ClothesObject from './screens/ClothesObject'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
          
         <Route path="/upload" component={UploadItem}></Route>
         <Route path="/profile" component={ProfileScreen}></Route>
+        <Route path="/object" component={ClothesObject}></Route>
        
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>

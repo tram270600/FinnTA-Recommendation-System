@@ -1,7 +1,8 @@
-import React, { Suspense, useRef, useState } from 'react'
+import React, { Suspense, useRef, useState, useEffect } from 'react'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
+
 
 import {Html, useGLTF, OrbitControls, ContactShadows} from '@react-three/drei'
 // import {useSpring, a} from "react-spring/three"
@@ -53,10 +54,19 @@ export default function ClothesObject(){
     <NavBar />
     <Canvas style={{ height: '100vh'}}
       colorManagement
-      camera={{position: [400, -100, 500], fov: 20}}>
+      //camera view for pants: camo, blue jeans
+      // camera={{position: [400, 200, 500], fov: 100}}
+
+      camera={{position: [400, 200, 500], fov: 20}}
+      >
       <Lights/>
       <Suspense fallback={null}>
-       <HTMLContent modelPath = 'floralDress.gltf'/>
+      <HTMLContent modelPath = 'miniSkirt.gltf'/>
+      {/* <HTMLContent modelPath = 'camoPants.gltf'/> */}
+      {/* <HTMLContent modelPath = 'blueJean.gltf'/> */}
+      {/* <HTMLContent modelPath = 'floralDress.gltf'/> */} 
+{/* 
+       <HTMLContent modelPath = 'shoe-draco.glb'/> */}
        <ContactShadows rotation-x={Math.PI/2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1}/>
       </Suspense>
       <OrbitControls

@@ -3,6 +3,8 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { ContactShadows, Environment, useGLTF, OrbitControls } from "@react-three/drei"
 import { HexColorPicker } from "react-colorful"
 import { proxy, useSnapshot } from "valtio"
+import NavBar from "../components/NavBar"
+import '../styles/Object3D.scss';
 
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
@@ -74,7 +76,7 @@ function Picker() {
   return (
     <div style={{ display: snap.current ? "block" : "none" }}>
       <HexColorPicker className="picker" color={snap.items[snap.current]} onChange={(color) => (state.items[snap.current] = color)} />
-      <h1>{snap.current}</h1>
+      <div className="item-picker">Choose new color for: {snap.current}</div>
     </div>
   )
 }
@@ -82,7 +84,10 @@ function Picker() {
 export default function Shoes() {
   return (
     <>
-      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 4], fov: 50 }}>
+    <NavBar/>
+    <div className="title-page">Viewing Product in 3D </div>
+    <div className="subtitle-page">By using mouse to control view perspective </div>
+      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 4], fov: 50 }} style={{ height: '80vh'}}>
         <ambientLight intensity={0.7} />
         <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
         <Suspense fallback={null}>
@@ -90,7 +95,14 @@ export default function Shoes() {
           <Environment preset="city" />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={1.5} far={0.8} />
         </Suspense>
-        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={true} enablePan={false} />
+        {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={true} enablePan={false} /> */}
+        <OrbitControls
+        enableZoom={true}
+        enablePan={true}
+        enableRotate={true}
+        zoomSpeed={0.6}
+        panSpeed={0.5}
+        rotateSpeed={0.4}/>
       </Canvas>
       <Picker />
     </>

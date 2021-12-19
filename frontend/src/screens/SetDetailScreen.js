@@ -21,11 +21,6 @@ function SetDetailScreen(props) {
 //   const photoSupple = "../images/outfit4.jpg";
 //   console.log("Product ID:", props.match.params.product_id);
 
-  function havePhotoSup(){
-    if(product.pphotosup.length != 0) return true;
-      else return false;
-  }
-
   useEffect(()=> {
     fetch('http://localhost:8000/setClothes')
     .then(res => {
@@ -77,29 +72,6 @@ function SetDetailScreen(props) {
             {/* <div className="price">${product.product_price}</div> */}
             </div>
             <div className="product-info">
-              {/* <div className="addition-info">
-                <div className="sub-title">Additional Information</div>
-                <div className="sub-info"> 
-                    <p> Color </p>
-                    <span> {product.pcolor} </span>
-                </div>
-                <div className="sub-info"> 
-                    <p> Category </p>
-                    <span> {product.pcategory} </span>
-                </div>
-                <div className="sub-info"> 
-                    <p> Pattern </p>
-                    <span> {product.ppattern} </span>
-                </div>
-                <div className="sub-info"> 
-                    <p> Material </p>
-                    <span> {product.pmaterial} </span>
-                </div>
-                <div className="sub-info"> 
-                    <p> Occassion </p>
-                    <span> {product.poccassion} </span>
-                </div>
-              </div> */}
               <div className="owner">
                 <div className="sub-title">Posted by</div>
                   <div className="owner-info">

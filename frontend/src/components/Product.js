@@ -7,12 +7,6 @@ export default function Product(props){
   const [name, setName] = useState('Ubyie._');
   return(
     <div key={product.product_id}>
-    {/* <a href={`/product/${product.product_id}`}>
-      <img 
-      src={product.product_image} 
-      alt={product.product_name}></img>
-    </a>
-    <div> Price: {product.product_price}</div> */}
      <a href={`/product/${product.product_id}`}>
       <div className="ProdCard">
             <div className="prodimage">

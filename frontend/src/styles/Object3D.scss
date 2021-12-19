@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+    --primaryBlue: #025588;
+    --primaryPink: #FF7897;
+    --white: #ffff;
+    --lightgray: #F2F5FA;
+    --secondaryBlue: #DCF9FF;
+    --fontcolor: #4F5665;
+    --fontcolorlight: #828282;
+    --maxwidth: 1280px;
+  }
+  @mixin fontStyle($weight, $size, $height) {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $height;
+  }
+.title-page{
+    @include fontStyle(700,32px ,20px);
+    color: #04294D;
+    margin-top: 30px;
+    text-align: center;
+}  
+.subtitle-page{
+    color: var(--fontcolorlight);
+    @include fontStyle(500,16px ,20px );
+    margin-top: 15px;
+    text-align: center;
+}
+.react-colorful {
+    margin-top: -80vh;
+    margin-left: 10vw;
+}
+.item-picker{
+    @include fontStyle(500,18px ,18px );
+    margin-top: 20px;
+    margin-left: 10vw;
+}

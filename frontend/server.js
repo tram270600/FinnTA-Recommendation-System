@@ -28,8 +28,8 @@ function isSignupAuthenticated({username}) {
         userdb.users.findIndex((user) => user.username === username ) !== -1);}//* find the collum of match username
     
 
-server.post("api/auth/register", (req,res)=>{
-    const {username,email,phone,password, gender,role} = req.body;
+server.post("/api/auth/register", (req,res)=>{
+    const {username,password,email,phone,gender,role} = req.body;
     if(isSignupAuthenticated({username})){
         const status = 401;
         const message = "Username already taken";
@@ -37,15 +37,15 @@ server.post("api/auth/register", (req,res)=>{
         return;
     }
 
-    fs.readFile(".database/users.json", (err, data) => {
+    fs.readFile("./database/users.json", (err, data) => {
         if(err){
              const status = 401;
              const message = "err"; 
              res.status(status).json({status,message}) //*err when read file in system will appeare in web console
              return;
         }
-         data = JSON.parser(data.toString()); 
-        let last_item_id = data.users[data.user.length - 1].id;
+         data = JSON.parse(data.toString()); 
+        let last_item_id = data.users[data.users.length - 1].id;
 
         data.users.push({id: last_item_id +1, username:username,email:email,phone: phone, pass:password,  gender:gender, role:role });
         let writeData = fs.writeFile("./database/users.json", JSON.stringify(data), (err, result)=>{

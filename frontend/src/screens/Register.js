@@ -9,14 +9,22 @@ function Register() {
   const [password,setPassword]= useState("");
   const [email,setEmail]= useState("");
   const [phone,setPhone]= useState("");
-  const [gender,setGender]= useState("");
+  const [isShop,setIsShop]= useState("shop");
+  const [isCus,setIsCus] = useState("customer");
+  const [isMale,setIsmale]= useState("");
   const [role,setRole]= useState("");
-  const [error, setError]= useState("");  
-  let history = useHistory();
+  const [error, setError]= useState();  
+  const [gender, setGender]=useState(isMale);
+  
 
+  let history = useHistory();
 
   const [showPass,setshowPass]= useState(false);    
   const [showconfirmPass,setshowconfirmPass]= useState(false);    
+  const male ="male";
+  const female="female";
+  const shop="shop";
+  const customer="customer"
 
 const register = (e) => {
   e.preventDefault();
@@ -39,11 +47,12 @@ const register = (e) => {
     setEmail("");
     setPhone("");
     setPassword("");
-    setGender();
-    setRole();
+    setGender("");
+    setRole("");
      history.push("/login");
     }).catch(error =>setError(error.response.data.message));
   };
+
     return (
        <div>
          <div id="getstarted">Get started</div>
@@ -113,18 +122,18 @@ const register = (e) => {
     <div id="sex">Sex</div>
     <div id="button">
 
-        <input type="radio" name="gender" value={gender =="male"} onChange={(e)=> setGender(e.target.value)}/>
+        <input type="radio" name="gender" value={male} onChange={()=> setGender(male)}/>
         <label for="male"></label>
         <span>Male</span>
-        <input type="radio" name="gender" value={gender =="female"} onChange={(e)=> setGender(e.target.value)}/>
+        <input type="radio" name="gender" value={female} onChange={()=> setGender(female)}/>
         <label for="female"></label>
         <span>Female</span>
     </div>
     <div class="rect1">
-      <button class="button" type="button" value={role == "shop"} onChange={(e)=> setRole(e.target.value)}><img src={process.env.PUBLIC_URL + `/Images/shop 1.png`} /></button>
+      <button class="button" type="button" value={shop} onClick={()=> setRole(shop)}><img src={process.env.PUBLIC_URL + `/Images/shop 1.png`} /></button>
     </div>
     <div class="rect2">
-      <button class="button" type="button" value={ role == "customer"} onChange={(e)=> setRole(e.target.value)}> <img src={process.env.PUBLIC_URL + `/Images/take-away.png`} /></button>
+    <button class="button" type="button" value={customer} onClick={()=> setRole(customer)}> <img src={process.env.PUBLIC_URL + `/Images/take-away.png`} /></button>
       </div>
       </div>
       </div>

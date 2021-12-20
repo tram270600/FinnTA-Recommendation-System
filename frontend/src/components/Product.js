@@ -5,6 +5,7 @@ import avatar from '../images/avatar.png'
 export default function Product(props){
   const {product} = props;
   const [name, setName] = useState('Ubyie._');
+  console.log("Props: ", product);
   return(
     <div key={product.product_id}>
      <a href={`/product/${product.product_id}`}>

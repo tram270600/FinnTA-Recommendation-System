@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import '../styles/uploadItem.scss';
 
-const UploadAndDisplayImage = () => {
+const UploadAndDisplayImage = (props) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [editFunction, enableEditFunction] = useState(null);
-   
+
   function enableEdit(){
      // When true, moving the mouse draws on the canvas
     let isDrawing = false;
@@ -60,10 +60,10 @@ const UploadAndDisplayImage = () => {
         <img  alt="not found" width={"250px"} src={URL.createObjectURL(selectedImage)} />
         <br />
         <button onClick={()=>setSelectedImage(null)}><i class="fa fa-trash"></i>Remove</button>
-        <button class="withicon-btn" onClick={()=> enableEditFunction()}><i class="fas fa-pen"></i> Edit</button>
-        <h1>Drawing with mouse events</h1>
+        {editFunction && <button class="withicon-btn" onClick={()=> enableEditFunction()}><i class="fas fa-pen"></i> Edit</button>}
         <canvas className="myPics" id="myPics" width="560" height="360"></canvas>
-        {enableEdit()}
+        {/* <h1>Drawing with mouse events</h1>
+        {selectedImage && enableEdit()} */}
         </div>
       )}
 
@@ -80,9 +80,13 @@ const UploadAndDisplayImage = () => {
         type="file"
         className="custom-file-input"
         name="myImage"
+        // onChange={() => {
+        //   const a = selectedImag
+        // }}
         onChange={(event) => {
           console.log(event.target.files[0]);
           setSelectedImage(event.target.files[0]);
+          // props.myChange(event);
         }}
       />
       

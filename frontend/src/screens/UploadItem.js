@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, FormControl, Select, InputLabel, MenuItem, TextField, TextareaAutosize, InputAdornment, Input, FormHelperText, IconButton} from '@material-ui/core';
 import '../styles/uploadItem.scss'
 import NavBar from '../components/NavBar'
 import uploadImage from '../images/outfit4.jpg'
 import UploadAndDisplayImage from './UploadAndDisplayImage'
 import editTool from '../images/edit-tool.svg'
+import html2canvas from 'html2canvas'
 
 export default function UploadItem(){
   const [category, setCategory] = React.useState();
@@ -19,16 +20,18 @@ export default function UploadItem(){
   const materials = ["Cotton", "Linen", "Polyester", "Knit, Wool", "Fur", "Tweed", "Denim", "Leather", "Silk", "Other"];
   const occassions = ["Daily", "Go to school", "Office/Work", "Date", "Formal", "Travel", "Party", "Other"];
   
+  const [isPending, setIsPending] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [values, setValues] = React.useState({
     // category: '',
-    // color: '',
-    // pattern: '',
-    // material: '',
-    // occassion: '',
     price: '',
+    pname: '',
+    pimage: 'No Image',
+    pdescription: ''
     // showPassword: false,
   });
+
+
   React.useEffect(() => {
     if (isNaN(values.price)) {
       // alert("Must input numbers");
@@ -48,14 +51,54 @@ export default function UploadItem(){
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  async function doCapture(){
+     return html2canvas(document.getElementsByClassName("image-import")[0]).then(
+       function (canvas){
+        console.log("Canvas: ",canvas.toDataURL("image/jpeg", 0.9));
+        return canvas.toDataURL("image/jpeg", 0.9);}).catch(e => console.log(e)); 
+    ;
+  }
+
+  const handleSubmit = async (e) => {
+    const set_image = await doCapture();
+    const item = {
+      "product_name": values.pname, 
+      "product_image": set_image,
+      "product_description": values.pdescription,
+      "product_price": values.price,
+      "pcategory": category.props.value,
+      "pcolor": color.props.value,
+      "ppattern": pattern.props.value,
+      "pmaterial": material.props.value,
+      "poccassion": occassion.props.value,
+      "pavailable": "true",
+      "pphotosup": ""};
+
+    e.preventDefault();
+    setIsPending(true);
+    console.log("Fetch Data:", item);
+    fetch('http://localhost:8000/products', {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(item)
+    }).then(() => {
+      console.log("New product added");
+      alert("New product is added successfully !");
+      setIsPending(false);
+    })
+  }
+
   return (
     <>
       <NavBar />
       <div className="content-max-width">
         <div className="upload-item">
           <div className="image-import">
-          <UploadAndDisplayImage/>
-
+          <UploadAndDisplayImage />
+            {/* myChange= {handleChange('pimage')}>
+            {console.log("From upload:", values.pimage)}
+            </UploadAndDisplayImage> */}
+        
           {/* <img src={uploadImage} alt="upload-image"></img> */}
           {/* <button class="withicon-btn"><i class="fas fa-pen"></i> Edit</button> */}
           
@@ -150,7 +193,8 @@ export default function UploadItem(){
             </div>
 
             <div className="upload-select">
-              <TextField helperText="Describe briefly about item" id="standard-basic" label="Product's name" variant="standard" />
+              <TextField helperText="Describe briefly about item" id="standard-basic" label="Product's name" variant="standard" 
+                   onChange={handleChange('pname')}/>
             </div>
 
             <div className = "upload-select">
@@ -174,13 +218,18 @@ export default function UploadItem(){
               <TextareaAutosize
                 aria-label="minimum height"
                 resize="none"
+                value={values.pdescription}
                 minRows={3}
                 placeholder="Describe item in detail"
+                onChange={handleChange('pdescription')}
                 style={{ width: 400 }}/>
             </div>
+
             <div class="button-action">
               <button className="secondary-btn"> DISCARD</button>
-              <button> POST ITEM </button>
+              {/* <button> POST ITEM </button> */}
+              {!isPending && <button onClick={handleSubmit}> POST ITEM </button>}
+              {isPending && <button disabled onClick={handleSubmit}> POSTING...</button>}
             </div>
             
           </div>

@@ -7,7 +7,7 @@ import UploadAndDisplayImage from './UploadAndDisplayImage'
 import editTool from '../images/edit-tool.svg'
 import html2canvas from 'html2canvas'
 
-export default function UploadItem(){
+export default function UploadItem() {
   const [category, setCategory] = React.useState();
   const [color, setColor] = React.useState();
   const [pattern, setPattern] = React.useState();
@@ -15,7 +15,7 @@ export default function UploadItem(){
   const [occassion, setOccasion] = React.useState();
 
   const categories = ["Shirt", "Dress", "Pants", "Skirt", "Shoes"];
-  const cols =["Cream", "Beige", "Light Gray", "Black", "White","Camel", "Brown", "Khaki", "Navy", "Silver", "Colorful"];
+  const cols = ["Cream", "Beige", "Light Gray", "Black", "White", "Camel", "Brown", "Khaki", "Navy", "Silver", "Colorful"];
   const patterns = ["Solid", "Checked", "Striped", "Graphic", "Dotted", "Animal Print", "Floral", "Other"];
   const materials = ["Cotton", "Linen", "Polyester", "Knit, Wool", "Fur", "Tweed", "Denim", "Leather", "Silk", "Other"];
   const occassions = ["Daily", "Go to school", "Office/Work", "Date", "Formal", "Travel", "Party", "Other"];
@@ -111,85 +111,85 @@ export default function UploadItem(){
                 <i class="fas fa-toggle-on"></i>
               </div>
             </div>
-           
+
             <div className="upload-select">
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={category}
-                label="Category"
-                onChange={(e, category) => setCategory(category)}>
-                {categories.map((c) => {
-                  return <MenuItem value={c}>{c}</MenuItem>
-                })}
-              </Select>
-            </FormControl>
+              <FormControl>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  label="Category"
+                  onChange={(e, category) => setCategory(category)}>
+                  {categories.map((c) => {
+                    return <MenuItem value={c}>{c}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
             </div>
 
             <div className="upload-select">
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Color</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={color}
-                label="Color"
-                onChange={(e, color) => setColor(color)}>
-                {cols.map((col) => {
-                  return <MenuItem value={col}>{col}</MenuItem>
-                })}
-              </Select>
-            </FormControl>
-            </div>
-            
-            <div className="upload-select">
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Pattern</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={pattern}
-                label="Pattern"
-                onChange={(e, pattern) => setPattern(pattern)}>
-                {patterns.map((p) => {
-                  return <MenuItem value={p}>{p}</MenuItem>
-                })}
-              </Select>
-            </FormControl>
+              <FormControl>
+                <InputLabel id="demo-simple-select-label">Color</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={color}
+                  label="Color"
+                  onChange={(e, color) => setColor(color)}>
+                  {cols.map((col) => {
+                    return <MenuItem value={col}>{col}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
             </div>
 
             <div className="upload-select">
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Material</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={material}
-                label="Material"
-                onChange={(e, material) => setMaterial(material)}>
-                {materials.map((m) => {
-                  return <MenuItem value={m}>{m}</MenuItem>
-                })}
-              </Select>
-            </FormControl>
+              <FormControl>
+                <InputLabel id="demo-simple-select-label">Pattern</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={pattern}
+                  label="Pattern"
+                  onChange={(e, pattern) => setPattern(pattern)}>
+                  {patterns.map((p) => {
+                    return <MenuItem value={p}>{p}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
             </div>
 
             <div className="upload-select">
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Occassions</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={occassion}
-                label="Occassion"
-                onChange={(e, occassion) => setOccasion(occassion)}>
-                {occassions.map((o) => {
-                  return <MenuItem value={o}>{o}</MenuItem>
-                })}
-              </Select>
-            </FormControl>
+              <FormControl>
+                <InputLabel id="demo-simple-select-label">Material</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={material}
+                  label="Material"
+                  onChange={(e, material) => setMaterial(material)}>
+                  {materials.map((m) => {
+                    return <MenuItem value={m}>{m}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
+            </div>
+
+            <div className="upload-select">
+              <FormControl>
+                <InputLabel id="demo-simple-select-label">Occassions</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={occassion}
+                  label="Occassion"
+                  onChange={(e, occassion) => setOccasion(occassion)}>
+                  {occassions.map((o) => {
+                    return <MenuItem value={o}>{o}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
             </div>
 
             <div className="upload-select">
@@ -197,7 +197,7 @@ export default function UploadItem(){
                    onChange={handleChange('pname')}/>
             </div>
 
-            <div className = "upload-select">
+            <div className="upload-select">
               <FormControl fullWidth sx={{ m: 1 }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
                 <Input
@@ -231,7 +231,7 @@ export default function UploadItem(){
               {!isPending && <button onClick={handleSubmit}> POST ITEM </button>}
               {isPending && <button disabled onClick={handleSubmit}> POSTING...</button>}
             </div>
-            
+
           </div>
         </div>
       </div>

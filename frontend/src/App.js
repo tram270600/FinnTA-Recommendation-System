@@ -12,6 +12,7 @@ import SetDetailScreen from './screens/SetDetailScreen'
 import Login from './screens/Login'
 import Register from './screens/Register'
 import ClothesObject from './screens/ClothesObject'
+import Shoes from './screens/Shoes'
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/product/:product_id" component={ProductDetailScreen}></Route>
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>
         <Route path="/set/:id" component={SetDetailScreen}></Route>
+        <Route path="/shoes" component={Shoes}></Route>
     </Switch>
       <>
         {/* <NavBar /> */}

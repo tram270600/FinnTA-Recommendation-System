@@ -43,6 +43,20 @@ const data = {
       pavailable: true,
       pphotosup:[],
     },
+    {
+      product_id: "4",
+      product_name: "V Neck Beige Dress",
+      product_image: "/images/VNeckDressMain.jpg",
+      product_description: "Elegant style for Wedding, work",
+      product_price: "480.000",
+      pcategory: "Dress",
+      pcolor: "Beige",
+      ppattern: "Solid",
+      pmaterial: "Cotton",
+      poccassion: "Party",
+      pavailable: true,
+      pphotosup:[require("../images/VNeckDress1.jpg")],
+    },
   ]
 };
 export default data;

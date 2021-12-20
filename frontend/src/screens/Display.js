@@ -62,6 +62,8 @@ const Display = () => {
             {/* Display */}
             <div className="DisplayScreen">
                 {data.products.map((productDisplay) => (
+                    <div key={productDisplay.product_id}>
+                      <a href={`/product/${productDisplay.product_id}`}>
                     <div className="item">
                         <img src={productDisplay.product_image} alt="Norway" className="picture" />
                         <div className="detail">
@@ -87,6 +89,8 @@ const Display = () => {
                             </div>
                         </div>
                     </div>
+                    </a>
+                </div>
                 ))}
             </div>
         </>

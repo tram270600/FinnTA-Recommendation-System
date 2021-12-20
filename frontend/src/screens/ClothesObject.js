@@ -7,6 +7,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import {Html, useGLTF, OrbitControls, ContactShadows} from '@react-three/drei'
 // import {useSpring, a} from "react-spring/three"
 import { useSpring, animated } from '@react-spring/three'
+import { height } from '@mui/system'
 
 const Model = ({modelPath}) => {
   const gltf = useGLTF(modelPath, true)
@@ -42,7 +43,7 @@ export default function ClothesObject(){
   return (
     <>
     <NavBar />
-    <Canvas
+    <Canvas style={{height:'80vh'}}
       colorManagement
       //camera view for pants: camo, blue jeans
       // camera={{position: [400, 200, 500], fov: 100}}
@@ -59,8 +60,9 @@ export default function ClothesObject(){
        <HTMLContent modelPath = 'shoe-draco.glb'/> */}
        <ContactShadows rotation-x={Math.PI/2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1}/>
       </Suspense>
+      <OrbitControls/>
     </Canvas>
-    <Footer />
+    {/* <Footer /> */}
     </>
   );
   

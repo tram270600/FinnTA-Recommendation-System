@@ -35,7 +35,7 @@ function ProductDetailScreen(props) {
         <div className="control-btn">
           <div class="func-name">
             <button className="control-blue"><img src={expand}></img> </button>
-            <p>Zoom</p>
+            <p>View 3D</p>
           </div>
           <div className="func-name">
             <button className="control-pink"><img src={chat}></img></button>

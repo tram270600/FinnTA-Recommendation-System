@@ -4,6 +4,7 @@ import data from '../data/products';
 import account from '../data/accounts';
 import { useParams } from 'react-router-dom';
 
+
 const Display = () => {
     // const [saved_id, set_saved_id] = useState();
     const [owner_id, set_owner_id] = useState(1);

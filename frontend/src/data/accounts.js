@@ -10,7 +10,7 @@ const account = {
       avatar: "images/avatar.png",
     },
     {
-      accountid: 2,
+      account_id: 2,
       username: "Lam Nguyen",
       password: "123",
       phone: "0775711266",
@@ -19,7 +19,7 @@ const account = {
       avatar: "images/avatar.png",
     },
     {
-      accountid: 3, 
+      account_id: 3, 
       username: "Ditcutee",
       password: "123",
       phone: "0775711266",

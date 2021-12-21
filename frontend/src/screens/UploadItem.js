@@ -106,10 +106,10 @@ export default function UploadItem() {
           <div className="upload-info">
             <div className="title-components">
               <div className="title">Upload items</div>
-              <div className="auto-crop">
+              {/* <div className="auto-crop">
                 Auto crop
                 <i class="fas fa-toggle-on"></i>
-              </div>
+              </div> */}
             </div>
 
             <div className="upload-select">

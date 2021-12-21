@@ -66,7 +66,8 @@ const NavBar = () => {
                         <>
                             <div>
                                 <div className='noti-container'>
-                                    <a href="/upload">
+                                    {/* <a href="/upload"> */}
+                                    <a href="/profile">
                                         <div className='avatar-nav' style={{ cursor: 'pointer' }}
                                         //  onClick={() => handleClick('profile')}
                                         >
@@ -82,12 +83,17 @@ const NavBar = () => {
                         </>
 
                         : <>
-                            <button className='btn'
+                        <a href="/login">
+                        <button className='btn'
                             // onClick={() => handleClick('login')}
                             >Sign In</button>
+                        </a>
+                        <a href="/sign-up">   
                             <button className='btn signup'
-                            // onClick={() => handleClick('signup')}
-                            >Sign Up</button>
+                            // onClick={() => handleClick('signup')} 
+                            >
+                            Sign Up</button>
+                        </a>    
                         </>
                 }
             </nav>

@@ -88,11 +88,15 @@ const SideBar = () => {
           </div>
         </div>
 
+      
         <div className="HalfSideBar">
           <div className="Start">
+          <a href="/upload" style={{color: "white"}}>
             CREATE POST
+            </a>
           </div>
         </div>
+  
 
       </div>
       {/* Bio */}

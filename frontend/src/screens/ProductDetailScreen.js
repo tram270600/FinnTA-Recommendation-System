@@ -34,7 +34,20 @@ function ProductDetailScreen(props) {
         </div>
         <div className="control-btn">
           <div class="func-name">
-            <button className="control-blue"><img src={expand}></img> </button>
+            {/* <a href='/shoes'> */}
+            {product.product_id == 6 && 
+             <button className="control-blue" onClick={() => window.location.href='/shoes'}><img src={expand}></img> </button>
+            }
+
+            {product.product_id != 6 && product.product_id != 1 &&
+             <button className="control-blue" onClick={() => window.location.href='/notfound'} ><img src={expand}></img> </button>
+            }
+
+            {product.product_id == 1 && product.product_id != 6 &&
+             <button className="control-blue" onClick={() => window.location.href='/object'} ><img src={expand}></img> </button>
+            }
+           
+            {/* </a> */}
             <p>View 3D</p>
           </div>
           <div className="func-name">

@@ -66,8 +66,7 @@ const NavBar = () => {
                         <>
                             <div>
                                 <div className='noti-container'>
-                                    {/* <a href="/upload"> */}
-                                    <a href="/profile">
+                                    <a href={`/profile/${user.account_id}`}>
                                         <div className='avatar-nav' style={{ cursor: 'pointer' }}
                                         //  onClick={() => handleClick('profile')}
                                         >

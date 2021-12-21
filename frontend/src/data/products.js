@@ -2,18 +2,18 @@ const data = {
   products: [
     {
       product_id: "1",
-      product_name: "Candy Dress",
-      product_image: "/images/outfit4.jpg",
-      product_description: "The new collection of this Summer with hot trending items including: Tops, bottoms, mix with luxury accesories",
-      product_price: "300.000",
-      pcategory: "Dress",
-      pcolor: "Cream",
+      product_name: "Gothic Skirt",
+      product_image: "/images/SkirtGothic.jpg",
+      product_description: "Trending items mix with rock n roll accesories",
+      product_price: "250.000",
+      pcategory: "Skirt",
+      pcolor: "Black",
       ppattern: "Checked",
       pmaterial: "Cotton",
-      poccassion: "Office/Work",
+      poccassion: "Party",
       powner: "",
       pavailable: true,
-      pphotosup: [require("../images/outfit6.jpg"), require("../images/outfit5.jpg")]
+      pphotosup: []
     },
     {
       product_id: "2",

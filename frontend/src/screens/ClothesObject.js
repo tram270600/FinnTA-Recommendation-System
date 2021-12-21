@@ -2,6 +2,7 @@ import React, { Suspense, useRef, useState, useEffect } from 'react'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import { Canvas, useFrame } from '@react-three/fiber'
+import '../styles/Object3D.scss';
 
 
 import {Html, useGLTF, OrbitControls, ContactShadows} from '@react-three/drei'
@@ -43,6 +44,8 @@ export default function ClothesObject(){
   return (
     <>
     <NavBar />
+    <div className="title-page">Viewing Product in 3D </div>
+    <div className="subtitle-page">By using mouse to control view perspective </div>
     <Canvas style={{height:'80vh'}}
       colorManagement
       //camera view for pants: camo, blue jeans

@@ -13,6 +13,7 @@ import Login from './screens/Login'
 import Register from './screens/Register'
 import ClothesObject from './screens/ClothesObject'
 import Shoes from './screens/Shoes'
+import No3DObjectFound from './screens/No3DObjectFound'
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/editpost/:product_id" component={EditItemScreen}></Route>
         <Route path="/set/:id" component={SetDetailScreen}></Route>
         <Route path="/shoes" component={Shoes}></Route>
+        <Route path="/notfound" component={No3DObjectFound}></Route>
     </Switch>
       <>
         {/* <NavBar /> */}

@@ -8,6 +8,7 @@ const account = {
       email: "ngntram.ityu@gmail.com",
       descripttion: "Welcome to my closet",
       avatar: "images/avatar.png",
+      social: "facebook.com/tramnguyengiang",
     },
     {
       account_id: 2,
@@ -17,6 +18,7 @@ const account = {
       email: "maliop@gmail.com",
       descripttion: "Welcome to my closet",
       avatar: "images/avatar.png",
+      social: "facebook.com/nguyenlam",
     },
     {
       account_id: 3, 
@@ -26,6 +28,7 @@ const account = {
       email: "meeling06@gmail.com",
       descripttion: "Welcome to my closet",
       avatar: "images/avatar.png",
+      social: "facebook.com/duckduck",
     }
   ]
 };

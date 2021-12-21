@@ -6,13 +6,17 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import data from '../data/products';
 import account from '../data/accounts';
 import { useParams } from 'react-router-dom';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import PeopleIcon from '@mui/icons-material/People';
 
 const SideBar = () => {
   const { account_id } = useParams();
+  const info = account.accounts.find(x => x.account_id === parseInt(account_id, 10));
 
   const Owner = account.accounts.find(x => x.account_id === 1);
   var [isOwner, set_isOwner] = useState(Owner.account_id === parseInt(account_id, 10) ? true : false);
-  console.log(isOwner);
+  console.log(info);
 
   return (
     <div className='SideBarContent'>
@@ -21,16 +25,13 @@ const SideBar = () => {
         <img src={avatar} className="SideBarPicture" />
       </div>
       {/* User Name */}
-      {SideBarData.User.map((val, key) => {
-        return (
+
           <li
-            key={key}
             className="SideBarName"
           >
-            {val.name}
+            {info.username}
           </li>
-        );
-      })}
+
       {/* Follow */}
       <div className="follow">
         <div id="post">
@@ -100,38 +101,55 @@ const SideBar = () => {
 
       </div>
       {/* Bio */}
-      {SideBarData.User.map((val, key) => {
-        return (
+
           <div
-            key={key}
             className="SideBarBio"
           >
-            {val.bio}
+            {info.descripttion}
           </div>
-        );
-      })}
+
 
       <div className="SideBarInfor">
         <div className="SideBarContact">Contact</div>
-        {SideBarData.Information.map((val, key) => {
-          return (
             <li
-              key={key}
               className="row"
             >
-              <div id="icon">{val.icon}</div>
-              <div id="title">{val.title}</div>
+              <div id="icon">{<EmailIcon/>}</div>
+              <div id="title">Email:</div>
               <p
                 id="info"
-                onclick={() => {
-                  window.location.pathname = val.link;
-                }}
+                
               >
-                {val.info}
+                {info.email}
               </p>
             </li>
-          );
-        })}
+
+            <li
+              className="row"
+            >
+              <div id="icon">{<PhoneIcon/>}</div>
+              <div id="title">Phone:</div>
+              <p
+                id="info"
+                
+              >
+                {info.phone}
+              </p>
+            </li>
+
+            <li
+              className="row"
+            >
+              <div id="icon">{<PeopleIcon/>}</div>
+              <div id="title">Social:</div>
+              <p
+                id="info"
+               
+              >
+                {info.social}
+              </p>
+            </li>
+
       </div>
       {/* Log out */}
       {isOwner &&

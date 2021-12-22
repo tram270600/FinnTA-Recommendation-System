@@ -96,7 +96,7 @@ function ProductDetailScreen(props) {
                 <div className="sub-title">Posted by</div>
                   <div className="owner-info">
                     <img src={avatar} alt="post's owner"></img>
-                    <span>LamiopDit</span>
+                    <span>ubyii</span>
                   </div>
               </div>
             </div>

@@ -4,7 +4,6 @@ import data from '../data/products';
 import account from '../data/accounts';
 import { useParams } from 'react-router-dom';
 
-
 const Display = () => {
     // const [saved_id, set_saved_id] = useState();
     const [owner_id, set_owner_id] = useState(1);
@@ -28,7 +27,7 @@ const Display = () => {
 
         // }
 
-        fetch('http://localhost:8000/savedClothes', {
+        fetch('http://localhost:8001/savedClothes', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(item),

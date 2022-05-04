@@ -201,7 +201,7 @@ export default function UploadItem() {
               <FormControl fullWidth sx={{ m: 1 }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
                 <Input
-                  id="standard-adornment-amount"
+                  // id="standard-adornment-amount"
                   onChange={handleChange('price')}
                   value={values.price}
                   error={isNaN(values.price)}

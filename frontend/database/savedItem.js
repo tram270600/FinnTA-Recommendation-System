@@ -1,3 +1,4 @@
+module.exports = [
 {
   "savedClothes": [
     {
@@ -20,3 +21,4 @@
     }
   ]
 }
+];

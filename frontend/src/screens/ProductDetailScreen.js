@@ -1,18 +1,26 @@
 import NavBar from '../components/NavBar'
-import photo1 from '../images/outfit5.jpg'
-import photo2 from '../images/outfit2.jpg'
-import photo3 from '../images/outfit6.jpg'
 import expand from '../images/expand.svg'
 import chat from '../images/chat.svg'
 import collect from '../images/collect.svg'
 import productData from '../data/products'
 import '../styles/productDetail.scss'
 import avatar from '../images/avatar.png'
+import { useEffect, useState } from 'react'
 import data from '../data/accounts'
+
 function ProductDetailScreen(props) {
-  const product = productData.products.find(x => x.product_id === props.match.params.product_id);
-  const photoSupple = "../images/outfit4.jpg";
-  console.log("Product ID:", props.match.params.product_id);
+  // const product = productData.products.find(x => x.product_id === props.match.params.product_id);
+  const [product, setProduct] = useState(null);
+  useEffect(()=> {
+      fetch('http://localhost:8000/products')
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        console.log("Fetch data from Product", data);
+        setProduct(data[props.match.params.id - 1]);
+      })
+    }, [])
 
   function havePhotoSup(){
     if(product.pphotosup.length != 0) return true;
@@ -34,20 +42,17 @@ function ProductDetailScreen(props) {
         </div>
         <div className="control-btn">
           <div class="func-name">
-            {/* <a href='/shoes'> */}
-            {product.product_id == 6 && 
+            {product.id == 6 && 
              <button className="control-blue" onClick={() => window.location.href='/shoes'}><img src={expand}></img> </button>
             }
 
-            {product.product_id != 6 && product.product_id != 1 &&
+            {product.id != 6 && product.id != 1 &&
              <button className="control-blue" onClick={() => window.location.href='/notfound'} ><img src={expand}></img> </button>
             }
 
-            {product.product_id == 1 && product.product_id != 6 &&
+            {product.id == 1 && product.id != 6 &&
              <button className="control-blue" onClick={() => window.location.href='/object'} ><img src={expand}></img> </button>
             }
-           
-            {/* </a> */}
             <p>View 3D</p>
           </div>
           <div className="func-name">
@@ -107,7 +112,9 @@ function ProductDetailScreen(props) {
                  {(havePhotoSup() == true) ?
                   product.pphotosup.map((photo) => (
                     <div className="supply-img">
-                      <img src={photo.default}></img>
+                      {/* <img src={photo.default}></img>: use image inside the src */}
+                      {/* Use image in public folder */}
+                      <img src={photo}></img> 
                     </div> )) : 
                     <div> <span> Does not have any supplementary photo </span></div>  
                   }
@@ -118,8 +125,6 @@ function ProductDetailScreen(props) {
       </div>
     </div>
     </>
-     
-
   );
 }
 

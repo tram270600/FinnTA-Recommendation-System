@@ -26,9 +26,6 @@ function Trending() {
         {item && item.map((product) => (
             <Product key={product.id} product={product}></Product>
         ))}
-        {productData.products.map((product) => (
-        <Product key={product.product_id} product={product}></Product>
-            ))}
         </div>
         </div> 
     </div>

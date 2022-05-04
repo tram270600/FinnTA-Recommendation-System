@@ -1,3 +1,4 @@
+module.exports = [
 {
     "users": [
       { 
@@ -28,5 +29,5 @@
         "role":"customer"
       }
     ]
-    
   }
+];

@@ -7,8 +7,8 @@ export default function Product(props){
   const [name, setName] = useState('Ubyie._');
   console.log("Props: ", product);
   return(
-    <div key={product.product_id}>
-     <a href={`/product/${product.product_id}`}>
+    <div key={product.id}>
+     <a href={`/product/${product.id}`}>
       <div className="ProdCard">
             <div className="prodimage">
               {/* <img src={process.env.PUBLIC_URL + `/Images/product.png`} alt="" height="434px" width="400px"/> */}

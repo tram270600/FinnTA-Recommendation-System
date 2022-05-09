@@ -8,21 +8,40 @@ import categoryData from '../data/categories'
 import accountData from '../data/accounts'
 import productData from '../data/products'
 
-import '../styles/virtualLook.scss'
+import '../styles/virtualRecommend.scss'
 import html2canvas from 'html2canvas';
 
-function VirtualLookScreen(props) {
+function VirtualRecommendScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
-  const photoSupple = "../images/outfit4.jpg";
   const product_idList = [];
   const [set_name, setName] = useState("Collection's item");
   const [owner_id, setOwner] = useState(1);
   const [set_img, setImage] = React.useState("");
   const [isPending, setIsPending] = useState(false);
+  const [categories, setCategory] = useState(null);
 
   useEffect(() => {
     console.log('Image Capture', set_img);
   }, [set_img])
+
+
+  useEffect(()=> {
+    fetch('http://localhost:8000/groupCategory')
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      console.log("Fetch Category Data", data);
+      setCategory(data);
+    })
+  }, [])
+
+  // if (categories){
+  //   console.log(categories[0]);
+  //   Object.keys(categories[0]).forEach(function(key) {
+  //     console.log('Key : ' + key + ', Value : ' + categories[key])
+  //   })
+  // }
 
   const handleSubmit = async (e) => {
     const set_image = await doCapture();
@@ -41,9 +60,6 @@ function VirtualLookScreen(props) {
       setIsPending(false);
     })
   }
-
-
-  // console.log("Account ID:", props.match.params.account_id);
 
   function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -89,21 +105,13 @@ function VirtualLookScreen(props) {
   }
 
   function addProductToSet(props) {
-    console.log("Click on: ", props.product_id);
     const image = props.product_image;
-    // console.log(document.getElementsByClassName("product-image"))
-    
-    //Error: clear all EventListener
-    // document.getElementsByClassName("product-image")[0].innerHTML +=
-    // "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
-   
+
     const node = document.createElement("div");
     node.innerHTML = "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
-    document.getElementsByClassName("product-image")[0].appendChild(node);
+    document.getElementsByClassName("outfit-look")[0].appendChild(node);
 
-    // document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",deleteSelectItem(props.product_id));
     document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",() => deleteSelectItem(props.product_id));
-    
     
     product_idList.push(props.product_id);
     addDragEnable();
@@ -115,16 +123,15 @@ function VirtualLookScreen(props) {
       dragElement(document.getElementById("mydiv"+item));
     })
   }
+
   const deleteSelectItem = (deleteItem) => {
     var index = product_idList.indexOf(deleteItem);
-    console.log("Clikckkkk function with index of product: ", deleteItem, "at index in array:", index);
 
     //Remove item from selected item list
     if (index !== -1) {
         product_idList.splice(index, 1);
     }
     var element = document.getElementById('mydiv' + deleteItem ); // will return element
-    console.log("Element: ", element, "with parent: ", element.parentNode);
     element.parentNode.removeChild(element); // will remove the element from DOM
   }
 
@@ -135,69 +142,98 @@ function VirtualLookScreen(props) {
       product_idList.pop(item);
     })
   }
+
   //Capture image of new Set
   async function doCapture(){
     await hiddenCloseOnItem();
      return html2canvas(document.getElementsByClassName("product-image")[0]).then(
        function (canvas){
-        console.log("Canvas: ",canvas.toDataURL("image/jpeg", 0.9));
-        // saveAs(canvas.toDataURL(), 'canvas.jpg');
-                  console.log("Set Image Start");
         setImage(canvas.toDataURL("image/jpeg", 0.9));
-        console.log("Set Image End");
         set_img != "" && console.log("In Capture return pciture: ", set_img);
         return canvas.toDataURL("image/jpeg", 0.9);}).catch(e => console.log(e)); 
     ;
-    console.log(product_idList);
   }
 
   async function hiddenCloseOnItem(){
       const element = document.querySelectorAll("[class*=delete-photosup]");
-      console.log("Length: ", element.length);
       return element.forEach(e => e.style.visibility = "hidden");
 
   }
-  function saveAs(uri, filename) {
-    var link = document.createElement('a');
-    if (typeof link.download === 'string') {
-       link.href = uri;
-       link.download = filename;
 
-       //Firefox requires the link to be in the body
-       document.body.appendChild(link);
-
-       //simulate click
-       link.click();
-
-       //remove the link when done
-       document.body.removeChild(link);
-    } else {
-       window.open(uri);
-    }
-    console.log("Download successfully");
- }
+  //Captialize Category group's name
+  function capitalize(s)
+  {
+    return s && s[0].toUpperCase() + s.slice(1);
+  } 
   
   return (
     <>
     <NavBar />
     <div className="content-max-width">
-      <div className="product-content">
-        <div className="left-content">
-          <div className="product-image">
-  
-          </div>
-          <div className="action-btn">
+      <div className="page-title">
+        <div className="title">Create an Outfit</div>
+        <div className="action-btn">
             <button className="secondary-btn" onClick={() => restart()}> RESTART </button>
             {!isPending && <button onClick={handleSubmit}> POST OUTFIT</button>}
             {isPending && <button disabled onClick={handleSubmit}> POSTING...</button>}
+        </div>
+      </div>
+
+      <div className="page-content">
+        <div className="content-right">
+          <div className="item-inoutput-list">
+            {/* {categoryData.map((cates) => (
+                <div className="category-content">
+                <div className="category-name">{cates}</div>
+                  <div className="category-item">
+                     {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
+                      productData.products.filter(product => product.pcategory == cates).map((pro) => (
+                        
+                        <div className="item-box">
+                          <img src={pro.product_image} onClick={() => addProductToSet(pro)}></img>
+                          <a href={`/product/${pro.product_id}`}>
+                            <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
+                          </a>  
+                        </div>
+                       
+                      )) : 
+                    <div> <span> You do not have any Saved Item or Product in {cates} category </span></div>  
+                  }
+                  </div>
+              </div>
+            ))} */}
+
+            {categories && Object.keys(categories[0]).map((category) => (
+              <div className="category-content">
+                 <div className="category-name">{capitalize(category)}</div>
+                 
+                 <div className="category-item">
+                     {(productData.products.filter(product => product.pcategory === category).length !== 0) ?
+                      productData.products.filter(product => product.pcategory === category).map((pro) => (
+                        <div className="item-box">
+                          <img src={pro.product_image} alt={pro.product_name} onClick={() => addProductToSet(pro)}></img>
+                          <a href={`/product/${pro.product_id}`}>
+                            <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
+                          </a>  
+                        </div>
+                      )) : 
+                    <div> <span> You do not have any Saved Item or Product in {category} category </span></div>  
+                  }
+                  </div>
+              </div>
+            ))}
+          </div>
+           
+          
+        </div>
+
+        <div className="left-content">
+          <div className="outfit-look">
           </div>
         </div>
 
         <div className="content-right">
-          <div className="title-component">
-            <div className="title">Create an Outfit</div>
-          </div>
-          <div className="category-list">
+          <div className="item-inoutput-list">
             {categoryData.map((cates) => (
                 <div className="cate-content">
                 <div className="cate-name">{cates}</div>
@@ -205,7 +241,7 @@ function VirtualLookScreen(props) {
                      {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
                       productData.products.filter(product => product.pcategory == cates).map((pro) => (
                         
-                        <div className="item-image">
+                        <div className="item-box">
                           <img src={pro.product_image} onClick={() => addProductToSet(pro)}></img>
                           <a href={`/product/${pro.product_id}`}>
                             <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
@@ -229,5 +265,5 @@ function VirtualLookScreen(props) {
   );
 }
 
-export default VirtualLookScreen;
+export default VirtualRecommendScreen;
 

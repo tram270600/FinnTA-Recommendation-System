@@ -14,6 +14,7 @@ import Register from './screens/Register'
 import ClothesObject from './screens/ClothesObject'
 import Shoes from './screens/Shoes'
 import No3DObjectFound from './screens/No3DObjectFound'
+import VirtualRecommendScreen from './screens/VirtualRecommendScreen'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route exact path="/login" component={Login} ></Route>
         <Route path= "/sign-up" component={Register}></Route>
         <Route path="/look" component={VirtualLookScreen}></Route>
+        <Route path="/recommend" component={VirtualRecommendScreen}></Route>
          
         <Route path="/upload" component={UploadItem}></Route>
         {/* <Route path="/profile" component={ProfileScreen}></Route> */}

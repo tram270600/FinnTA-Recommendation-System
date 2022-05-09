@@ -45,19 +45,24 @@ const NavBar = () => {
 
                 </div>
                 <ul className='nav-menu dash'>
-                    <li className='nav-items'>
+                    {/* <li className='nav-items'>
                         <a href="#footer-container" className='nav-links'>
                             About
                         </a>
-                    </li>
+                    </li> */}
                     <li className='nav-items'>
-                        <a href="#hero-container" className='nav-links'>
+                        <a href="/" className='nav-links'>
                             Home
                         </a>
                     </li>
                     <li className='nav-items'>
                         <a href='/look' className='nav-links'>
                             Virtual Look
+                        </a>
+                    </li>
+                    <li className='nav-items'>
+                        <a href='/recommend' className='nav-links'>
+                            Recommendation
                         </a>
                     </li>
                 </ul>

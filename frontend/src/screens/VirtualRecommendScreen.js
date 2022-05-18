@@ -3,6 +3,7 @@ import { useContext, useCallback, useRef, useState, useEffect, CanvasContext } f
 import { IKImage, IKContext, IKUpload} from 'imagekitio-react';
 
 import NavBar from '../components/NavBar'
+import Collapsible from '../components/Collapsible'
 
 import categoryData from '../data/categories'
 import accountData from '../data/accounts'
@@ -10,6 +11,7 @@ import productData from '../data/products'
 
 import '../styles/virtualRecommend.scss'
 import html2canvas from 'html2canvas';
+
 
 function VirtualRecommendScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
@@ -182,33 +184,17 @@ function VirtualRecommendScreen(props) {
       <div className="page-content">
         <div className="content-right">
           <div className="item-inoutput-list">
-            {/* {categoryData.map((cates) => (
-                <div className="category-content">
-                <div className="category-name">{cates}</div>
-                  <div className="category-item">
-                     {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
-                      productData.products.filter(product => product.pcategory == cates).map((pro) => (
-                        
-                        <div className="item-box">
-                          <img src={pro.product_image} onClick={() => addProductToSet(pro)}></img>
-                          <a href={`/product/${pro.product_id}`}>
-                            <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
-                          </a>  
-                        </div>
-                       
-                      )) : 
-                    <div> <span> You do not have any Saved Item or Product in {cates} category </span></div>  
-                  }
-                  </div>
-              </div>
-            ))} */}
+          <Collapsible title="Application Startup" defaultExpanded="true" collapsedHeight="32"> 
+          Now you can see the hidden content. <br/><br/>
+          Click <i>Collapse</i> to hide everything... <br/><br/>
+          </Collapsible>
 
             {categories && Object.keys(categories[0]).map((category) => (
               <div className="category-content">
                  <div className="category-name">{capitalize(category)}</div>
                  
                  <div className="category-item">
-                     {(productData.products.filter(product => product.pcategory === category).length !== 0) ?
+                  {(productData.products.filter(product => product.pcategory === category).length !== 0) ?
                       productData.products.filter(product => product.pcategory === category).map((pro) => (
                         <div className="item-box">
                           <img src={pro.product_image} alt={pro.product_name} onClick={() => addProductToSet(pro)}></img>
@@ -219,7 +205,7 @@ function VirtualRecommendScreen(props) {
                       )) : 
                     <div> <span> You do not have any Saved Item or Product in {category} category </span></div>  
                   }
-                  </div>
+                </div>
               </div>
             ))}
           </div>

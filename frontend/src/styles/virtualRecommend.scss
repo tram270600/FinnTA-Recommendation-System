@@ -223,29 +223,3 @@
     z-index: 10;
     }
   }
-
-  //=========== Expand/Collapse Button ===========
-.collapsible .content {
-  padding: 8px;
-  font-size: 14px;
-  border-bottom: 1px solid rgb(113, 150, 194);
-  border-bottom-style: dotted;
-}
-.collapsible .header {
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  > .title {
-    @include fontStyle(600, 16px, 16px);
-  }
-  > .icon {
-    color: var(--primaryBlue);
-    margin-right: 20px;
-  }
-}
-
-.preferences label {
-  display: block;
-  padding-bottom: 4px;
-}

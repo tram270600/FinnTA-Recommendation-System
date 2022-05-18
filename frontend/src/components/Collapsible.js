@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import useCollapse from 'react-collapsed';
+import '../styles/Collapsible.scss'
 
 
 function Collapsible(props) {

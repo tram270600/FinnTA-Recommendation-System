@@ -22,7 +22,7 @@ export default function Product(props){
                  <div class="view_Item"><button>View profile<i class="fas fa-arrow-right"></i></button></div>
                 </div>
             <div className="detailbox">
-                <div class="product-name">{ product.product_name }</div>
+                <div className="product-name">{ product.product_name }</div>
                 
                 <div className='product-description'>{ product.product_description}</div>
                 <div className='product-price'>${ product.product_price}</div>

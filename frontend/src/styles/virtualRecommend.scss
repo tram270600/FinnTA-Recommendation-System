@@ -60,8 +60,17 @@
 .category-content{
     // overflow-x: auto;
 }
+.category-heading{
+  display: flex;
+  justify-content: space-between;
+}
 .category-name{
   @include fontStyle(600,18px ,18px);
+  margin-bottom: 20px;
+}
+.category-amount-component{
+  @include fontStyle(600,16px ,18px);
+  margin-right: 20px;
 }
 .category-item{
   display: flex;

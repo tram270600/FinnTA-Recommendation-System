@@ -1,6 +1,7 @@
 import React from 'react'
 import { useContext, useCallback, useRef, useState, useEffect, CanvasContext } from 'react';
 import { IKImage, IKContext, IKUpload} from 'imagekitio-react';
+import {Image} from 'cloudinary-react';
 
 import NavBar from '../components/NavBar'
 import Collapsible from '../components/Collapsible'
@@ -37,13 +38,17 @@ function VirtualRecommendScreen(props) {
       setCategory(data);
     })
   }, [])
-
-  // if (categories){
-  //   console.log(categories[0]);
-  //   Object.keys(categories[0]).forEach(function(key) {
-  //     console.log('Key : ' + key + ', Value : ' + categories[key])
-  //   })
-  // }
+// GET /resources/:resource_type/tags/:tag
+  useEffect(()=> {
+    fetch('https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/')
+    .then(res => {
+      return console.log(res)
+    })
+    .then(data => {
+      console.log("Category Data from Cloudinary", data);
+      setCategory(data);
+    })
+  }, [])
 
   const handleSubmit = async (e) => {
     const set_image = await doCapture();
@@ -184,16 +189,43 @@ function VirtualRecommendScreen(props) {
       <div className="page-content">
         <div className="content-right">
           <div className="item-inoutput-list">
-          <Collapsible title="Application Startup" defaultExpanded="true" collapsedHeight="32"> 
-          Now you can see the hidden content. <br/><br/>
-          Click <i>Collapse</i> to hide everything... <br/><br/>
-          </Collapsible>
-
             {categories && Object.keys(categories[0]).map((category) => (
               <div className="category-content">
-                 <div className="category-name">{capitalize(category)}</div>
-                 
-                 <div className="category-item">
+                <div className="category-heading">
+                  <div className="category-name">{capitalize(category)}</div>
+                  <div className="category-amount-component">({categories[0][category].length})</div>
+                </div>
+                {categories[0][category].map((subcategory,index) => 
+                  (
+                  <>
+                   <Collapsible key={subcategory[0]} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
+                   The index of subcategory is {subcategory[0]} <br/><br/>
+                   Click <i>Collapse</i> to hide everything... <br/><br/>
+                    <div className="category-item">
+                      {/* {(productData.products.filter(product => product.pcategory === category).length !== 0) ?
+                          productData.products.filter(product => product.pcategory === category).map((pro) => ( */}
+                            <div className="item-box">
+                              {/* <img src="https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/187591410.jpg" alt="hello" onClick={() => addProductToSet()}></img> */}
+                              <Image 
+                                cloudName="tramnguyen2706" 
+                                publicId="accessories/187591410"
+                                loading="lazy">
+                              </Image>
+                              <a href={`/product/`}>
+                                <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
+                              </a>  
+                            </div>
+                          {/* // )) : 
+                        // <div> <span> You do not have any Saved Item or Product in {category} category </span></div>   */}
+                      {/* } */}
+                    </div>
+                   </Collapsible>
+                   {/* <img src="https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/187591410.jpg"></img> */}
+                  </>
+                  )
+                  )
+                }
+                 {/* <div className="category-item">
                   {(productData.products.filter(product => product.pcategory === category).length !== 0) ?
                       productData.products.filter(product => product.pcategory === category).map((pro) => (
                         <div className="item-box">
@@ -205,7 +237,7 @@ function VirtualRecommendScreen(props) {
                       )) : 
                     <div> <span> You do not have any Saved Item or Product in {category} category </span></div>  
                   }
-                </div>
+                </div> */}
               </div>
             ))}
           </div>

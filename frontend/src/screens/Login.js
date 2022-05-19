@@ -36,8 +36,8 @@ const login = (e) => {
     .catch((error) => setError(error.response.data.message));
 };
     return (
-        <div class="rside">
-      <div class= "lside">
+        <div className="rside">
+      <div className= "lside">
       
       </div>
         
@@ -45,7 +45,7 @@ const login = (e) => {
             <h1>Log in</h1>
             <p><p1>Sign in to</p1> your FinCon Account!!</p>
                
-              <div class="txtfield">
+              <div className="txtfield">
                     <input type="text" required 
                     value={username} 
                     onChange={(e)=> setUsername(e.target.value)}/>
@@ -54,19 +54,19 @@ const login = (e) => {
 
               </div>
              
-              <div class="txtfield1">
+              <div className="txtfield1">
                  <input type={showPass ?"text":"password" } required  
                  value={password}
                  onChange={(e)=> setPassword(e.target.value)}/>
                     <span></span>
                  <label>Password</label>
                  </div>
-                 <div class="passwordicon" onClick={()=>{if(showPass == true){setshowPass(false)}else {setshowPass(true)}}}> 
+                 <div className="passwordicon" onClick={()=>{if(showPass == true){setshowPass(false)}else {setshowPass(true)}}}> 
                  {showPass ? <VisibilityIcon/> : <VisibilityOffIcon/>}
               </div>
               
               <div id="general1">
-             <div class="signuplink">
+             <div className="signuplink">
                 Don't have an account? <Link to="/sign-up">Signup</Link>
             </div>
         <input type="submit" value="Login"/>

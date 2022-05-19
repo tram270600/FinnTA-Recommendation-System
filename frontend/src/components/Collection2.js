@@ -41,7 +41,7 @@ function Collection2() {
                     <div class="view_Item"><button>View set<i class="fas fa-arrow-right"></i></button></div>
                    </div>
                <div className="detailbox">
-                   <div class="product-name">{ c.set_name } {c.id}</div>
+                   <div className="product-name">{ c.set_name } {c.id}</div>
                    <div className='product-description'>Collection includes {c.product_idList.length} items</div>
                </div>
             </div>

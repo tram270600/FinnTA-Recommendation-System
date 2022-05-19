@@ -32,7 +32,7 @@ const AddPhoto = () => {
         <button className="delete-photosup" 
         // onClick={()=>setSelectedImage(null)}
         onClick={(e) => [setSelectedImage(null), addBorder(e)]}
-        ><i class="fas fa-times"></i></button>
+        ><i className="fas fa-times"></i></button>
         </div>
       )}
       <input

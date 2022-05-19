@@ -44,9 +44,9 @@ function Collection() {
                 <div className="save_2" onClick={()=>{if(saveItem2 == true){setsaveItem2(false)}else {setsaveItem2(true)}}}> 
                 <button>{saveItem2 ? <BookmarkIcon style={{ fill: '#025588' }} /> : <BookmarkBorderIcon style={{ fill: '#025588' }}/>}</button>
                 </div>
-                <div class="symbol2"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
-                <div class="symbol1"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
-                <div class="viewItem1"><button><ArrowForwardIcon style={{ fill: '#025588'}}/></button></div>
+                <div className="symbol2"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
+                <div className="symbol1"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
+                <div className="viewItem1"><button><ArrowForwardIcon style={{ fill: '#025588'}}/></button></div>
             </div>
        
             </div>
@@ -70,9 +70,9 @@ function Collection() {
                 <div className="save_4" onClick={()=>{if(saveItem4 == true){setsaveItem4(false)}else {setsaveItem4(true)}}}> 
                 <button>{saveItem4 ? <BookmarkIcon style={{ fill: '#025588' }} /> : <BookmarkBorderIcon style={{ fill: '#025588' }}/>}</button>
                 </div>
-                <div class="symbol3"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
-                <div class="symbol4"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
-                <div class="viewItem2"><button><ArrowForwardIcon style={{ fill: '#025588'}}/></button></div>
+                <div className="symbol3"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
+                <div className="symbol4"><img src={process.env.PUBLIC_URL + `/Images/vector.png` } /></div>
+                <div className="viewItem2"><button><ArrowForwardIcon style={{ fill: '#025588'}}/></button></div>
             </div>
         </div>
         <div className="cltCard3">

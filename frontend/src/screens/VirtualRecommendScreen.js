@@ -13,6 +13,9 @@ import productData from '../data/products'
 import '../styles/virtualRecommend.scss'
 import html2canvas from 'html2canvas';
 
+import { searchImage, helloXam } from '../action/getImageOnCategory';
+import { image } from 'cloudinary/lib/cloudinary';
+
 
 function VirtualRecommendScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
@@ -22,11 +25,20 @@ function VirtualRecommendScreen(props) {
   const [set_img, setImage] = React.useState("");
   const [isPending, setIsPending] = useState(false);
   const [categories, setCategory] = useState(null);
-
+  const [productImages, setProductImages] = useState([])
+ 
   useEffect(() => {
     console.log('Image Capture', set_img);
   }, [set_img])
 
+  useEffect(() => {
+    async function fetchData(){
+      const data = await searchImage('hats')
+      console.log("djdjd", data)
+      setProductImages(data)
+    }
+    fetchData();
+  },[])
 
   useEffect(()=> {
     fetch('http://localhost:8000/groupCategory')
@@ -38,17 +50,20 @@ function VirtualRecommendScreen(props) {
       setCategory(data);
     })
   }, [])
+
 // GET /resources/:resource_type/tags/:tag
-  useEffect(()=> {
-    fetch('https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/')
-    .then(res => {
-      return console.log(res)
-    })
-    .then(data => {
-      console.log("Category Data from Cloudinary", data);
-      setCategory(data);
-    })
-  }, [])
+// https://api.cloudinary.com/v1_1/{{cloud_name}}/tags/:resource_type
+  // useEffect(()=> {
+  //   fetch('https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/')
+  //   // fetch('https://api.cloudinary.com/v1_1/tramnguyen2706/tags/:resource_type')
+  //   .then(res => {
+  //     return console.log(res)
+  //   })
+  //   .then(data => {
+  //     console.log("Category Data from Cloudinary", data);
+  //     setCategory(data);
+  //   })
+  // }, [])
 
   const handleSubmit = async (e) => {
     const set_image = await doCapture();
@@ -206,11 +221,25 @@ function VirtualRecommendScreen(props) {
                           productData.products.filter(product => product.pcategory === category).map((pro) => ( */}
                             <div className="item-box">
                               {/* <img src="https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/187591410.jpg" alt="hello" onClick={() => addProductToSet()}></img> */}
+                              {/* <button onClick={window['alertHello']}>alert</button> */}
+                              {/* <button onClick={searchImage(category)}>alert2</button>  */}
+                              <button onClick={helloXam}>alert2</button> 
+                              
+                              {productImages && productImages.map(image => 
+                              (
                               <Image 
                                 cloudName="tramnguyen2706" 
                                 publicId="accessories/187591410"
                                 loading="lazy">
                               </Image>
+                              ))}
+                              {/* <Image 
+                                cloudName="tramnguyen2706" 
+                                publicId="accessories/187591410"
+                                loading="lazy">
+                              </Image> */}
+
+
                               <a href={`/product/`}>
                                 <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
                               </a>  

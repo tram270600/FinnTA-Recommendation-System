@@ -25,20 +25,37 @@ function VirtualRecommendScreen(props) {
   const [set_img, setImage] = React.useState("");
   const [isPending, setIsPending] = useState(false);
   const [categories, setCategory] = useState(null);
-  const [productImages, setProductImages] = useState([])
- 
+  const [productImages, setProductImages] = useState([]);
+  const [imageIds, setImageIds] = useState();
+
+  // const loadImages = async () => {
+  //   try {
+  //     // relative path, not specify localhost:3001/api/images because we using proxy configuration
+  //       const res = await fetch('/api/images');
+  //       const data = await res.json();
+  //       console.log(data);
+  //       setImageIds(data);
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+  useEffect(() => {  //callback function will run anytime sth in array changing
+    async function loadImages(){
+      try { // relative path, not specify localhost:3001/api/images because we using proxy configuration
+        const res = await fetch('/api/images/romper');
+        const data = await res.json();
+        console.log(data);
+        setImageIds(data);
+      } catch (error) {
+        console.error(error)
+      }}
+    loadImages();
+  }, [])
+
   useEffect(() => {
     console.log('Image Capture', set_img);
   }, [set_img])
-
-  useEffect(() => {
-    async function fetchData(){
-      const data = await searchImage('hats')
-      console.log("djdjd", data)
-      setProductImages(data)
-    }
-    fetchData();
-  },[])
 
   useEffect(()=> {
     fetch('http://localhost:8000/groupCategory')
@@ -53,17 +70,6 @@ function VirtualRecommendScreen(props) {
 
 // GET /resources/:resource_type/tags/:tag
 // https://api.cloudinary.com/v1_1/{{cloud_name}}/tags/:resource_type
-  // useEffect(()=> {
-  //   fetch('https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/')
-  //   // fetch('https://api.cloudinary.com/v1_1/tramnguyen2706/tags/:resource_type')
-  //   .then(res => {
-  //     return console.log(res)
-  //   })
-  //   .then(data => {
-  //     console.log("Category Data from Cloudinary", data);
-  //     setCategory(data);
-  //   })
-  // }, [])
 
   const handleSubmit = async (e) => {
     const set_image = await doCapture();
@@ -211,67 +217,30 @@ function VirtualRecommendScreen(props) {
                   <div className="category-amount-component">({categories[0][category].length})</div>
                 </div>
                 {categories[0][category].map((subcategory,index) => 
-                  (
-                  <>
-                   <Collapsible key={subcategory[0]} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
+                (<>
+                  <Collapsible key={subcategory[0]} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
                    The index of subcategory is {subcategory[0]} <br/><br/>
                    Click <i>Collapse</i> to hide everything... <br/><br/>
                     <div className="category-item">
-                      {/* {(productData.products.filter(product => product.pcategory === category).length !== 0) ?
-                          productData.products.filter(product => product.pcategory === category).map((pro) => ( */}
-                            <div className="item-box">
-                              {/* <img src="https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/187591410.jpg" alt="hello" onClick={() => addProductToSet()}></img> */}
-                              {/* <button onClick={window['alertHello']}>alert</button> */}
-                              {/* <button onClick={searchImage(category)}>alert2</button>  */}
-                              <button onClick={helloXam}>alert2</button> 
-                              
-                              {productImages && productImages.map(image => 
-                              (
-                              <Image 
-                                cloudName="tramnguyen2706" 
-                                publicId="accessories/187591410"
-                                loading="lazy">
-                              </Image>
-                              ))}
-                              {/* <Image 
-                                cloudName="tramnguyen2706" 
-                                publicId="accessories/187591410"
-                                loading="lazy">
-                              </Image> */}
-
-
-                              <a href={`/product/`}>
-                                <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
-                              </a>  
-                            </div>
-                          {/* // )) : 
-                        // <div> <span> You do not have any Saved Item or Product in {category} category </span></div>   */}
-                      {/* } */}
+                      {/* <button onClick={helloXam}>alert2</button>  */}
+                      {imageIds ? imageIds.map((imageId, index) => (
+                        <div className="item-box">
+                          <Image 
+                            key={imageId}
+                            cloudName="tramnguyen2706" 
+                            publicId={imageId}
+                            loading="lazy">
+                           </Image>
+                           <a href={`/product/`}><button className="view-detail"> <i class="fas fa-arrow-right"></i> </button></a>  
+                         </div>
+                      )): <div> <span> You do not have any Saved Item or Product in {category} category </span></div>}
                     </div>
                    </Collapsible>
-                   {/* <img src="https://res.cloudinary.com/tramnguyen2706/image/upload/v1652724470/accessories/187591410.jpg"></img> */}
                   </>
-                  )
-                  )
-                }
-                 {/* <div className="category-item">
-                  {(productData.products.filter(product => product.pcategory === category).length !== 0) ?
-                      productData.products.filter(product => product.pcategory === category).map((pro) => (
-                        <div className="item-box">
-                          <img src={pro.product_image} alt={pro.product_name} onClick={() => addProductToSet(pro)}></img>
-                          <a href={`/product/${pro.product_id}`}>
-                            <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
-                          </a>  
-                        </div>
-                      )) : 
-                    <div> <span> You do not have any Saved Item or Product in {category} category </span></div>  
-                  }
-                </div> */}
+                ))}
               </div>
             ))}
           </div>
-           
-          
         </div>
 
         <div className="left-content">
@@ -294,17 +263,12 @@ function VirtualRecommendScreen(props) {
                             <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
                           </a>  
                         </div>
-                       
-                      )) : 
-                    <div> <span> You do not have any Saved Item or Product in {cates} category </span></div>  
+                      )) : <div> <span> You do not have any Saved Item or Product in {cates} category </span></div>  
                   }
                   </div>
               </div>
             ))}
-
           </div>
-           
-          
         </div>
       </div>
     </div>

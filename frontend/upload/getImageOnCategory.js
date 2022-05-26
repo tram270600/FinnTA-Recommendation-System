@@ -15,11 +15,12 @@ function getImageOnCategory(){
     function(error, result) { console.log(result, error) });   
 }
 
-function searchImage(category){
+function searchImage(category, tags){
     let arrImageCategory = [];
 
     cloudinary.search
-    .expression(`folder:${category}/*`)
+    // .expression(`folder:${category}/* AND -tags=${tags}`)
+    .expression(`tags=${tags}`)
     .sort_by('public_id','desc')
     .max_results(5)
     .execute()
@@ -37,13 +38,4 @@ function searchImage(category){
 }
 
 // getImageOnCategory();
-searchImage("hats");
-// async function he(){
-//     let arr = await searchImage('hats');
-//     console.log("hhehe: ", arr.length);
-// }
-
-// export function helloXam(){
-//     alert("Xam");
-// }
-// he();
+searchImage("bottoms","skirt");

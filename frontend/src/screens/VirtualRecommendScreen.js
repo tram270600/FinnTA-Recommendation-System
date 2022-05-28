@@ -16,7 +16,6 @@ import html2canvas from 'html2canvas';
 import { searchImage, helloXam } from '../action/getImageOnCategory';
 import { image } from 'cloudinary/lib/cloudinary';
 
-
 function VirtualRecommendScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
   const product_idList = [];
@@ -25,37 +24,48 @@ function VirtualRecommendScreen(props) {
   const [set_img, setImage] = React.useState("");
   const [isPending, setIsPending] = useState(false);
   const [categories, setCategory] = useState(null);
-  const [productImages, setProductImages] = useState([]);
-  const [imageIds, setImageIds] = useState();
+  const [searchedArray, setSearchedArray] = useState("");
+  const [searchString, setSearchString] = useState("");
 
-  // const loadImages = async () => {
-  //   try {
-  //     // relative path, not specify localhost:3001/api/images because we using proxy configuration
-  //       const res = await fetch('/api/images');
-  //       const data = await res.json();
-  //       console.log(data);
-  //       setImageIds(data);
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+    // Initialize as array
+  const [antecedents, setAntecedents] = useState([]);
 
-  useEffect(() => {  //callback function will run anytime sth in array changing
-    async function loadImages(){
-      try { // relative path, not specify localhost:3001/api/images because we using proxy configuration
-        const res = await fetch('/api/images/romper');
-        const data = await res.json();
-        console.log(data);
-        setImageIds(data);
-      } catch (error) {
-        console.error(error)
-      }}
-    loadImages();
-  }, [])
+  // Initialize as object
+  const [data, setData] = useState({});
+  const showCategory = async (subcategory) => {
+    // relative path, not specify localhost:3001/api/images because we using proxy configuration
+    try { 
+      const res = await fetch(`/api/images/${subcategory}`);
+      const dataCate = await res.json();
+      // console.log(dataCate);
+      setData(data => ({
+        ...data,
+        [subcategory]: dataCate
+      }));
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-  useEffect(() => {
-    console.log('Image Capture', set_img);
-  }, [set_img])
+  const addAntecedent = (imageId) => {
+    const item = imageId.substring(imageId.indexOf('/') + 1)
+    try { 
+      setAntecedents(antecedents => [
+        ...antecedents,
+        item
+      ])
+      console.log(antecedents);
+    } catch (error) {
+      console.error(error)
+    }
+    if (antecedents && antecedents.length !== 0) {
+      findMatchingItem(antecedents);
+    };
+  }
+
+  // useEffect(() => {
+  //   console.log('Image Capture', set_img);
+  // }, [set_img])
 
   useEffect(()=> {
     fetch('http://localhost:8000/groupCategory')
@@ -63,10 +73,29 @@ function VirtualRecommendScreen(props) {
       return res.json()
     })
     .then(data => {
-      console.log("Fetch Category Data", data);
+      // console.log("Fetch Category Data", data);
       setCategory(data);
     })
   }, [])
+
+  const findMatchingItem = (antecedents) => {
+    console.log("Given Antecedents: ", antecedents);
+   
+    const inputItem = antecedents.map(x => "'" + x + "'").toString();
+    const antecedentsList = `{${inputItem}}`;
+
+    const string = `{'76074145', '82247874'}`;
+    // console.log(antecedentsList, "VS", string);
+
+    fetch(`http://localhost:8000/mixMatchRule?antecedents=${antecedentsList}`)
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      (data.length > 0) ? console.log("Fetch Association Rule", data) : console.log("There is nothing suit with");
+      setSearchedArray(data);
+    })
+  }
 
 // GET /resources/:resource_type/tags/:tag
 // https://api.cloudinary.com/v1_1/{{cloud_name}}/tags/:resource_type
@@ -100,7 +129,6 @@ function VirtualRecommendScreen(props) {
     }
   
     function dragMouseDown(e) {
-      console.log(window.innerWidth, window.innerHeight)
       e = e || window.event;
       e.preventDefault();
       // get the mouse cursor position at startup:
@@ -128,7 +156,6 @@ function VirtualRecommendScreen(props) {
       /* stop moving when mouse button is released:*/
       document.onmouseup = null;
       document.onmousemove = null;
-      console.log(pos1, pos2, pos3, pos4);
     }
   }
 
@@ -136,36 +163,45 @@ function VirtualRecommendScreen(props) {
     const image = props.product_image;
 
     const node = document.createElement("div");
-    node.innerHTML = "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
+    node.innerHTML = "<div id='mixmatch"+props.product_id+"'><div id='mixmatchheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
     document.getElementsByClassName("outfit-look")[0].appendChild(node);
 
     document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",() => deleteSelectItem(props.product_id));
     
     product_idList.push(props.product_id);
-    addDragEnable();
+    addDragEnable('mixmatch');
   }
 
-  function addDragEnable(){
+  function addDragEnable(divName){
     product_idList.forEach(function(item, index, array) {
       console.log(item, index)
-      dragElement(document.getElementById("mydiv"+item));
+      dragElement(document.getElementById(`${divName}`+item));
     })
   }
 
   const deleteSelectItem = (deleteItem) => {
     var index = product_idList.indexOf(deleteItem);
+    console.log("Item to delete: ",deleteItem);
 
+    // Check whether product can be mix n match
+    if (deleteItem.indexOf('/') !== -1){
+      const item = deleteItem.substring(deleteItem.indexOf('/') + 1)
+      setAntecedents(antecedents.filter(antecedent => antecedent !== item))
+      console.log(antecedents);
+      findMatchingItem(antecedents);
+    }
+    
     //Remove item from selected item list
     if (index !== -1) {
         product_idList.splice(index, 1);
     }
-    var element = document.getElementById('mydiv' + deleteItem ); // will return element
+    var element = document.getElementById('mixmatch' + deleteItem ); // will return element
     element.parentNode.removeChild(element); // will remove the element from DOM
   }
 
   //function for button
   function restart(){
-    document.getElementsByClassName("product-image")[0].innerHTML = "";
+    document.getElementsByClassName("outfit-look")[0].innerHTML = "";
      product_idList.forEach(function(item, index, array) {
       product_idList.pop(item);
     })
@@ -174,7 +210,7 @@ function VirtualRecommendScreen(props) {
   //Capture image of new Set
   async function doCapture(){
     await hiddenCloseOnItem();
-     return html2canvas(document.getElementsByClassName("product-image")[0]).then(
+     return html2canvas(document.getElementsByClassName("outfit-look")[0]).then(
        function (canvas){
         setImage(canvas.toDataURL("image/jpeg", 0.9));
         set_img != "" && console.log("In Capture return pciture: ", set_img);
@@ -185,7 +221,21 @@ function VirtualRecommendScreen(props) {
   async function hiddenCloseOnItem(){
       const element = document.querySelectorAll("[class*=delete-photosup]");
       return element.forEach(e => e.style.visibility = "hidden");
+  }
 
+  function addProductToMixMatch(props) {
+    const imageId = props
+    console.log(props);
+    const image = `<img src = http://res.cloudinary.com/tramnguyen2706/image/upload/v1/${imageId} alt='productPic'></img>`
+
+    const node = document.createElement("div");
+    node.innerHTML = "<div id='mixmatch"+imageId+"'><div id='mixmatchheader'></div><button class='delete-photosup"+imageId+"'><i class='fas fa-times'></i></button>"+ image +"</div>"
+    document.getElementsByClassName("outfit-look")[0].appendChild(node);
+    document.getElementsByClassName(`delete-photosup${imageId}`)[0].addEventListener("click",() => deleteSelectItem(imageId));
+    
+    product_idList.push(imageId);
+    addDragEnable('mixmatch');
+    addAntecedent(imageId);
   }
 
   //Captialize Category group's name
@@ -217,14 +267,14 @@ function VirtualRecommendScreen(props) {
                   <div className="category-amount-component">({categories[0][category].length})</div>
                 </div>
                 {categories[0][category].map((subcategory,index) => 
-                (<>
-                  <Collapsible key={subcategory[0]} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
-                   The index of subcategory is {subcategory[0]} <br/><br/>
-                   Click <i>Collapse</i> to hide everything... <br/><br/>
+                {
+                  const indexOfCategory = subcategory[0];
+                  const categoryName = subcategory[1];
+                  return  (<>
+                  <Collapsible showCategory={e => showCategory(categoryName)} key={indexOfCategory} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
                     <div className="category-item">
-                      {/* <button onClick={helloXam}>alert2</button>  */}
-                      {imageIds ? imageIds.map((imageId, index) => (
-                        <div className="item-box">
+                      {data[categoryName] ? data[categoryName].map((imageId, index) => (
+                        <div className="item-box" onClick={() => addProductToMixMatch(imageId)} >
                           <Image 
                             key={imageId}
                             cloudName="tramnguyen2706" 
@@ -233,17 +283,17 @@ function VirtualRecommendScreen(props) {
                            </Image>
                            <a href={`/product/`}><button className="view-detail"> <i class="fas fa-arrow-right"></i> </button></a>  
                          </div>
-                      )): <div> <span> You do not have any Saved Item or Product in {category} category </span></div>}
+                      )): <div> <span> Loading product in <strong>{capitalize(categoryName)} category</strong> </span></div>}
                     </div>
                    </Collapsible>
                   </>
-                ))}
+                )})}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="left-content">
+        <div className="mixmatch-content">
           <div className="outfit-look">
           </div>
         </div>

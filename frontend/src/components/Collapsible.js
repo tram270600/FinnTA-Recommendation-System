@@ -4,9 +4,10 @@ import '../styles/Collapsible.scss'
 
 
 function Collapsible(props) {
+  const {showCategory, defaultExpanded, collapsedHeight, title} = props;
     const config = {
-      defaultExpanded: props.defaultExpanded || false,
-      collapsedHeight: props.collapsedHeight || 0
+      defaultExpanded: defaultExpanded || false,
+      collapsedHeight: collapsedHeight || 0
     };
     const [ isExpanded, setExpanded ] = useState(false);
     const { getCollapseProps, getToggleProps } = useCollapse({ config });
@@ -16,11 +17,10 @@ function Collapsible(props) {
             setExpanded(!isExpanded);
     }
     return (
-        <div className="collapsible">
+        <div className="collapsible" onClick={showCategory}>
             <div className="header" {...getToggleProps({onClick: handleOnClick})}>
-                {/* {isExpanded ? 'Collapse' : 'Expand'} */}
-              {/* <div className="control-collapse"></div> */}
-              <div className="title">{props.title}</div>
+            {/* <div className="title">{props.title}</div> */}
+              <div className="title">{title}</div>
               <div className="icon">
                 <i className={'fas fa-chevron-' + (isExpanded ? 'up' : 'down')}></i>
               </div>

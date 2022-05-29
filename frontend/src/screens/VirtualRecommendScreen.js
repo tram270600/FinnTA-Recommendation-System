@@ -16,6 +16,13 @@ import html2canvas from 'html2canvas';
 import { searchImage, helloXam } from '../action/getImageOnCategory';
 import { image } from 'cloudinary/lib/cloudinary';
 
+// Tab Switch Panel
+import Box from '@material-ui/core/Box'
+import Tab from '@material-ui/core/Tab';
+import TabContext from '@material-ui/lab/TabContext';
+import TabList from '@material-ui/lab/TabList';
+import TabPanel from '@material-ui/lab/TabPanel';
+
 function VirtualRecommendScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
   const product_idList = [];
@@ -26,6 +33,11 @@ function VirtualRecommendScreen(props) {
   const [categories, setCategory] = useState(null);
   const [searchedArray, setSearchedArray] = useState("");
   const [searchString, setSearchString] = useState("");
+  const [tabSwitch, setTabSwitch] = React.useState('1');
+
+  const handleTabSwitch = (event, newValue) => {
+    setTabSwitch(newValue);
+  };
 
     // Initialize as array
   const [antecedents, setAntecedents] = useState([]);
@@ -259,38 +271,75 @@ function VirtualRecommendScreen(props) {
 
       <div className="page-content">
         <div className="content-right">
-          <div className="item-inoutput-list">
-            {categories && Object.keys(categories[0]).map((category) => (
-              <div className="category-content">
-                <div className="category-heading">
-                  <div className="category-name">{capitalize(category)}</div>
-                  <div className="category-amount-component">({categories[0][category].length})</div>
-                </div>
-                {categories[0][category].map((subcategory,index) => 
-                {
-                  const indexOfCategory = subcategory[0];
-                  const categoryName = subcategory[1];
-                  return  (<>
-                  <Collapsible showCategory={e => showCategory(categoryName)} key={indexOfCategory} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
-                    <div className="category-item">
-                      {data[categoryName] ? data[categoryName].map((imageId, index) => (
-                        <div className="item-box" onClick={() => addProductToMixMatch(imageId)} >
-                          <Image 
-                            key={imageId}
-                            cloudName="tramnguyen2706" 
-                            publicId={imageId}
-                            loading="lazy">
-                           </Image>
-                           <a href={`/product/`}><button className="view-detail"> <i class="fas fa-arrow-right"></i> </button></a>  
-                         </div>
-                      )): <div> <span> Loading product in <strong>{capitalize(categoryName)} category</strong> </span></div>}
-                    </div>
-                   </Collapsible>
-                  </>
-                )})}
+        <Box sx={{ width: '100%', typography: 'body1' }}>
+          <TabContext value={tabSwitch}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleTabSwitch} aria-label="lab API tabs example" indicatorColor="primary">
+                <Tab label="My Closet" value="1" />
+                <Tab label="All Product" value="2" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+            <div className="content-right">
+              <div className="item-inoutput-list">
+                {categoryData.map((cates) => (
+                    <div className="cate-content">
+                    <div className="cate-name">{cates}</div>
+                      <div className="cate-item">
+                        {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
+                          productData.products.filter(product => product.pcategory == cates).map((pro) => (
+                            
+                            <div className="item-box">
+                              <img src={pro.product_image} onClick={() => addProductToSet(pro)}></img>
+                              <a href={`/product/${pro.product_id}`}>
+                                <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
+                              </a>  
+                            </div>
+                          )) : <div> <span> You do not have any Saved Item or Product in {cates} category </span></div>  
+                      }
+                      </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+            </TabPanel>
+            <TabPanel value="2">
+              <div className="item-inoutput-list">
+                {categories && Object.keys(categories[0]).map((category) => (
+                  <div className="category-content">
+                    <div className="category-heading">
+                      <div className="category-name">{capitalize(category)}</div>
+                      <div className="category-amount-component">({categories[0][category].length})</div>
+                    </div>
+                    {categories[0][category].map((subcategory,index) => 
+                    {
+                      const indexOfCategory = subcategory[0];
+                      const categoryName = subcategory[1];
+                      return  (<>
+                      <Collapsible showCategory={e => showCategory(categoryName)} key={indexOfCategory} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
+                        <div className="category-item">
+                          {data[categoryName] ? data[categoryName].map((imageId, index) => (
+                            <div className="item-box" onClick={() => addProductToMixMatch(imageId)} >
+                              <Image 
+                                key={imageId}
+                                cloudName="tramnguyen2706" 
+                                publicId={imageId}
+                                loading="lazy">
+                              </Image>
+                              <a href={`/product/`}><button className="view-detail"> <i class="fas fa-arrow-right"></i> </button></a>  
+                            </div>
+                          )): <div> <span> Loading product in <strong>{capitalize(categoryName)} category</strong> </span></div>}
+                        </div>
+                      </Collapsible>
+                      </>
+                    )})}
+                  </div>
+                ))}
+              </div>
+            </TabPanel>
+          </TabContext>
+        </Box>
+  
         </div>
 
         <div className="mixmatch-content">

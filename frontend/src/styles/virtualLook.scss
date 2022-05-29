@@ -54,7 +54,7 @@
 }
 .cate-item{
   display: flex;
-  width: 510px;
+  max-width: inherit;
   height: 180px;
   overflow-x: auto;
   // scrollbar-width: none;

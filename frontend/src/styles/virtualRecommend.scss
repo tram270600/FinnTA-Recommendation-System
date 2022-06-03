@@ -124,6 +124,12 @@
     width: 5px;
   }
 }
+.cate-item-recommend{
+  display: flex;
+  max-width: inherit;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
 
 
 /* Track */
@@ -248,3 +254,18 @@
     z-index: 10;
     }
   }
+
+.MuiBox-root {
+  > .MuiBox-root-2{
+    > .MuiTabPanel-root{
+      padding: 12px;
+    }
+  }
+}
+.content-right > .MuiBox-root > .MuiBox-root-2 > .MuiTabPanel-root {
+  padding: 12px;
+}
+
+.MuiTabPanel-root {
+  padding: 12px!important;
+}

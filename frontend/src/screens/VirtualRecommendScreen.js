@@ -12,6 +12,8 @@ import productData from '../data/products'
 
 import '../styles/virtualRecommend.scss'
 import html2canvas from 'html2canvas';
+// import Resizable from 're-resizable'
+// import Draggable from 'react-draggable'
 
 import { searchImage, helloXam } from '../action/getImageOnCategory';
 import { image } from 'cloudinary/lib/cloudinary';
@@ -34,6 +36,7 @@ function VirtualRecommendScreen(props) {
   const [searchedArray, setSearchedArray] = useState("");
   const [searchString, setSearchString] = useState("");
   const [tabSwitch, setTabSwitch] = React.useState('1');
+  const _ = require("lodash");  
 
   const handleTabSwitch = (event, newValue) => {
     setTabSwitch(newValue);
@@ -41,9 +44,12 @@ function VirtualRecommendScreen(props) {
 
     // Initialize as array
   const [antecedents, setAntecedents] = useState([]);
+  const [cons, setConsequents] = useState([]);
+
 
   // Initialize as object
   const [data, setData] = useState({});
+  const [imagePath, setImagePath] = useState({});
   const showCategory = async (subcategory) => {
     // relative path, not specify localhost:3001/api/images because we using proxy configuration
     try { 
@@ -60,20 +66,22 @@ function VirtualRecommendScreen(props) {
   }
 
   const addAntecedent = (imageId) => {
-    const item = imageId.substring(imageId.indexOf('/') + 1)
+    const item = imageId.substring(imageId.indexOf('/') + 1);
     try { 
-      setAntecedents(antecedents => [
-        ...antecedents,
-        item
-      ])
-      console.log(antecedents);
+      setAntecedents(antecedents => {
+        const result = [...antecedents,item];
+        
+        return result;})
     } catch (error) {
       console.error(error)
     }
-    if (antecedents && antecedents.length !== 0) {
-      findMatchingItem(antecedents);
-    };
+    
+    // if (antecedents && antecedents.length !== 0) {
+    //   findMatchingItem(antecedents);
+    // };
   }
+  // Wrong if print antecedent inside the addAntecedent -> not asynronize
+  // console.log(antecedents); // Correct
 
   // useEffect(() => {
   //   console.log('Image Capture', set_img);
@@ -92,12 +100,16 @@ function VirtualRecommendScreen(props) {
 
   const findMatchingItem = (antecedents) => {
     console.log("Given Antecedents: ", antecedents);
-   
-    const inputItem = antecedents.map(x => "'" + x + "'").toString();
-    const antecedentsList = `{${inputItem}}`;
 
-    const string = `{'76074145', '82247874'}`;
-    // console.log(antecedentsList, "VS", string);
+    if (!Array.isArray(antecedents) || antecedents?.length === 0){
+      return
+    }
+
+    const inputItem = antecedents.map(x => "'" + x + "'").toString();
+    let antecedentsList = `{${inputItem}}`;
+    antecedentsList = antecedentsList.replaceAll(",", ", ");
+
+    console.log("Ua: ", antecedentsList);
 
     fetch(`http://localhost:8000/mixMatchRule?antecedents=${antecedentsList}`)
     .then(res => {
@@ -105,12 +117,54 @@ function VirtualRecommendScreen(props) {
     })
     .then(data => {
       (data.length > 0) ? console.log("Fetch Association Rule", data) : console.log("There is nothing suit with");
-      setSearchedArray(data);
+      for (let i = 0; i < data.length; i++){
+        const subConsequents = data[i].consequents
+        setConsequents(cons => {
+          const arr = subConsequents.substr(2, subConsequents.length - 4).split("', '").map(el => parseInt(el))
+          const result = [arr,...cons];
+          // console.log("result: ", result) Same with correct
+          return result;
+        });
+      }
+      // console.log("Consequent: ", cons) Wrong
     })
   }
 
+  // console.log("Consequent: ", cons) //Correct
+  useEffect(() => findMatchingItem(antecedents), [antecedents]);
+
+
+  const findPath = () => {
+    let pathImage = '';
+    if (!cons || cons?.length === 0){
+      return
+    }
+    cons && cons.map((consequent, index) => {
+      return consequent && consequent.map((c) => {
+        fetch(`http://localhost:8000/itemServer?item_id=${c}`)
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          pathImage = `${data[0].semantic}/${c}`;
+          setImagePath(imagePath => ({
+            ...imagePath,
+            [c]: pathImage
+          }));
+        })
+      return imagePath;
+      })
+    })
+
+    
+    return pathImage;
+  }
+
+  useEffect(findPath, [cons]);
+
 // GET /resources/:resource_type/tags/:tag
 // https://api.cloudinary.com/v1_1/{{cloud_name}}/tags/:resource_type
+
 
   const handleSubmit = async (e) => {
     const set_image = await doCapture();
@@ -199,6 +253,7 @@ function VirtualRecommendScreen(props) {
     if (deleteItem.indexOf('/') !== -1){
       const item = deleteItem.substring(deleteItem.indexOf('/') + 1)
       setAntecedents(antecedents.filter(antecedent => antecedent !== item))
+      setConsequents([]);
       console.log(antecedents);
       findMatchingItem(antecedents);
     }
@@ -217,6 +272,9 @@ function VirtualRecommendScreen(props) {
      product_idList.forEach(function(item, index, array) {
       product_idList.pop(item);
     })
+    setAntecedents([]);
+    setConsequents([]);
+    setImagePath({});
   }
 
   //Capture image of new Set
@@ -225,7 +283,7 @@ function VirtualRecommendScreen(props) {
      return html2canvas(document.getElementsByClassName("outfit-look")[0]).then(
        function (canvas){
         setImage(canvas.toDataURL("image/jpeg", 0.9));
-        set_img != "" && console.log("In Capture return pciture: ", set_img);
+        set_img !== "" && console.log("In Capture return pciture: ", set_img);
         return canvas.toDataURL("image/jpeg", 0.9);}).catch(e => console.log(e)); 
     ;
   }
@@ -255,7 +313,7 @@ function VirtualRecommendScreen(props) {
   {
     return s && s[0].toUpperCase() + s.slice(1);
   } 
-  
+
   return (
     <>
     <NavBar />
@@ -349,24 +407,34 @@ function VirtualRecommendScreen(props) {
 
         <div className="content-right">
           <div className="item-inoutput-list">
-            {categoryData.map((cates) => (
-                <div className="cate-content">
-                <div className="cate-name">{cates}</div>
-                  <div className="cate-item">
-                     {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
-                      productData.products.filter(product => product.pcategory == cates).map((pro) => (
-                        
-                        <div className="item-box">
-                          <img src={pro.product_image} onClick={() => addProductToSet(pro)}></img>
-                          <a href={`/product/${pro.product_id}`}>
-                            <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
-                          </a>  
-                        </div>
-                      )) : <div> <span> You do not have any Saved Item or Product in {cates} category </span></div>  
+            {(cons && cons.length !== 0) ? cons.map((consequent, index) =>
+            {
+            return <>
+              <div className="cate-content">
+                <div className="cate-name"> Option {index + 1} </div>
+                <div className='cate-item-recommend'>
+                  {consequent && imagePath && consequent.map((c) => {
+                    return<>
+                    <div className='category-item'>
+                      <div className="item-box" onClick={() => addProductToMixMatch(imagePath[c])}>
+                        <Image 
+                          key={imagePath[c]}
+                          cloudName="tramnguyen2706" 
+                          publicId={imagePath[c]}
+                          loading="lazy">
+                        </Image>
+                        <a href={`/product/`}>
+                          <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
+                        </a>  
+                      </div>
+                    </div>
+                    </>
                   }
-                  </div>
+                  )}
+                </div>
               </div>
-            ))}
+            </>
+            }) : <div> Nothing to mix with combination <strong> {antecedents} </strong></div> }
           </div>
         </div>
       </div>

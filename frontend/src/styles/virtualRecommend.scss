@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 :root {
   --primaryBlue: #025588;
+  --emptyGrey: #EEF6FC;
   --primaryPink: #FF7897;
   --white: #ffff;
   --lightgray: #F2F5FA;
@@ -16,6 +17,16 @@
   font-size: $size;
   line-height: $height;
 }
+
+@mixin fontSearchStyle($weight, $size, $height, $color) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+  color: $color;
+}
+
 .content-max-width{
   max-width: var(--maxwidth);
   margin: auto;
@@ -268,4 +279,76 @@
 
 .MuiTabPanel-root {
   padding: 12px!important;
+}
+
+//Decor empty result
+.emptyState{
+  text-align: center;
+  justify-content: baseline;
+  margin-top: 25%;
+}
+.noResult{
+  @include fontStyle(600,14px,20px);
+  color: var(--fontcolor);
+  margin: 20px;
+  text-align: center;
+  > i{
+    color: var(--primaryPink);
+    font-size: 24px;
+  }
+  strong {
+    color: var(--primaryPink);
+  }
+}
+.dot {
+  height: 300px;
+  width: 300px;
+  background-color: var(--emptyGrey);
+  border-radius: 50%;
+  // display: block;
+  margin: auto;
+  text-align: center;
+  > img{
+    margin-top: 25%;
+  }
+}
+
+.search-bar-item{
+  margin: 10px 10px 20px 0px;
+  width: auto;
+  height: 50px;
+  background: #F2F5FA;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include fontSearchStyle(600, 16px, 25px, #828282);
+  input{
+      background-color: transparent;
+      @include fontSearchStyle(600, 16px, 25px, #828282);
+      width: 90%;
+      box-sizing: border-box;
+      border: 2px solid transparent;
+      border-radius: 60px;
+      padding: 12px 20px 12px 20px;
+      outline: none;
+  }
+  .search-button{
+      float: right;
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      margin: auto;
+      background: #E2E6ED;
+      font-size: 20px;
+      cursor: pointer;
+  &:hover{
+      background: #c2d8ff;
+      color: black;
+  }
+  }
+
 }

@@ -13,9 +13,11 @@ import productData from '../data/products'
 import '../styles/virtualRecommend.scss'
 import html2canvas from 'html2canvas';
 // import Resizable from 're-resizable'
-// import Draggable from 'react-draggable'
+import Draggable from 'react-draggable';
+import { Resizable } from "re-resizable";
 
-import { searchImage, helloXam } from '../action/getImageOnCategory';
+// Import image
+import emptyClothing from '../images/emptyClothing.svg'
 import { image } from 'cloudinary/lib/cloudinary';
 
 // Tab Switch Panel
@@ -33,9 +35,13 @@ function VirtualRecommendScreen(props) {
   const [set_img, setImage] = React.useState("");
   const [isPending, setIsPending] = useState(false);
   const [categories, setCategory] = useState(null);
-  const [searchedArray, setSearchedArray] = useState("");
-  const [searchString, setSearchString] = useState("");
+  const [findProductById, setFindProductById] = useState("");
   const [tabSwitch, setTabSwitch] = React.useState('1');
+
+  const [query, setQuery] = useState()
+  const [search, setSearch] = useState("")
+  const [isLoadingSearch, setLoadingSearch] = useState(false)
+
   const _ = require("lodash");  
 
   const handleTabSwitch = (event, newValue) => {
@@ -110,6 +116,7 @@ function VirtualRecommendScreen(props) {
     antecedentsList = antecedentsList.replaceAll(",", ", ");
 
     console.log("Ua: ", antecedentsList);
+    let consUpdate = cons;
 
     fetch(`http://localhost:8000/mixMatchRule?antecedents=${antecedentsList}`)
     .then(res => {
@@ -118,13 +125,40 @@ function VirtualRecommendScreen(props) {
     .then(data => {
       (data.length > 0) ? console.log("Fetch Association Rule", data) : console.log("There is nothing suit with");
       for (let i = 0; i < data.length; i++){
-        const subConsequents = data[i].consequents
-        setConsequents(cons => {
-          const arr = subConsequents.substr(2, subConsequents.length - 4).split("', '").map(el => parseInt(el))
-          const result = [arr,...cons];
-          // console.log("result: ", result) Same with correct
-          return result;
-        });
+        const subConsequents = data[i].consequents;
+        const arr = subConsequents.substr(2, subConsequents.length - 4).split("', '").map(el => parseInt(el))
+
+        let indexExistRule = -1;
+        cons?.map((single, index) => {
+          console.log("Rule", single, "at:", index);
+          if(JSON.stringify(single) === JSON.stringify(arr)){
+            console.log("TRUNG NE");
+            consUpdate = consUpdate?.filter(e => JSON.stringify(e) !== JSON.stringify(arr))
+            console.log("Update filter out: ", consUpdate);
+            setConsequents(cons => {
+              if (JSON.stringify(consUpdate[0]) !== JSON.stringify(arr)){
+                const result = [arr,...consUpdate];
+                consUpdate = result;
+                console.log("ADD AFTER FILTER: ", result) //Same with correct
+                return result;
+              } 
+              else {
+                const result = [...consUpdate];
+                return result;
+              }
+            });
+            indexExistRule = index;
+            return index;
+          }
+        })
+
+        if(indexExistRule === -1){
+          setConsequents(cons => {
+            const result = [arr,...cons];
+            console.log("result: ", result) //Same with correct
+            return result;
+          });
+        }
       }
       // console.log("Consequent: ", cons) Wrong
     })
@@ -155,8 +189,6 @@ function VirtualRecommendScreen(props) {
       return imagePath;
       })
     })
-
-    
     return pathImage;
   }
 
@@ -298,7 +330,7 @@ function VirtualRecommendScreen(props) {
     console.log(props);
     const image = `<img src = http://res.cloudinary.com/tramnguyen2706/image/upload/v1/${imageId} alt='productPic'></img>`
 
-    const node = document.createElement("div");
+    const node = document.createElement('div');
     node.innerHTML = "<div id='mixmatch"+imageId+"'><div id='mixmatchheader'></div><button class='delete-photosup"+imageId+"'><i class='fas fa-times'></i></button>"+ image +"</div>"
     document.getElementsByClassName("outfit-look")[0].appendChild(node);
     document.getElementsByClassName(`delete-photosup${imageId}`)[0].addEventListener("click",() => deleteSelectItem(imageId));
@@ -313,6 +345,24 @@ function VirtualRecommendScreen(props) {
   {
     return s && s[0].toUpperCase() + s.slice(1);
   } 
+
+  const searchProductById = (keywordSearch) => {
+    setFindProductById("");
+    if (!keywordSearch) return;
+
+    let pathImage = '';
+    console.log("Recieve keyword: ", keywordSearch);
+    fetch(`http://localhost:8000/itemServer?item_id=${keywordSearch}`)
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      pathImage = data[0]?.semantic ? `${data[0]?.semantic}/${keywordSearch}` : null;
+      setFindProductById(pathImage);
+    })
+    console.log("Found item", findProductById);
+    return pathImage;
+  }
 
   return (
     <>
@@ -363,6 +413,47 @@ function VirtualRecommendScreen(props) {
             </TabPanel>
             <TabPanel value="2">
               <div className="item-inoutput-list">
+                <div class='search-bar-item'>
+                  <input type="text" name="search" id="search" size="20px" placeholder="Search Product ID..."
+                    onChange={(e) => {
+                      setQuery(e.target.value)
+                    }} required />
+
+                    <div className='search-button' onClick={() => {
+                      searchProductById(query)
+                      if (!isLoadingSearch)
+                      setSearch(query)
+                    }}>
+                      <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                {((findProductById) && (findProductById != null)) && 
+                    <>
+                    <div className='category-item'>
+                      <div className="item-box" onClick={() => addProductToMixMatch(findProductById)}>
+                        <Image 
+                          key={findProductById}
+                          cloudName="tramnguyen2706" 
+                          publicId={findProductById}
+                          loading="lazy">
+                        </Image>
+                        <a href={`/product/`}>
+                          <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
+                        </a>  
+                      </div>
+                    </div>
+                    </>
+                }
+                {(findProductById == null) && 
+                <>
+                  <div className='noResult'> 
+                  <i class="fas fa-exclamation-circle"></i>
+                  <div> Not found product with the keyword <strong> {query} </strong></div>
+                  <div> Please try another item </div> 
+                  </div>
+                </>
+                }
+
                 {categories && Object.keys(categories[0]).map((category) => (
                   <div className="category-content">
                     <div className="category-heading">
@@ -417,12 +508,16 @@ function VirtualRecommendScreen(props) {
                     return<>
                     <div className='category-item'>
                       <div className="item-box" onClick={() => addProductToMixMatch(imagePath[c])}>
-                        <Image 
+                      <Draggable>
+                          <Resizable>
+                          <Image 
                           key={imagePath[c]}
                           cloudName="tramnguyen2706" 
                           publicId={imagePath[c]}
                           loading="lazy">
-                        </Image>
+                          </Image>
+                          </Resizable>
+                        </Draggable>
                         <a href={`/product/`}>
                           <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
                         </a>  
@@ -434,7 +529,17 @@ function VirtualRecommendScreen(props) {
                 </div>
               </div>
             </>
-            }) : <div> Nothing to mix with combination <strong> {antecedents} </strong></div> }
+            }) : 
+            <div className='emptyState'>
+              <div className='dot'>
+                <img src={emptyClothing}  alt="" height="150px" width="150px"/>
+              </div>
+              <div className='noResult'> 
+              There is no result with the combination <strong> {antecedents} </strong>
+              <div> Please try another item </div>
+              </div>
+            </div>
+             }
           </div>
         </div>
       </div>

@@ -53,6 +53,14 @@ function VirtualRecommendScreen(props) {
   const [cons, setConsequents] = useState([]);
 
 
+  useEffect(()=> {
+    console.log("Props", props);
+    if (props.match.params.search_id) {
+      setTabSwitch('2'); 
+      searchProductById(props.match.params.search_id);
+    }
+  }, [])
+
   // Initialize as object
   const [data, setData] = useState({});
   const [imagePath, setImagePath] = useState({});

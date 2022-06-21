@@ -26,7 +26,7 @@ const App = () => {
         <Route exact path="/login" component={Login} ></Route>
         <Route path= "/sign-up" component={Register}></Route>
         <Route path="/look" component={VirtualLookScreen}></Route>
-        <Route path="/recommend" component={VirtualRecommendScreen}></Route>
+        <Route path="/recommend/:search_id?" component={VirtualRecommendScreen}></Route>
          
         <Route path="/upload" component={UploadItem}></Route>
         {/* <Route path="/profile" component={ProfileScreen}></Route> */}

@@ -12,7 +12,7 @@ function ProductSystemScreen(props) {
   const [pathImage, setPathImage] = useState(null);
   useEffect(()=> {
     console.log("Props", props);
-   fetch(`http://localhost:8000/itemServer?item_id=${props.match.params.id}`)
+   fetch(`http://localhost:8000/metadataServer?item_id=${props.match.params.id}`)
         .then(res => {
           return res.json()
         })
@@ -24,16 +24,15 @@ function ProductSystemScreen(props) {
         })
     }, [])
 
-    function trimmingProductId(strItemId){
-        console.log("Before trimming", strItemId);
-        const onlyId = strItemId?.substring(strItemId.indexOf('/') + 1);
-        console.log("After trimming", onlyId);
-        return onlyId;
-    }
-
   if (!product){
     return <div> Product Not Found</div>
   }
+
+    //Captialize Category group's name
+  function capitalize(s)
+  {
+    return s && s[0].toUpperCase() + s.slice(1);
+  } 
   return (
     <>
     <NavBar />
@@ -56,62 +55,56 @@ function ProductSystemScreen(props) {
         <div className="control-btn">
           <div className="func-name">
           <button className="control-blue"><img src={expand}></img></button>
-            <p>View 3D</p>
+            <p>Zoom</p>
           </div>
           <div className="func-name">
             <button className="control-pink"><img src={chat}></img></button>
             <p>Chat</p>
           </div>
+          <a href={`/recommend/${props.match.params.id}`}>
           <div className="func-name">
             <button className="control-blue"><img src={collect}></img></button>
-            <p>Save item</p>
+            <p>Collect</p>
           </div>
-          
+          </a>
         </div>
         <div className="content-right">
           <div className="title-component">
-            <div className="title">{product.product_name}</div>
-            <div className="description">{product.product_description}
+            <div className="title">{capitalize(product.name)}</div>
+            <div className="description">{product.description}
             </div>
-            <div className="price-detail">${product.product_price}</div>
+            {/* <div className="price-detail">$X.XX{product.product_price}</div> */}
             </div>
             <div className="product-info">
               <div className="addition-info">
                 <div className="sub-title">Additional Information</div>
                 <div className="sub-info"> 
-                    <p> Color </p>
-                    <span> {product.pcolor} </span>
+                    <p> Item ID </p>
+                    <span> {product.item_id} </span>
                 </div>
                 <div className="sub-info"> 
-                    <p> Category </p>
-                    <span> {product.pcategory} </span>
+                    <p> Category ID </p>
+                    <span> {product.category_id} </span>
                 </div>
                 <div className="sub-info"> 
-                    <p> Pattern </p>
-                    <span> {product.ppattern} </span>
-                </div>
-                <div className="sub-info"> 
-                    <p> Material </p>
-                    <span> {product.pmaterial} </span>
-                </div>
-                <div className="sub-info"> 
-                    <p> Occassion </p>
-                    <span> {product.poccassion} </span>
+                    <p> Category name </p>
+                    <span> {product.semantic} </span>
                 </div>
               </div>
               <div className="owner">
                 <div className="sub-title">Posted by</div>
                   <div className="owner-info">
-                    <img src={avatar} alt="post's owner"></img>
-                    <span>ubyii</span>
+                    {/* <img src={avatar} alt="post's owner"></img> */}
+                    <img src={process.env.PUBLIC_URL + `/Images/store.png`} />
+                    <span>Clothing Store</span>
                   </div>
               </div>
             </div>
-            <div className="supplementary-image">
+            {/* <div className="supplementary-image">
                 <div className="sub-title">Supplementary Image</div>
                 <div className="group-img">
                 </div>
-              </div>
+              </div> */}
         </div>
       </div>
     </div>

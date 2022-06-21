@@ -115,7 +115,7 @@ function VirtualRecommendScreen(props) {
     let antecedentsList = `{${inputItem}}`;
     antecedentsList = antecedentsList.replaceAll(",", ", ");
 
-    console.log("Ua: ", antecedentsList);
+    // console.log("Ua: ", antecedentsList);
     let consUpdate = cons;
 
     fetch(`http://localhost:8000/mixMatchRule?antecedents=${antecedentsList}`)
@@ -130,16 +130,12 @@ function VirtualRecommendScreen(props) {
 
         let indexExistRule = -1;
         cons?.map((single, index) => {
-          console.log("Rule", single, "at:", index);
           if(JSON.stringify(single) === JSON.stringify(arr)){
-            console.log("TRUNG NE");
             consUpdate = consUpdate?.filter(e => JSON.stringify(e) !== JSON.stringify(arr))
-            console.log("Update filter out: ", consUpdate);
             setConsequents(cons => {
               if (JSON.stringify(consUpdate[0]) !== JSON.stringify(arr)){
                 const result = [arr,...consUpdate];
                 consUpdate = result;
-                console.log("ADD AFTER FILTER: ", result) //Same with correct
                 return result;
               } 
               else {
@@ -155,7 +151,7 @@ function VirtualRecommendScreen(props) {
         if(indexExistRule === -1){
           setConsequents(cons => {
             const result = [arr,...cons];
-            console.log("result: ", result) //Same with correct
+            // console.log("result: ", result) //Same with correct
             return result;
           });
         }
@@ -201,7 +197,13 @@ function VirtualRecommendScreen(props) {
   const handleSubmit = async (e) => {
     const set_image = await doCapture();
     console.log("Set image: ", set_image);
-    const set = {set_img: set_image, owner_id, set_name, product_idList};
+    /* Create a set of clothes to POST to database*/
+    const set = {
+      set_img: set_image, 
+      owner_id, 
+      set_name, 
+      product_idList};
+
     e.preventDefault();
     setIsPending(true);
     console.log("Fetch Data:", set);
@@ -213,6 +215,7 @@ function VirtualRecommendScreen(props) {
       console.log("New set of clothes added");
       alert("New Collection is added successfully !");
       setIsPending(false);
+      restart();
     })
   }
 
@@ -335,6 +338,7 @@ function VirtualRecommendScreen(props) {
     document.getElementsByClassName("outfit-look")[0].appendChild(node);
     document.getElementsByClassName(`delete-photosup${imageId}`)[0].addEventListener("click",() => deleteSelectItem(imageId));
     
+    console.log("Length of added product", product_idList);
     product_idList.push(imageId);
     addDragEnable('mixmatch');
     addAntecedent(imageId);
@@ -351,7 +355,6 @@ function VirtualRecommendScreen(props) {
     if (!keywordSearch) return;
 
     let pathImage = '';
-    console.log("Recieve keyword: ", keywordSearch);
     fetch(`http://localhost:8000/itemServer?item_id=${keywordSearch}`)
     .then(res => {
       return res.json()
@@ -360,8 +363,12 @@ function VirtualRecommendScreen(props) {
       pathImage = data[0]?.semantic ? `${data[0]?.semantic}/${keywordSearch}` : null;
       setFindProductById(pathImage);
     })
-    console.log("Found item", findProductById);
     return pathImage;
+  }
+
+  function notAddToList(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
   }
 
   return (
@@ -430,14 +437,14 @@ function VirtualRecommendScreen(props) {
                 {((findProductById) && (findProductById != null)) && 
                     <>
                     <div className='category-item'>
-                      <div className="item-box" onClick={() => addProductToMixMatch(findProductById)}>
-                        <Image 
+                      <div className="item-box">
+                        <Image onClick={() => addProductToMixMatch(findProductById)}
                           key={findProductById}
                           cloudName="tramnguyen2706" 
                           publicId={findProductById}
                           loading="lazy">
                         </Image>
-                        <a href={`/product/`}>
+                        <a href={`/productServer/${findProductById}`}>
                           <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
                         </a>  
                       </div>
@@ -468,14 +475,14 @@ function VirtualRecommendScreen(props) {
                       <Collapsible showCategory={e => showCategory(categoryName)} key={indexOfCategory} title = {capitalize(subcategory[1])} defaultExpanded="false"> 
                         <div className="category-item">
                           {data[categoryName] ? data[categoryName].map((imageId, index) => (
-                            <div className="item-box" onClick={() => addProductToMixMatch(imageId)} >
-                              <Image 
+                            <div className="item-box">
+                              <Image onClick={() => addProductToMixMatch(imageId)} 
                                 key={imageId}
                                 cloudName="tramnguyen2706" 
                                 publicId={imageId}
                                 loading="lazy">
                               </Image>
-                              <a href={`/product/`}><button className="view-detail"> <i class="fas fa-arrow-right"></i> </button></a>  
+                              <a href={`/productServer/${imageId}`}><button className="view-detail"> <i class="fas fa-arrow-right"></i> </button></a>  
                             </div>
                           )): <div> <span> Loading product in <strong>{capitalize(categoryName)} category</strong> </span></div>}
                         </div>
@@ -507,10 +514,10 @@ function VirtualRecommendScreen(props) {
                   {consequent && imagePath && consequent.map((c) => {
                     return<>
                     <div className='category-item'>
-                      <div className="item-box" onClick={() => addProductToMixMatch(imagePath[c])}>
+                      <div className="item-box">
                       <Draggable>
                           <Resizable>
-                          <Image 
+                          <Image onClick={() => addProductToMixMatch(imagePath[c])}
                           key={imagePath[c]}
                           cloudName="tramnguyen2706" 
                           publicId={imagePath[c]}
@@ -518,7 +525,7 @@ function VirtualRecommendScreen(props) {
                           </Image>
                           </Resizable>
                         </Draggable>
-                        <a href={`/product/`}>
+                        <a href={`/productServer/${imagePath[c]}`}>
                           <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
                         </a>  
                       </div>

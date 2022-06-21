@@ -15,6 +15,7 @@ import ClothesObject from './screens/ClothesObject'
 import Shoes from './screens/Shoes'
 import No3DObjectFound from './screens/No3DObjectFound'
 import VirtualRecommendScreen from './screens/VirtualRecommendScreen'
+import ProductSystemScreen from './screens/ProductSystemScreen'
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/set/:id" component={SetDetailScreen}></Route>
         <Route path="/shoes" component={Shoes}></Route>
         <Route path="/notfound" component={No3DObjectFound}></Route>
+        <Route path="/productServer/:category/:id" component={ProductSystemScreen}></Route>
     </Switch>
       <>
         {/* <NavBar /> */}

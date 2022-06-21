@@ -2,31 +2,34 @@ import NavBar from '../components/NavBar'
 import expand from '../images/expand.svg'
 import chat from '../images/chat.svg'
 import collect from '../images/collect.svg'
-import productData from '../data/products'
 import '../styles/productDetail.scss'
 import avatar from '../images/avatar.png'
 import { useEffect, useState } from 'react'
-import data from '../data/accounts'
+import {Image} from 'cloudinary-react';
 
-function ProductDetailScreen(props) {
-  // const product = productData.products.find(x => x.product_id === props.match.params.product_id);
+function ProductSystemScreen(props) {
   const [product, setProduct] = useState(null);
+  const [pathImage, setPathImage] = useState(null);
   useEffect(()=> {
-      fetch('http://localhost:8000/products')
-      .then(res => {
-        return res.json()
-      })
-      .then(data => {
-        console.log("Fetch data from Product", data);
-        setProduct(data[props.match.params.id - 1]);
-      })
+    console.log("Props", props);
+   fetch(`http://localhost:8000/itemServer?item_id=${props.match.params.id}`)
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          console.log("Fetch data from Server product", data);
+          setProduct(data[0])
+          let path = `${props.match.params.category}/${props.match.params.id}`;
+          setPathImage(path);
+        })
     }, [])
 
-  function havePhotoSup(){
-    if(product.pphotosup.length !== 0) return true;
-      else return false;
-  }
-
+    function trimmingProductId(strItemId){
+        console.log("Before trimming", strItemId);
+        const onlyId = strItemId?.substring(strItemId.indexOf('/') + 1);
+        console.log("After trimming", onlyId);
+        return onlyId;
+    }
 
   if (!product){
     return <div> Product Not Found</div>
@@ -37,22 +40,22 @@ function ProductDetailScreen(props) {
     <div className="content-max-width">
       <div className="product-content">
         <div className="product-image">
-            <img src={product.product_image} alt="upload-image"></img>
-            
+            <Image
+                key={pathImage}
+                cloudName="tramnguyen2706" 
+                publicId={pathImage}
+                loading="lazy"
+                dpr="auto"
+                responsive
+                // width="100"
+                // crop="scale"
+                responsiveUseBreakpoints="true"
+                alt="upload-image">
+            </Image>
         </div>
         <div className="control-btn">
           <div className="func-name">
-            {product.id === 6 && 
-             <button className="control-blue" onClick={() => window.location.href='/shoes'}><img src={expand}></img> </button>
-            }
-
-            {product.id !== 6 && product.id !== 1 &&
-             <button className="control-blue" onClick={() => window.location.href='/notfound'} ><img src={expand}></img> </button>
-            }
-
-            {product.id === 1 && product.id !== 6 &&
-             <button className="control-blue" onClick={() => window.location.href='/object'} ><img src={expand}></img> </button>
-            }
+          <button className="control-blue"><img src={expand}></img></button>
             <p>View 3D</p>
           </div>
           <div className="func-name">
@@ -68,7 +71,6 @@ function ProductDetailScreen(props) {
         <div className="content-right">
           <div className="title-component">
             <div className="title">{product.product_name}</div>
-            {/* <div className="title">Product's name</div> */}
             <div className="description">{product.product_description}
             </div>
             <div className="price-detail">${product.product_price}</div>
@@ -108,19 +110,8 @@ function ProductDetailScreen(props) {
             <div className="supplementary-image">
                 <div className="sub-title">Supplementary Image</div>
                 <div className="group-img">
-                 {/* Check length of photo supplementary */}
-                 {(havePhotoSup() === true) ?
-                  product.pphotosup.map((photo) => (
-                    <div className="supply-img">
-                      {/* <img src={photo.default}></img>: use image inside the src */}
-                      {/* Use image in public folder */}
-                      <img src={photo}></img> 
-                    </div> )) : 
-                    <div> <span> Does not have any supplementary photo </span></div>  
-                  }
                 </div>
               </div>
-          
         </div>
       </div>
     </div>
@@ -128,4 +119,4 @@ function ProductDetailScreen(props) {
   );
 }
 
-export default ProductDetailScreen;
+export default ProductSystemScreen;

@@ -29,7 +29,12 @@ import TabPanel from '@material-ui/lab/TabPanel';
 
 function VirtualRecommendScreen(props) {
   const account = accountData.accounts.find(x => x.account_id === props.match.params.account_id);
-  const product_idList = [];
+  // const product_idListRef = useRef([]);
+  // const product_idList = product_idListRef.current;
+
+  const [product_idList, setProduct_idList] = useState([]);
+  const [resizeElement, setResizeElement] = useState([]);
+
   const [set_name, setName] = useState("Collection's item");
   const [owner_id, setOwner] = useState(1);
   const [set_img, setImage] = React.useState("");
@@ -227,66 +232,23 @@ function VirtualRecommendScreen(props) {
     })
   }
 
-  function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById(elmnt.id + "header")) {
-      /* if present, the header is where you move the DIV from:*/
-      document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-    } else {
-      /* otherwise, move the DIV from anywhere inside the DIV:*/
-      elmnt.onmousedown = dragMouseDown;
-    }
-  
-    function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // get the mouse cursor position at startup:
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
-    }
-  
-    function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      // set the element's new position:
-      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-    }
-  
-    function closeDragElement() {
-      /* stop moving when mouse button is released:*/
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
-  }
-
   function addProductToSet(props) {
-    const image = props.product_image;
+    // const image = props.product_image;
 
-    const node = document.createElement("div");
-    node.innerHTML = "<div id='mixmatch"+props.product_id+"'><div id='mixmatchheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
-    document.getElementsByClassName("outfit-look")[0].appendChild(node);
+    // const node = document.createElement("div");
+    // node.innerHTML = "<div id='mixmatch"+props.product_id+"'><div id='mixmatchheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
+    // document.getElementsByClassName("outfit-look")[0].appendChild(node);
 
-    document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",() => deleteSelectItem(props.product_id));
+    // document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",() => deleteSelectItem(props.product_id));
     
-    product_idList.push(props.product_id);
-    addDragEnable('mixmatch');
+    // // product_idList.push(props.product_id);
+    // setProduct_idList(product_idList => [...product_idList, props.product_id])
+    // addDragEnable('mixmatch');
+    console.log("Length of added product", product_idList, 'and props:', props);
+    setProduct_idList(product_idList => [...product_idList, props.product_id]);
+    setResizeElement(resizeElement => [...resizeElement, <ImageOwnResize path={props}/>])
   }
 
-  function addDragEnable(divName){
-    product_idList.forEach(function(item, index, array) {
-      console.log(item, index)
-      dragElement(document.getElementById(`${divName}`+item));
-    })
-  }
 
   const deleteSelectItem = (deleteItem) => {
     var index = product_idList.indexOf(deleteItem);
@@ -338,17 +300,9 @@ function VirtualRecommendScreen(props) {
 
   function addProductToMixMatch(props) {
     const imageId = props
-    console.log(props);
-    const image = `<img src = http://res.cloudinary.com/tramnguyen2706/image/upload/v1/${imageId} alt='productPic'></img>`
-
-    const node = document.createElement('div');
-    node.innerHTML = "<div id='mixmatch"+imageId+"'><div id='mixmatchheader'></div><button class='delete-photosup"+imageId+"'><i class='fas fa-times'></i></button>"+ image +"</div>"
-    document.getElementsByClassName("outfit-look")[0].appendChild(node);
-    document.getElementsByClassName(`delete-photosup${imageId}`)[0].addEventListener("click",() => deleteSelectItem(imageId));
-    
-    console.log("Length of added product", product_idList);
-    product_idList.push(imageId);
-    addDragEnable('mixmatch');
+    console.log("Length of added product", product_idList, "Sys:", props);
+    setProduct_idList(product_idList => [...product_idList, props]);
+    setResizeElement(resizeElement => [...resizeElement, <ImageResize path={imageId}/>])
     addAntecedent(imageId);
   }
 
@@ -374,10 +328,35 @@ function VirtualRecommendScreen(props) {
     return pathImage;
   }
 
-  function notAddToList(e) {
-    e.preventDefault();
-    console.log('The link was clicked.');
-  }
+  const ImageResize = (sourceImg) => { //Naming Component: Uppercase first letter
+    return (
+      <Draggable>
+        <div id={`mixmatch${sourceImg.path}`}>
+          <div id='mixmatchheader'></div>
+          <button className={`delete-photosup${sourceImg.path}`} onClick={() => deleteSelectItem(`${sourceImg.path}`)}>
+            <i class='fas fa-times'></i>
+          </button> 
+          <Resizable>
+          <img src ={`http://res.cloudinary.com/tramnguyen2706/image/upload/v1/${sourceImg.path}`} alt='productPic'></img>
+          </Resizable>
+        </div>
+      </Draggable>     
+    )}
+
+    const ImageOwnResize = (sourceImg) => { //Naming Component: Uppercase first letter
+      return (
+        <Draggable>
+          <div id={`mixmatch${sourceImg.path}`}>
+            <div id='mixmatchheader'></div>
+            <button className={`delete-photosup${sourceImg.path}`} onClick={() => deleteSelectItem(`${sourceImg.path}`)}>
+              <i class='fas fa-times'></i>
+            </button> 
+            <Resizable>
+            <img src={`${sourceImg.path.product_image}`} alt='hello'></img>
+            </Resizable>
+          </div>
+        </Draggable>     
+      )}
 
   return (
     <>
@@ -508,6 +487,7 @@ function VirtualRecommendScreen(props) {
 
         <div className="mixmatch-content">
           <div className="outfit-look">
+            {resizeElement.map(ele => ele)}
           </div>
         </div>
 

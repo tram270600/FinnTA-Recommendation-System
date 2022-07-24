@@ -1,0 +1,368 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --primaryBlue: #025588;
+  --lighBlue: #F3FCFE;
+  --primaryPink: #FF7897;
+  --white: #ffff;
+  --lightgray: #F2F5FA;
+  --secondaryBlue: #DCF9FF;
+  --fontcolor: #4F5665;
+  --fontcolorlight: #828282;
+  --maxwidth: 960px;
+}
+@mixin fontStyle($weight, $size, $height) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+}
+
+.content-max-width{
+    max-width: var(--maxwidth);
+    margin-top: 50px;
+    margin: auto;
+}
+
+.content__title {
+    @include fontStyle(800,65px,100px);
+    color: #04294D;
+}
+
+.content__intro {
+    @include fontStyle(500,16px,50px);
+    color: #025588;
+
+    span{
+        @include fontStyle(700,16px,50px);
+    }
+}
+.content__main{
+    display: flex;
+    flex-direction: row-reverse,
+}
+
+#intro span{
+    font-weight: bold;  
+}
+.center{
+    position: absolute;
+    left: calc((100vw - 960px)/2);
+    top:150px;
+    width:14vw;
+    background-color: transparent;
+}
+
+.center form{
+    position: absolute;
+    top:0px;
+    box-sizing: border-box;
+}
+
+form .txt_field{
+    position: relative;
+    border-bottom: 2px solid #c4c4c4;
+    margin: 44px 0;
+    width: 30vw;
+    top:10px;
+    }
+    .txt_field input{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+}
+.txt_field label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.txt_field span::before{
+content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #2691d9;
+    transition: .5s;
+}
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label{
+    top: -5px;
+    color: #2691d9;
+}
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before{
+    width: 100%;
+}
+.txt_field input{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+}
+.txt_field label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.txt_field span::before{
+content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #2691d9;
+    transition: .5s;
+}
+
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label{
+    top: -5px;
+    color: #2691d9;
+}
+
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before{
+    width: 100%;
+}
+
+.password1 {
+    position:relative;
+    right: 220px;
+    transform: translate(43vw,-70px);
+    cursor: pointer;
+}
+
+.confirm {
+    position:relative;
+    right: 220px;
+    transform: translate(43vw,-10px);
+    cursor: pointer;
+}
+form .txtfield_1{
+position: absolute;
+border-bottom: 2px solid #c4c4c4;
+margin: 44px 0;
+width: 30vw;
+top:360px;
+
+}
+.txtfield_1 input{
+width: 100%;
+padding: 0 5px;
+height: 40px;
+font-size: 16px;
+border: none;
+background: none;
+outline: none;
+}
+.txtfield_1 label{
+position: absolute;
+top: 50%;
+left: 5px;
+color: #adadad;
+transform: translateY(-50%);
+font-size: 16px;
+pointer-events: none;
+transition: .5s;
+}
+
+.txtfield_1 span::before{
+content: '';
+position: absolute;
+top: 40px;
+left: 0;
+width: 0%;
+height: 2px;
+background: #2691d9;
+transition: .5s;
+}
+.txtfield_1 input:focus ~ label,
+.txtfield_1 input:valid ~ label{
+top: -5px;
+color: #2691d9;
+}
+.txtfield_1 input:focus ~ span::before,
+.txtfield_1 input:valid ~ span::before{
+width: 100%;
+}
+.txtfield_1 input{
+width: 100%;
+padding: 0 5px;
+height: 40px;
+font-size: 16px;
+border: none;
+background: none;
+outline: none;
+}
+.txtfield_1 label{
+position: absolute;
+top: 50%;
+left: 5px;
+color: #adadad;
+transform: translateY(-50%);
+font-size: 16px;
+pointer-events: none;
+transition: .5s;
+}
+
+.txtfield_1 span::before{
+content: '';
+position: absolute;
+top: 40px;
+left: 0;
+width: 0%;
+height: 2px;
+background: #2691d9;
+transition: .5s;
+}
+.txtfield_1 input:focus ~ label,
+.txtfield_1 input:valid ~ label{
+top: -5px;
+color: #2691d9;
+}
+.txtfield_1 input:focus ~ span::before,
+.txtfield_1 input:valid ~ span::before{
+width: 100%;
+}
+
+.pass{
+margin: -5px 0 20px 5px;
+color: #a6a6a6;
+cursor: pointer;
+}
+.pass:hover{
+text-decoration: underline;
+}
+
+/*Right content*/
+.right-side{
+// position: absolute;
+}
+
+.sex__title{
+    @include fontStyle(500,16px,20px);
+    color: #828282;
+    margin-bottom: 20px;
+}
+
+#sex__button input{
+    height: 16px;
+    border: 2px;
+}
+
+#sex__button label{
+    @include fontStyle(500,16px,20px);
+    color: #828282;
+}
+
+.sex__button{
+    display: flex;
+    column-gap: 100px;
+}
+
+.sex__button__choice {
+    & label{
+        margin-left: 50px;
+    }
+}
+
+/*Choose role button*/
+.control__title{
+    @include fontStyle(500,16px,20px);
+    color: #828282;
+    margin: 50px 0px 20px 0px;
+}
+.control__role{
+    display: flex;
+    margin-top: 20px;
+    column-gap: 80px;
+}
+.rect1 button{
+    justify-content: center;
+    width :150px;
+    height: 150px;
+    background: var(--lighBlue);
+    border-radius: 24px;
+}
+ .rect2 button{
+    width :150px;
+    height: 150px;
+    justify-content: center;
+    background: var(--lighBlue);
+    border-radius: 24px;
+}
+.rect1 button:hover, .rect2 button:hover{
+    background: var(--lighBlue);
+    box-shadow: 0px 24px 30px rgba(89, 185, 219, 0.15);
+}
+.rect1 button:hover::after{
+    opacity:1;
+    cursor: pointer;
+}
+.rect1 button:focus, .rect2 button:focus{
+    border:3px solid var(--primaryBlue);
+}
+
+.rect1 img, .rect2 img{
+    position: relative;
+    max-width:100%;
+    max-height:100%;
+}
+
+/*Submit button*/
+#general {
+    text-align: center;
+    margin-top: 120px;
+}
+
+input[type="submit"]{
+    // position:absolute;
+    // top:700px;  
+    width: 337px;
+    height: 56px;
+    border: 1px solid;
+    border-radius: 100px;
+    background:  #025588;
+    margin-top: 20px;
+    @include fontStyle(700, 18px, 20px);
+    color: #e9f4fb;
+    cursor: pointer;
+    outline: none;
+    }
+
+    input[type="submit"]:hover{
+        border-color: #2691d9;
+        transition: .5s;
+    }
+    .signup_link{ 
+    font-size: 16px;
+    margin: auto;
+    color: #666666;
+    }
+    .signup_link a{
+    text-decoration: underline;
+    color: #2691d9;
+    }
+   

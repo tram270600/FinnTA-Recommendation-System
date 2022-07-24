@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --primaryBlue: #025588;
+  --primaryPink: #FF7897;
+  --white: #ffff;
+  --lightgray: #F2F5FA;
+  --secondaryBlue: #DCF9FF;
+  --fontcolor: #4F5665;
+  --fontcolorlight: #828282;
+  --maxwidth: 1280px;
+}
+@mixin fontStyle($weight, $size, $height) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+}
+
+/**Divide Layout**/
+.login__content{
+  display: flex;
+  justify-content: space-around;
+  flex: 1 1;
+}
+
+.login__content__left{
+  background-color: var(--primaryBlue);
+  width: 50vw;
+  height: 100vh;
+
+  > img {
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+  }
+}
+
+.login__content__right{
+  width: 50vw;
+  padding: 100px;
+  padding-top: 10%;
+
+  .login__header {
+    @include fontStyle(800, 60px, 104px);
+  }
+
+  .login__description {
+    @include fontStyle(600, 16px, 48px);
+    color: var(--primaryBlue);
+  }
+}
+
+
+.field__password{
+  display: flex;
+  width: 40vw;
+  position: relative;
+}
+
+/*Username Field*/
+.txtfield{
+  position: absolute;
+  border-bottom: 2px solid #c4c4c4;
+  margin: 20px 0;
+  width: 40vw;
+}
+
+.txtfield input{
+width: 100%;
+padding: 0 5px;
+height: 40px;
+font-size: 16px;
+border: none;
+background: none;
+outline: none;
+}
+.txtfield label{
+position: absolute;
+top: 50%;
+left: 5px;
+color: #adadad;
+transform: translateY(-50%);
+font-size: 16px;
+pointer-events: none;
+transition: .5s;
+}
+
+.txtfield span::before{
+content: '';
+position: absolute;
+top: 40px;
+left: 0;
+width: 0%;
+height: 2px;
+background: #2691d9;
+transition: .5s;
+}
+.txtfield input:focus ~ label,
+.txtfield input:valid ~ label{
+top: -5px;
+color: #2691d9;
+}
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before{
+width: 100%;
+}
+.txt_field input{
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+  }
+  .txtfield label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+  }
+  
+  .txtfield span::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+  }
+  .txtfield input:focus ~ label,
+  .txtfield input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+  }
+  .txtfield input:focus ~ span::before,
+  .txtfield input:valid ~ span::before{
+  width: 100%;
+  }
+
+/*Password Field*/
+.txtfield1{
+  position: absolute;
+  border-bottom: 2px solid #c4c4c4;
+  margin: 100px 0;
+  width: 40vw;
+}
+    
+.txtfield1 input{
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.txtfield1 span::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+  }
+  .txtfield1 input:focus ~ label,
+  .txtfield1 input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+  }
+
+.txtfield1 label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+  }
+
+  .txtfield1 input:focus ~ label,
+  .txtfield1 input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+  }
+  .txtfield1 input:focus ~ span::before,
+  .txtfield1 input:valid ~ span::before{
+  width: 100%;
+}
+
+.field__password__icon{
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  top: 110px;
+}
+
+.login__control{
+  text-align: center;
+  margin-top: 200px;
+
+  > .sign-up__link {
+    margin-bottom: 20px;
+  }
+
+  .underline{
+    text-decoration: underline;
+    color: var(--primaryBlue);
+  }
+}

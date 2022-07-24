@@ -21,7 +21,6 @@ const App = () => {
   return (
     <>
       <Switch>
-      
         <Route path="/" component={HomeScreen} exact></Route>
         <Route exact path="/login" component={Login} ></Route>
         <Route path= "/sign-up" component={Register}></Route>
@@ -29,7 +28,6 @@ const App = () => {
         <Route path="/recommend/:search_id?" component={VirtualRecommendScreen}></Route>
          
         <Route path="/upload" component={UploadItem}></Route>
-        {/* <Route path="/profile" component={ProfileScreen}></Route> */}
         <Route path="/object" component={ClothesObject}></Route>
        
         <Route path="/profile/:account_id" component={ProfileScreen}></Route>

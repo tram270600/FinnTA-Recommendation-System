@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import '../styles/Display.scss';
 import data from '../data/products';
 import account from '../data/accounts';
@@ -13,6 +13,17 @@ const Display = () => {
 
     const Owner = account.accounts.find(x => x.account_id === 1);
     var [isOwner, set_isOwner] = useState(Owner.account_id === parseInt(account_id, 10)? true: false);
+    const [item, setItem] = useState(null);
+    useEffect(()=> {
+        fetch('http://localhost:8000/products')
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          console.log("Fetch data from Product", data);
+          setItem(data);
+        })
+      }, [])
 
     // if (Owner.account_id === parseInt(account_id, 10)) {set_isOwner(true)}
 
@@ -61,9 +72,9 @@ const Display = () => {
             </div>
             {/* Display */}
             <div className="DisplayScreen">
-                {data.products.map((productDisplay) => (
+                {item?.map((productDisplay) => (
                     <div key={productDisplay.product_id}>
-                      <a href={`/product/${productDisplay.product_id}`}>
+                      <a href={`/product/${productDisplay.id}`}>
                     <div className="item">
                         <img src={productDisplay.product_image} alt="Norway" className="picture" />
                         <div className="detail">
@@ -81,7 +92,7 @@ const Display = () => {
 
                             <div className="button">
                                 {isOwner && 
-                                    <a href={"/editpost/" + productDisplay.product_id} className="edit">Edit</a>}
+                                    <a href={"/editpost/" + productDisplay.id} className="edit">Edit</a>}
 
                                 {!isOwner && 
                                     <a className="edit" onClick={() => handleSaveItem(productDisplay)}>Collect</a>}

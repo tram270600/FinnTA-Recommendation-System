@@ -19,6 +19,17 @@ function VirtualLookScreen(props) {
   const [owner_id, setOwner] = useState(1);
   const [set_img, setImage] = React.useState("");
   const [isPending, setIsPending] = useState(false);
+  const [item, setItem] = useState(null);
+  useEffect(()=> {
+      fetch('http://localhost:8000/products')
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        console.log("Fetch data from Product", data);
+        setItem(data);
+      })
+    }, [])
 
   useEffect(() => {
     console.log('Image Capture', set_img);
@@ -89,7 +100,7 @@ function VirtualLookScreen(props) {
   }
 
   function addProductToSet(props) {
-    console.log("Click on: ", props.product_id);
+    console.log("Click on: ", props.id);
     const image = props.product_image;
     // console.log(document.getElementsByClassName("product-image"))
     
@@ -98,14 +109,14 @@ function VirtualLookScreen(props) {
     // "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
    
     const node = document.createElement("div");
-    node.innerHTML = "<div id='mydiv"+props.product_id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.product_id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
+    node.innerHTML = "<div id='mydiv"+props.id+"'><div id='mydivheader'></div><button class='delete-photosup"+props.id+"'><i class='fas fa-times'></i></button><img src="+ image +" alt='hello'></img></div>"
     document.getElementsByClassName("product-image")[0].appendChild(node);
 
     // document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",deleteSelectItem(props.product_id));
-    document.getElementsByClassName(`delete-photosup${props.product_id}`)[0].addEventListener("click",() => deleteSelectItem(props.product_id));
+    document.getElementsByClassName(`delete-photosup${props.id}`)[0].addEventListener("click",() => deleteSelectItem(props.id));
     
     
-    product_idList.push(props.product_id);
+    product_idList.push(props.id);
     addDragEnable();
   }
 
@@ -202,12 +213,12 @@ function VirtualLookScreen(props) {
                 <div className="cate-content">
                 <div className="cate-name">{cates}</div>
                   <div className="cate-item">
-                     {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
-                      productData.products.filter(product => product.pcategory == cates).map((pro) => (
+                     {(item && item.filter(product => product.pcategory == cates).length != 0) ?
+                      item.filter(product => product.pcategory == cates).map((pro) => (
                         
                         <div className="item-image">
                           <img src={pro.product_image} onClick={() => addProductToSet(pro)}></img>
-                          <a href={`/product/${pro.product_id}`}>
+                          <a href={`/product/${pro.id}`}>
                             <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
                           </a>  
                         </div>

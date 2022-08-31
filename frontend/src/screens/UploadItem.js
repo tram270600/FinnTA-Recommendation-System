@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import {useHistory} from 'react-router-dom';
 import { Button, FormControl, Select, InputLabel, MenuItem, TextField, TextareaAutosize, InputAdornment, Input, FormHelperText, IconButton} from '@material-ui/core';
-import '../styles/uploadItem.scss'
-import NavBar from '../components/NavBar'
-import uploadImage from '../images/outfit4.jpg'
-import UploadAndDisplayImage from './UploadAndDisplayImage'
-import editTool from '../images/edit-tool.svg'
-import html2canvas from 'html2canvas'
+import '../styles/uploadItem.scss';
+import NavBar from '../components/NavBar';
+import uploadImage from '../images/outfit4.jpg';
+import UploadAndDisplayImage from './UploadAndDisplayImage';
+import editTool from '../images/edit-tool.svg';
+import html2canvas from 'html2canvas';
 
 export default function UploadItem() {
   const [category, setCategory] = React.useState();
@@ -30,6 +31,7 @@ export default function UploadItem() {
     pdescription: ''
     // showPassword: false,
   });
+  let history = useHistory();
 
 
   React.useEffect(() => {
@@ -85,6 +87,7 @@ export default function UploadItem() {
       console.log("New product added");
       alert("New product is added successfully !");
       setIsPending(false);
+      history.push("/");
     })
   }
 
@@ -94,14 +97,7 @@ export default function UploadItem() {
       <div className="content-max-width">
         <div className="upload-item">
           <div className="image-import">
-          <UploadAndDisplayImage />
-            {/* myChange= {handleChange('pimage')}>
-            {console.log("From upload:", values.pimage)}
-            </UploadAndDisplayImage> */}
-        
-          {/* <img src={uploadImage} alt="upload-image"></img> */}
-          {/* <button class="withicon-btn"><i class="fas fa-pen"></i> Edit</button> */}
-          
+          <UploadAndDisplayImage />  
           </div>
           <div className="upload-info">
             <div className="title-components">

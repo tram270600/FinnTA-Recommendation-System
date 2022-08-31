@@ -13,7 +13,6 @@ const UploadAndDisplayImage = (props) => {
 
     // const myPics = document.getElementById('myPics');
     const myPics = document.getElementsByClassName('myPics')[0];
-    console.log("dmmdmdmmdmdmd",myPics)
     const context = myPics.getContext('2d');
 
     // event.offsetX, event.offsetY gives the (x,y) offset from the edge of the canvas.

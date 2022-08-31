@@ -12,7 +12,7 @@ function ProductSystemScreen(props) {
   const [pathImage, setPathImage] = useState(null);
   useEffect(()=> {
     console.log("Props", props);
-   fetch(`http://localhost:8000/metadataServer?item_id=${props.match.params.id}`)
+    fetch(`http://localhost:8000/metadataServer?item_id=${props.match.params.id}`)
         .then(res => {
           return res.json()
         })

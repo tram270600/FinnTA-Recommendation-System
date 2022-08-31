@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Starting the project in proper way
+
+### `npx nodemon --watch database --port 8000  --exec 'json-server ./database/_db.js'`
+To start the database by JSON Server: open new terminal
+cd frontend -> npx nodemon --watch database --port 8000  --exec 'json-server ./database/_db.js'
+
+### `npm start`
+To start the application: new terminal: cd frontend -> npm start
+Starting the server: cd server -> npm start

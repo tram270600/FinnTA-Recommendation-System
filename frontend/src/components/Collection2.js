@@ -42,7 +42,7 @@ function Collection2() {
                    </div>
                <div className="detailbox">
                    <div className="product-name">{ c.set_name } {c.id}</div>
-                   <div className='product-description'>Collection includes {c.product_idList.length} items</div>
+                   <div className='product-description'>Collection includes {c.product_idList?.length} items</div>
                </div>
             </div>
             </a>

@@ -1,8 +1,8 @@
 const ProductInSet = (props) => {
     const {product} = props;
     return(
-        <a href={`/product/${product.product_id}`}>
-        <div className="product-info-detail" key={product.product_id}>
+        <a href={`/product/${product.id}`}>
+        <div className="product-info-detail" key={product.id}>
         {console.log("Sets ne ma: ", product)}
              <div className="product-img">
              <img 

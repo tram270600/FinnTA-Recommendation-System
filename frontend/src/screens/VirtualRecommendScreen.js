@@ -56,7 +56,17 @@ function VirtualRecommendScreen(props) {
     // Initialize as array
   const [antecedents, setAntecedents] = useState([]);
   const [cons, setConsequents] = useState([]);
-
+  const [item, setItem] = useState(null);
+  useEffect(()=> {
+      fetch('http://localhost:8000/products')
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        console.log("Fetch data from Product", data);
+        setItem(data);
+      })
+    }, [])
 
   useEffect(()=> {
     console.log("Props", props);
@@ -245,7 +255,7 @@ function VirtualRecommendScreen(props) {
     // setProduct_idList(product_idList => [...product_idList, props.product_id])
     // addDragEnable('mixmatch');
     console.log("Length of added product", product_idList, 'and props:', props);
-    setProduct_idList(product_idList => [...product_idList, props.product_id]);
+    setProduct_idList(product_idList => [...product_idList, props.id]);
     setResizeElement(resizeElement => [...resizeElement, <ImageOwnResize path={props}/>])
   }
 
@@ -388,12 +398,12 @@ function VirtualRecommendScreen(props) {
                     <div className="cate-content">
                     <div className="cate-name">{cates}</div>
                       <div className="cate-item">
-                        {(productData.products.filter(product => product.pcategory == cates).length != 0) ?
-                          productData.products.filter(product => product.pcategory == cates).map((pro) => (
+                        {(item && item.filter(product => product.pcategory == cates).length != 0) ?
+                          item.filter(product => product.pcategory == cates).map((pro) => (
                             
                             <div className="item-box">
                               <img src={pro.product_image} onClick={() => addProductToSet(pro)}></img>
-                              <a href={`/product/${pro.product_id}`}>
+                              <a href={`/product/${pro.id}`}>
                                 <button className="view-detail"> <i class="fas fa-arrow-right"></i> </button>  
                               </a>  
                             </div>

@@ -21,6 +21,18 @@ function SetDetailScreen(props) {
 //   const photoSupple = "../images/outfit4.jpg";
 //   console.log("Product ID:", props.match.params.product_id);
 
+const [item, setItem] = useState(null);
+useEffect(()=> {
+    fetch('http://localhost:8000/products')
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      console.log("Fetch data from Product", data);
+      setItem(data);
+    })
+  }, [])
+
   useEffect(()=> {
     fetch('http://localhost:8000/setClothes')
     .then(res => {
@@ -67,7 +79,7 @@ function SetDetailScreen(props) {
           <div className="title-component">
             <div className="title">{collection && collection.set_name}</div>
             {/* <div className="title">Product's name</div> */}
-            <div className="description">Collection No.{collection && collection.id} including {collection && collection.product_idList.length} items
+            <div className="description">Collection No.{collection && collection.id} including {collection && collection?.product_idList?.length} items
             </div>
             {/* <div className="price">${product.product_price}</div> */}
             </div>
@@ -84,10 +96,10 @@ function SetDetailScreen(props) {
                 <div className="sub-title">Comprise Of</div>
                 { console.log("Sets ne: ", sets)}
                 <div className='productList'>
-                  {sets && sets.map((set) => 
+                  {sets && item && sets.map((set) => 
                      {
                       console.log("Set number in Map: ", set)
-                      const product = productData.products.find(x => x.product_id == set);
+                      const product = item.find(x => x.id == set);
                       console.log("Product get from Map: ", product);
                       productList.push(product);
                      }

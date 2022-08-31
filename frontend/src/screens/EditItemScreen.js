@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { MenuItem, Select, TextareaAutosize } from '@material-ui/core'
 import NavBar from '../components/NavBar'
 //Import Style
@@ -28,24 +28,40 @@ function EditItemScreen(props) {
   const materials = ["Cotton", "Linen", "Polyester", "Knit, Wool", "Fur", "Tweed", "Denim", "Leather", "Silk", "Other"];
   const occassions = ["Daily", "Go to school", "Office/Work", "Date", "Formal", "Travel", "Party", "Other"];
 
+  const [item, setItem] = useState(null);
+  const [productTest, setProductTest] = useState(null);
+  useEffect(()=> {
+      fetch('http://localhost:8000/products')
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        console.log("Fetch data from Product", data);
+        setItem(data);
+      })
+      .then(data => {
+        setProductTest(item?.find(i => i.id === parseInt(props.match.params.product_id)));
+      })
+    }, []);
+
   const product = productData.products.find(x => x.product_id === props.match.params.product_id);
-  console.log("Product ID:", props.match.params.product_id);
+  console.log("Product ID:", props.match.params.product_id, product);
   const [values, setValues] = React.useState({
-    category: product.pcategory,
-    color: product.pcolor,
-    pattern: product.ppattern,
-    material: product.pmaterial,
-    occassion: product.poccassion,
+    category: product?.pcategory,
+    color: product?.pcolor,
+    pattern: product?.ppattern,
+    material: product?.pmaterial,
+    occassion: product?.poccassion,
     price: '',
   });
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
   function enoughPhotoSup(){
-    if(product.pphotosup.length == 3) return true;
+    if(product?.pphotosup.length === 3) return true;
       else return false;
   }
-  const addPhoto = 3 - product.pphotosup.length;
+  const addPhoto = 3 - product?.pphotosup.length;
 
   function getLackPhotoAmount(){
     let content = [];
@@ -65,25 +81,8 @@ function EditItemScreen(props) {
     <div className="content-max-width">
       <div className="product-content">
         <div className="product-image">
-            {/* <img src={product.product_image.default} alt="upload-image"></img> */}
-            <img src={product.product_image} alt="upload-image"></img>
-            
+          <img src={product.product_image} alt="upload-image"></img>
         </div>
-        {/* <div className="control-btn">
-          <div class="func-name">
-            <button className="control-blue"><img src={expand}></img> </button>
-            <p>Zoom</p>
-          </div>
-          <div className="func-name">
-            <button className="control-pink"><img src={chat}></img></button>
-            <p>Chat</p>
-          </div>
-          <div className="func-name">
-            <button className="control-blue"><img src={collect}></img></button>
-            <p>Save item</p>
-          </div>
-          
-        </div> */}
         <div className="content-right">
           <div className="title-component">
             <div className="title">{product.product_name}</div>
